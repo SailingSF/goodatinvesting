@@ -30,7 +30,7 @@ h3 {
     font-size: 18pt;
 }
 
-h4 {
+h4.subtitle {
     font-size: 14pt;
     color: grey;
     font-style: italic;
@@ -42,4 +42,20 @@ p {
 
 ol {
     list-style: decimal;
+}
+
+img {
+    width: 100%;
+}
+
+#caption {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    text-align: center;
+    font-weight: bold;
+}
+
+h4.enhance {
+    color: red;
+    text-align: center;
 }
