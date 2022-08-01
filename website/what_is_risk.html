@@ -13,37 +13,40 @@
             <h3>What is Risk? (Beta don't hurt me)</h3>
             <h4 class="subtitle">How to measure risk and volatility of crypto assets.</h4>
             <p>
-                How does an individual figure out how risky their investments are? Discovering the true risk of crypto assets relies on deep understanding of all the underlying technology, the macroeconomic environment, and the diffuseness of that information. Knowing what a new token representing a new technology can do, the potential for the team behind it, and then the environment they are presenting themselves to can make a very educated thesis about the value of a particular token. &#128200; Even if one did have an accurate idea of the value of BTC, ETH, or Doggy Doo Doo Coin, you still have to know <em>when</em> that value will be achieved, and how.  In TradFi there are a few measurements one can use to measure "risk" based on price action alone. &#128185;
+                How does an individual figure out how risky their investments are? Discovering the true risk of crypto assets relies on deep understanding of all the underlying technology, the macroeconomic environment, and the diffuseness of that information, as well as a million other factors. Knowing what a new token representing a new technology can do, the potential for the team behind it, and then the environment they are presenting themselves to can allow someone to make a very educated thesis about the value of a particular token. &#129504; Saying one was able to make this thesis, and has an accurate idea of the <strong>true</strong> value of BTC, ETH, or Doggy Doo Doo Coin, you still have to know <em>when</em> that value will be achieved, and how.  In TradFi there are a few measurements one can use to measure "risk" based on price action alone. &#128185; Measuring the risk can help us with our confidence the price level will be reached. Or how much to invest given a specific time horizon.
             </p>
             <p>
-                One of the most popular ways is the Beta of an asset. Beta is a measurement of an asset's volatility against a benchmark, in TradFi land this is the S&P 500 and usually over the past 12 months. So for example something like TSLA will have a Beta of around 2.0 meaning it's about 200% as volatile as the S&P 500. Meanwhile a stock like T (AT&T) that pays a dividend will have a Beta around 0.6 meaning it's about 40% less volatile than the market.
+                Beta is one of the most popular ways to measure risk in an asset. Beta is a measurement of an asset's volatility against a benchmark, in TradFi land this is the S&P 500 and usually over the past 12 months. So for example something like TSLA will have a Beta of around 2.0 meaning it's about 200% as volatile as the S&P 500. Meanwhile a stock like T (AT&T) that pays a dividend will have a Beta around 0.6 meaning it's about 40% less volatile than the market. Beta is define as the covariance of your asset against the benchmark, over the variance of the benchmark. You can read more <a href="https://www.investopedia.com/terms/b/beta.asp">here</a>.
             </p>
             <p>
-                Now what if we do crypto currencies? Certainly we have heard about the correlation between Bitcoin and the market when there isn't supposed to be one. We can measure the Beta of BTC against SPY just the same as with TSLA and T.
+                Now what if we do crypto currencies? There has been a lot said about the correlation between Bitcoin and the market when there isn't supposed to be one if BTC were an inflation hedge. We can measure the Beta of BTC against SPY just the same as with TSLA and T.
             </p>
             <img src="../website/images/btc_beta.png" class="matplot"></img>
             <p id="caption">12 month rolling beta of BTC vs. ES (S&P 500 futures) since January 1, 2021. Price is normalized to $1000</p>
             <p>
-                We can see a really high Beta here, and unfortunately lower returns over the past 18 months as well. One point of importance is that while crypto currencies trade 24/7, traditional equities do are only 5 days a week. This artificially reduces the variance of equities returns when they don't change prices over the weekend. I used S&P 500 futures contracts to capture the extra time they trade on Sunday evening to help compare, but that makes little difference.
+                We can see a really high Beta here, and unfortunately lower returns over the past 18 months as well. Anything over 1 is bad since it is more volatile than the market while also being correlated, but usually with extra volatility comes extra returns, but this is not so in the last 18 months. 
+            </p> 
+            <p>
+                One point of importance is that while crypto currencies trade 24/7, traditional equities are only 5 days a week. This artificially reduces the variance of equities returns when they don't change prices over the weekend. I used S&P 500 futures contracts to capture the extra time they trade on Sunday evening to help compare, but that makes little difference.
             </p>
             <p>
-                Now let's see ETH. Being that ETH is not branded as digital gold and is more akin to a technology company representing the underlying currency of a technology platform we should expect to see a higher Beta here.
+                Now let's see ETH. Being that ETH is not branded as digital gold and is more akin to a technology representing the underlying currency of a tech platform we should expect to see a higher Beta here.
             </p>
             <img src="../website/images/eth_beta.png" class="matplot"></img>
             <p id="caption">Rolling 12 month beta with price normalized to $1000 since January 1, 2021</p>
             <p>
-                A much higher Beta, but much higher returns too! Now does that mean ETH is riskier than BTC? Maybe. Maybe not. Maybe its returns will be much higher to justify that "risk."
+                A much higher Beta, but much higher returns too! Now does that mean ETH is riskier than BTC? Maybe. Maybe not. Maybe its returns will continue to be much higher to justify that "risk."
             </p>
             <p>
-                But why does everything have to be compared to the S&P 500? Only 500 companies don't make up the entire economy. I think it makes more sense to compare things like for like. In crypto I propose to make a Bitcoin Beta and compare all other digital assets against that.
+                But why does everything have to be compared to the S&P 500? Only 500 publicly listed, profitable companies some board from a ratings agency decide on don't make up the entire economy. I think it makes more sense to compare things like for like. In crypto I propose to make a Bitcoin Beta and compare all other digital assets against that. Bitcoin is the first and the biggest and is a good benchmark for the market.
             </p>
             <p>
-                Let's start with ETH, the second major crypto currency. One would expect a very similar variance between the two assets.
+                Let's start with comparing ETH, the second major crypto currency. One would expect a very similar variance and correlation between the two assets.
             </p>
             <img src="../website/images/eth_btc_beta.png" class="matplot"></img>
             <p id="caption">Notice y-axis scales here, really not much movement.</p>
             <p>
-                And that's just what we got. A Beta that hovers around 1 showing that the two have very similar variances. We also see ETH has higher returns, and with a Beta of 1 that would produce pretty high Alpha, but I'll cover that in another post. &#129323;
+                And that's just what we got. A Beta that hovers around 1 showing that the two have very similar variances. We also see ETH has higher returns, and with a Beta of 1 that would produce pretty high measurement called "Alpha" which is a term no one on crypto twitter has ever heard; but I'll cover that in another post. &#129323;
             </p>
             <p>
                 Ok ok, last one. Let's compare the next biggest non stable coin, XRP. 
@@ -51,12 +54,13 @@
             <img src="../website/images/xrp_btc_beta.png" class="matplot"></img>
             <p id="caption">The beta is for the preceding 12 months so the current beta is right at 1.0</p>
             <p>
-                Slightly lower Beta! XRP is definitely less correlated to BTC than ETH. Does that mean it's less risky? Well Beta doesn't take into account pending FTC settlements, so we definitely only have part of the story. But it definitely does help inform our understanding of the risks of some of these investments.
+                Slightly lower Beta! XRP is definitely less correlated to BTC than ETH. Does that mean it's less risky? Well Beta doesn't take into account pending FTC settlements, so we definitely only have part of the story. But it definitely does help inform our understanding of the risks of some of these investments while highlighting the fact that this risk measurement only takes into account price movements when something like XRP has many external factors guiding its price.
             </p>
             <p>
                 Now I'm done making charts. Hopefully this helped someone understand investing in cryptocurrencies more. It definitely helped me in writing this down. I'll be back with more Alfa, maybe even on the subject of Alpha. 
             </p>
         </div>
+        <a id="home" href="../index.html">HOME</a>
     </div>
 </body>
 
