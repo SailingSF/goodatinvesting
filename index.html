@@ -14,6 +14,7 @@
         <p>Twitter: <a href="https://twitter.com/goodinvesting1">@GoodInvestor1</a></p>
         <p> Github: <a href="https://github.com/SailingSF/crypto_portfolio_management">Right here!</a></p>
         <h4>Posts</h4>
+        <a href="./website/thegraph_uniswap.html">The Graph Pt. 1 (Uniswap Pt. 3)</a><br>
         <a href="./website/uniswap_pt1.html">Uniswap Pt. 1</a> <a href="./website/uniswap_pt2.html">Uniswap Pt.2</a><br>
         <a href="./website/what_is_risk.html">Risk/Beta</a><br>
         <a href="./website/lp_leverage.html">LP Leverage</a><br>
@@ -96,7 +97,7 @@
             <p>Rather than using the explore page from The Graph is we go direct to the endpoint of the API in a web browser we get a better builder page where we can even use variables like I had in the previous query.</p>
             <h4>Chart time</h4>
             <p>Now what can we do from the very simple information pulled. Well we can make some price and volume charts if we want.</p>
-            <embed type="text/html" src="./website/images/graph.html" width="100%" height="500" maxwidth="800px">
+            <embed type="text/html" src="./website/images/graph.html" width="100%" height="610" maxwidth="800px">
             <p>Dang. That's a nice chart. And it took very minimal code to generate thanks to the plotly library.</p>
             <p>Ok so now we can make sik charts with free (or almost free if you're in 2023) data from a decentralized source indexing the Uniswap contracts. Unfortunately for me there isn't a ton of value (read 💰) in just making good looking charts, so how do we turn that into making some sweet, sweet yield.</p>
             <p>Well for one, you may have noticed in a previous post about Uni V3 LP positions that I was just giving a flat yield percentage based on the predicted yield at the moment I wrote that article. Well now we can see what the actual yield would have been for a position of our choice now that we know the historical liquidity. Let's first plot that so we can see how much the liquidity changes over time.</p>
