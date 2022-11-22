@@ -26,94 +26,93 @@
             <h2>GoodAtInvesting.eth</h2>
                 <div class="post">
                     <h3>Free Data (Uniswap Pt. 3 + The Graph Pt. 1)</h3>
-                    <h4 class="subtitle">An introduction to the graph using Uniswap V3 data</h4>
-                    <h4>Real numbers</h4>
-                    <p>In my exploration of Uniswap I've given some broad numbers as well as some quotes from online tools on what APYs to expect as well as current quotes and historical price charts. For APY estimations I was using Metacrypt and for historical prices I was using Yahoo finance. Ultimately this is trusting those sources to be correct and assigning those whatever values we get to our individual use case.</p>
-                    <p>For Yahoo Finance they have an easy to use API with a built in reader in the padas_datareader library for Python. It makes getting data for $SPY, $TSLA, $GE, $BTC, $ETH, and even $SHIB easily done with just changing the ticker. But all of these are measured in USD, feature no volume numbers, and are only daily close prices. If you want to get more granular than that or natively get the SHIB/ETH price it would appear it's not so easy.</p>
-                    <p>The protocol “The Graph” has software and a network of incentives for users to build a GraphQL API that can access <em>indexed</em> data from a number of chains. The team at Uniswap Labs have done just that for V3 allowing users to access more human readable data from the Uniswap V3 protocol and build their applications on top of it.</p>
-                    <h4>Graph —&gt; Subgraph</h4>
-                    <p>The Graph is the overall protocol providing the tool to build subgraphs as well as the incentive structure to Index and Curate subgraphs for any smart contract on a number of EVM chains as well as Gnosis, Moonbeam, and a few others in beta. Given my previous descriptions of Uniswap V3 I will be showing how we can get data from the Uniswap V3 subgraph in order to better inform backtesting and our investment decisions in Uni LPs.</p>
-                    <p>We can start by acknowledging some of the properties we've used thus far in our research like Liquidity, Ticks, and prices. All of these properties are accessible in the subgraph as they are defined in the Uniswap V3 Whitepaper and they are (importantly) indexed, meaning the change in these values through time is as easily accessible. Since we now have a better understanding of these V3 specific concepts we can now also access real historical values rather than assume some approximations.</p>
-                    <h4>Indexes == History ≈ Future</h4>
-                    <p>Getting the state of the current Ethereum (or other) blockchain has been relatively trivial. For Uniswap we can even go to the contract of the pool we're interested in and read the state right from etherscan as we can see from the properties right here.</p>
-                    <img src="../website/images/etherscan_screen.png"></img>
-                    </p>
-                    <p>With the indexed history we can get price data right from the indexed contract itself rather than from yahoo finance. This enables us to get the real ETH/USDC price rather than USD price from wherever Yahoo is sourcing. This is also especially helpful when we want to see something like the ETH/WBTC price or ETH/SHIB and not compare two price series against the dollar. (Efficient markets being efficient I know this will unlikely result in any meaningful discrepancy, it's just better to get the data right from the source rather than a centralized intermediary)</p>
-                    <p>Price is the simple one, but since we're experts at the “liquidity” value from our previous math lessons we can also see current liquidity granularity as well as historical liquidity. Having this historical liquidity we can make better estimates about future yields by making more accurate backtests.</p>
-                    <p>But first we have to get this data.</p>
-                    <h4>Querying with the GraphQL Query Language</h4>
-                    <p>Yes, QL stands for Query Language.</p>
-                    <p>I won't walk through the intricacies of GraphQL (the GraphQL foundation has great resources) but I'll provide some examples so anyone can jump start using this data. The Graph “explore” page is typical of a public GraphQL API where we can build queries and see some documentation on the values and filters. Creating a query right in the builder or explore page is very helpful when we're starting out.</p>
-                    <p>Let's start with what a query would look like to get price data for a set number of days? First we need to find the pool we want to query. We can just know that address of the pool or query the the subgraph to find it. Let's do that first. We'll get a list of pools with USDC and WETH as their tokens and then retrieve the addresses and the fee tiers in order to differentiate them.</p>
-                    <pre class="code"><code>query usdc_weth_pools {
-                        pools(where: {token0: &quot;0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&quot;, 
-                            token1: &quot;0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2&quot;},
-                            orderBy: volumeUSD, orderDirection: desc){
-                          id
-                          feeTier
-                          volumeUSD
-                          txCount
-                          feesUSD
-                          token0 {
-                            id
-                            name
-                            symbol
-                          }
-                          token1 {
-                            id
-                            name
-                            symbol
-                          }
-                        }
-                      }</code></pre>
-                      <p>As you can see, in GraphQL you request just the information you want and that's what you receive back. If you run this query in the GraphQL playground you can see the answer right next to it and confirm plenty of the information. </p>
-                      <p>We can confirm here that the 5 basis point pool has the most volume so we can focus in on that pool at address <code>0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640</code>.</p>
-                      <p>Now we know what pool we're querying we want to see what information we should get. Let's get daily prices and liquidity for the past 365 days. The <code>pool</code> object in the subgraph has a daily stats value where we can see all of that information. That query would be the following:</p>
-                      <pre class="code"><code>query pool_stats ($pool: String, $days: Int) {
-                        pool(id: $pool){
-                          poolDayData(first: $days, orderBy: date,
-                          orderDirection: desc){
-                            date
-                            token0Price
-                            volumeUSD
-                            feesUSD
-                            liquidity
-                            txCount
-                                  open
-                                  high
-                                  low
-                                  close
-                          }
-                        }
-                      }
-        variables:
-            {
-            &quot;pool&quot;: &quot;0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640&quot;,
-            &quot;days&quot;: 365
-            }</code></pre>
-            <p id="caption">Yes I did sneak some query variables in on you, this makes the query much more flexible and dynamic if you want to expand on it.</p>
-            <p>Ok that's pretty neat. Now we have all the data we requested in a handy dandy JSON from the largest decentralized liquidity source for USDC/ETH. For free*.</p>
-            <p>*It's free now but once the hosted service is sunset you will have to pay for this in GRT, likely less than a cent for this info.</p>
-            <p>Rather than using the explore page from The Graph is we go direct to the endpoint of the API in a web browser we get a better builder page where we can even use variables like I had in the previous query.</p>
-            <h4>Chart time</h4>
-            <p>Now what can we do from the very simple information pulled. Well we can make some price and volume charts if we want.</p>
-            <embed type="text/html" src="./website/images/graph.html" width="100%" height="610" maxwidth="800px">
-            <p>Dang. That's a nice chart. And it took very minimal code to generate thanks to the plotly library.</p>
-            <p>Ok so now we can make sik charts with free (or almost free if you're in 2023) data from a decentralized source indexing the Uniswap contracts. Unfortunately for me there isn't a ton of value (read 💰) in just making good looking charts, so how do we turn that into making some sweet, sweet yield.</p>
-            <p>Well for one, you may have noticed in a previous post about Uni V3 LP positions that I was just giving a flat yield percentage based on the predicted yield at the moment I wrote that article. Well now we can see what the actual yield would have been for a position of our choice now that we know the historical liquidity. Let's first plot that so we can see how much the liquidity changes over time.</p>
-            <img class="matplot" src="../website/images/ETH:USDC_subgraph_price_liq.png"></img>
-            <p>Seems to be something there. What about the volatility with liquidity? Let's do the 30 day volatility (rolling 30 day standard deviation of log returns) with the same liquidity bar graph.</p>
-            <img class="matplot" src="../website/images/ETH:USDC_subraph_vol_liq.png"></img>
-            <p>Hmm. Almost 0 correlation (-0.046). Ok well we won't solve any mysteries of the Uniswap LP universe here but this shows how easy it is to test some intuitions about the market dynamics. With these liquidity numbers we can calculate what real yields would have been given price ranges, and that's the real benefit as we can more accurately predict any yield we would receive so that we can make better decisions about the risk we're assuming.</p>
-            <h4>“Real” Yield</h4>
-            <p>In previous posts I've shown how to get the amount of “liquidity” one provides according to their ranges and deposit size, and now we have all this information from the subgraph, so let's see if we can get some real yields. In order to calculate our hypothetical fees we need to know our provided liquidity (✅), the pool's liquidity (✅), the pool volume (✅), and the pool fee (✅). These together will get us our daily fees (⁇) which with our initial investment we can calculate yield.</p>
-            <p>Given the price of ETH seems to move around quite a bit let's get some yields for a position of $1000 with bounds at 80% and 125% of the current price. Setting bounds like that enables us to deposit equal amounts of USDC and ETH.</p>
-            <img class="matplot" src="../website/images/ETH:USDC_subgraph_yield.png"></img>
-            <p>Whoah, daily fees move around a lot from a pedestrian 20% to an insane 1,000%+. It all averages out to around 84% for the past year though. Which is pretty good I would say. Obviously there is still the risks of impermanent loss (which is accelerated with Uni V3) as well as the price moving out of your range so you don't earn any yield at all unless you realize that impermanent loss, but now we can understand our returns better we can make more educated risk decisions.</p>
-            <h4>Data == Alfa 🌿</h2>
-            <p>Knowing where to get this level of data <em>reliably </em>is a huge part of the battle in generating alpha. By utilizing the Uniswap subgraph you can get much more detailed information and make your own charts rather than relying on graphs you see on crypto twitter. Whether you're into technical analysis (hopefully you've outgrown that) or building MEV sentiment bots on a low float token by providing just in time liquidity, using the subgraph should be a big help. This is only one subgraph as well, there are many more on many different protocols that are in need of exploration.</p>
-            <p>The Graph ecosystem deserves way more attention than it gets given its ability to disseminate data from the Ethereum state through time and make it accessible in GraphQL. Getting accurate, immutable, and decentralized data from the Ethereum state through The Graph network is a powerful tool and will only spin the EVM flywheel even faster and hopefully this post on the biggest DeFi protocol helps in that regard.</p>
-        
+            <h4 class="subtitle">An introduction to the graph using Uniswap V3 data</h4>
+            <h4>Real numbers</h4>
+            <p>In my exploration of Uniswap I've given some broad numbers as well as some quotes from online tools on what APYs to expect as well as current quotes and historical price charts. For APY estimations I was using <a href="https://www.metacrypt.org/tools/uniswap-v3-calculator-simulator/">Metacrypt</a> and for historical prices I was using Yahoo finance. Ultimately this is trusting those sources to be correct and assigning those whatever values we get to our individual use case.</p>
+            <p>For Yahoo Finance they have an easy to use API with a built in reader in the padas_datareader library for Python. It makes getting data for $SPY, $TSLA, $GE, $BTC, $ETH, and even $SHIB easily done with just changing the ticker. But all of these are measured in USD, feature no volume numbers, and are only daily close prices. If you want to get more granular than that or natively get the SHIB/ETH price it would appear it's not so easy.</p>
+            <p>The protocol “The Graph” has software and a network of incentives for users to build a GraphQL API that can access <em>indexed</em> data from a number of chains. The team at Uniswap Labs have done just that for V3 allowing users to access more human readable data from the Uniswap V3 protocol and build their applications on top of it.</p>
+            <h4>Graph —&gt; Subgraph</h4>
+            <p><a href="https://thegraph.com/">The Graph</a> is the overall protocol providing the tool to build subgraphs as well as the incentive structure to Index and Curate subgraphs for any smart contract on a number of EVM chains as well as Gnosis, Moonbeam, and a few others in beta. Given my previous descriptions of Uniswap V3 I will be showing how we can get data from the Uniswap V3 subgraph in order to better inform backtesting and our investment decisions in Uni LPs.</p>
+            <p>We can start by acknowledging some of the properties we've used thus far in our research like Liquidity, Ticks, and prices. All of these properties are accessible in the subgraph as they are defined in the Uniswap V3 Whitepaper and they are (importantly) indexed, meaning the change in these values through time is as easily accessible. Since we now have a better understanding of these V3 specific concepts we can now also access real historical values rather than assume some approximations.</p>
+            <h4>Indexes == History ≈ Future</h4>
+            <p>Getting the state of the current Ethereum (or other) blockchain has been relatively trivial. For Uniswap we can even go to the contract of the pool we're interested in and read the state right from etherscan as we can see from the properties <a href="https://etherscan.io/address/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640#readContract">right here</a>.</p>
+            <img src="../website/images/etherscan_screen.png"></img>
+            </p>
+            <p>With the indexed history we can get price data right from the indexed contract itself rather than from yahoo finance. This enables us to get the real ETH/USDC price rather than USD price from wherever Yahoo is sourcing. This is also especially helpful when we want to see something like the ETH/WBTC price or ETH/SHIB and not compare two price series against the dollar. (Efficient markets being efficient I know this will unlikely result in any meaningful discrepancy, it's just better to get the data right from the source rather than a centralized intermediary)</p>
+            <p>Price is the simple one, but since we're experts at the “liquidity” value from our previous math lessons we can also see current liquidity granularity as well as historical liquidity. Having this historical liquidity we can make better estimates about future yields by making more accurate backtests.</p>
+            <p>But first we have to get this data.</p>
+            <h4>Querying with the GraphQL Query Language</h4>
+            <p>Yes, QL stands for Query Language.</p>
+            <p>I won't walk through the intricacies of GraphQL (the <a href="https://graphql.org/learn/">GraphQL foundation</a> has great resources) but I'll provide some examples so anyone can jump start using this data. The Graph “explore” page is typical of a public GraphQL API where we can build queries and see some documentation on the values and filters. Creating a query right in the builder or <a href="https://thegraph.com/hosted-service/subgraph/uniswap/uniswap-v3">explore page</a> is very helpful when we're starting out.</p>
+            <p>Let's start with what a query would look like to get price data for a set number of days? First we need to find the pool we want to query. We can just know that address of the pool or query the the subgraph to find it. Let's do that first. We'll get a list of pools with USDC and WETH as their tokens and then retrieve the addresses and the fee tiers in order to differentiate them.</p>
+            <pre class="code"><code>query usdc_weth_pools {
+                pools(where: {token0: &quot;0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&quot;, 
+                    token1: &quot;0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2&quot;},
+                    orderBy: volumeUSD, orderDirection: desc){
+                  id
+                  feeTier
+                  volumeUSD
+                  txCount
+                  feesUSD
+                  token0 {
+                    id
+                    name
+                    symbol
+                  }
+                  token1 {
+                    id
+                    name
+                    symbol
+                  }
+                }
+              }</code></pre>
+              <p>As you can see, in GraphQL you request just the information you want and that's what you receive back. If you run this query in the GraphQL playground you can see the answer right next to it and confirm plenty of the information. </p>
+              <p>We can confirm here that the 5 basis point pool has the most volume so we can focus in on that pool at address <code>0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640</code>.</p>
+              <p>Now we know what pool we're querying we want to see what information we should get. Let's get daily prices and liquidity for the past 365 days. The <code>pool</code> object in the subgraph has a daily stats value where we can see all of that information. That query would be the following:</p>
+              <pre class="code"><code>query pool_stats ($pool: String, $days: Int) {
+                pool(id: $pool){
+                  poolDayData(first: $days, orderBy: date,
+                  orderDirection: desc){
+                    date
+                    token0Price
+                    volumeUSD
+                    feesUSD
+                    liquidity
+                    txCount
+                          open
+                          high
+                          low
+                          close
+                  }
+                }
+              }
+variables:
+    {
+    &quot;pool&quot;: &quot;0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640&quot;,
+    &quot;days&quot;: 365
+    }</code></pre>
+    <p id="caption">Yes I did sneak some query variables in on you, this makes the query much more flexible and dynamic if you want to expand on it.</p>
+    <p>Ok that's pretty neat. Now we have all the data we requested in a handy dandy JSON from the largest decentralized liquidity source for USDC/ETH. For free*.</p>
+    <p>*It's free now but once the hosted service is sunset you will have to pay for this in GRT, likely less than a cent for this info.</p>
+    <p>Rather than using the explore page from The Graph is we go direct to the <a href="https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3/graphql?query=%0A++++%23%0A++++%23+Welcome+to+The+GraphiQL%0A++++%23%0A++++%23+GraphiQL+is+an+in-browser+tool+for+writing%2C+validating%2C+and%0A++++%23+testing+GraphQL+queries.%0A++++%23%0A++++%23+Type+queries+into+this+side+of+the+screen%2C+and+you+will+see+intelligent%0A++++%23+typeaheads+aware+of+the+current+GraphQL+type+schema+and+live+syntax+and%0A++++%23+validation+errors+highlighted+within+the+text.%0A++++%23%0A++++%23+GraphQL+queries+typically+start+with+a+%22%7B%22+character.+Lines+that+start%0A++++%23+with+a+%23+are+ignored.%0A++++%23%0A++++%23+An+example+GraphQL+query+might+look+like%3A%0A++++%23%0A++++%23+++++%7B%0A++++%23+++++++field%28arg%3A+%22value%22%29+%7B%0A++++%23+++++++++subField%0A++++%23+++++++%7D%0A++++%23+++++%7D%0A++++%23%0A++++%23+Keyboard+shortcuts%3A%0A++++%23%0A++++%23++Prettify+Query%3A++Shift-Ctrl-P+%28or+press+the+prettify+button+above%29%0A++++%23%0A++++%23+++++Merge+Query%3A++Shift-Ctrl-M+%28or+press+the+merge+button+above%29%0A++++%23%0A++++%23+++++++Run+Query%3A++Ctrl-Enter+%28or+press+the+play+button+above%29%0A++++%23%0A++++%23+++Auto+Complete%3A++Ctrl-Space+%28or+just+start+typing%29%0A++++%23%0A++">endpoint of the API</a> in a web browser we get a better builder page where we can even use variables like I had in the previous query.</p>
+    <h4>Chart time</h4>
+    <p>Now what can we do from the very simple information pulled. Well we can make some price and volume charts if we want.</p>
+    <embed type="text/html" src="../website/images/graph.html" width="100%" height="610" maxwidth="800px">
+    <p>Dang. That's a nice chart. And it took very minimal code to generate thanks to the <a href="https://plotly.com/python/">plotly library</a>.</p>
+    <p>Ok so now we can make sik charts with free (or almost free if you're in 2023) data from a decentralized source indexing the Uniswap contracts. Unfortunately for me there isn't a ton of value (read 💰) in just making good looking charts, so how do we turn that into making some sweet, sweet yield.</p>
+    <p>Well for one, you may have noticed in a previous post about Uni V3 LP positions that I was just giving a flat yield percentage based on the predicted yield at the moment I wrote that article. Well now we can see what the actual yield would have been for a position of our choice now that we know the historical liquidity. Let's first plot that so we can see how much the liquidity changes over time.</p>
+    <img class="matplot" src="../website/images/ETH:USDC_subgraph_price_liq.png"></img>
+    <p>Seems to be something there. What about the volatility with liquidity? Let's do the 30 day volatility (rolling 30 day standard deviation of log returns) with the same liquidity bar graph.</p>
+    <img class="matplot" src="../website/images/ETH:USDC_subraph_vol_liq.png"></img>
+    <p>Hmm. Almost 0 correlation (-0.046). Ok well we won't solve any mysteries of the Uniswap LP universe here but this shows how easy it is to test some intuitions about the market dynamics. With these liquidity numbers we can calculate what real yields would have been given price ranges, and that's the real benefit as we can more accurately predict any yield we would receive so that we can make better decisions about the risk we're assuming.</p>
+    <h4>“Real” Yield</h4>
+    <p>In previous posts I've shown how to get the amount of “liquidity” one provides according to their ranges and deposit size, and now we have all this information from the subgraph, so let's see if we can get some real yields. In order to calculate our hypothetical fees we need to know our provided liquidity (✅), the pool's liquidity (✅), the pool volume (✅), and the pool fee (✅). These together will get us our daily fees (⁇) which with our initial investment we can calculate yield.</p>
+    <p>Given the price of ETH seems to move around quite a bit let's get some yields for a position of $1000 with bounds at 80% and 125% of the current price. Setting bounds like that enables us to deposit equal amounts of USDC and ETH.</p>
+    <img class="matplot" src="../website/images/ETH:USDC_subgraph_yield.png"></img>
+    <p>Whoah, daily fees move around a lot from a pedestrian 20% to an insane 1,000%+. It all averages out to around 84% for the past year though. Which is pretty good I would say. Obviously there is still the risks of impermanent loss (which is accelerated with Uni V3) as well as the price moving out of your range so you don't earn any yield at all unless you realize that impermanent loss, but now we can understand our returns better we can make more educated risk decisions.</p>
+    <h4>Data == Alfa 🌿</h2>
+    <p>Knowing where to get this level of data <em>reliably </em>is a huge part of the battle in generating alpha. By utilizing the Uniswap subgraph you can get much more detailed information and make your own charts rather than relying on graphs you see on crypto twitter. Whether you're into technical analysis (hopefully you've outgrown that) or building MEV sentiment bots on a low float token by providing just in time liquidity, using the subgraph should be a big help. This is only one subgraph as well, there are many more on many different protocols that are in need of exploration.</p>
+    <p>The Graph ecosystem deserves way more attention than it gets given its ability to disseminate data from the Ethereum state through time and make it accessible in GraphQL. Getting accurate, immutable, and decentralized data from the Ethereum state through The Graph network is a powerful tool and will only spin the EVM flywheel even faster and hopefully this post on the biggest DeFi protocol helps in that regard.</p>
         </div>
     </div>
 </body>
