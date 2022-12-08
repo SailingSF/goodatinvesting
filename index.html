@@ -36,7 +36,7 @@
             <p>We can start by acknowledging some of the properties we've used thus far in our research like Liquidity, Ticks, and prices. All of these properties are accessible in the subgraph as they are defined in the Uniswap V3 Whitepaper and they are (importantly) indexed, meaning the change in these values through time is as easily accessible. Since we now have a better understanding of these V3 specific concepts we can now also access real historical values rather than assume some approximations.</p>
             <h4>Indexes == History ≈ Future</h4>
             <p>Getting the state of the current Ethereum (or other) blockchain has been relatively trivial. For Uniswap we can even go to the contract of the pool we're interested in and read the state right from etherscan as we can see from the properties <a href="https://etherscan.io/address/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640#readContract">right here</a>.</p>
-            <img src="../website/images/etherscan_screen.png"></img>
+            <img src="../website/images/etherscan_screen.png" class="matplot"></img>
             </p>
             <p>With the indexed history we can get price data right from the indexed contract itself rather than from yahoo finance. This enables us to get the real ETH/USDC price rather than USD price from wherever Yahoo is sourcing. This is also especially helpful when we want to see something like the ETH/WBTC price or ETH/SHIB and not compare two price series against the dollar. (Efficient markets being efficient I know this will unlikely result in any meaningful discrepancy, it's just better to get the data right from the source rather than a centralized intermediary)</p>
             <p>Price is the simple one, but since we're experts at the “liquidity” value from our previous math lessons we can also see current liquidity granularity as well as historical liquidity. Having this historical liquidity we can make better estimates about future yields by making more accurate backtests.</p>
@@ -79,10 +79,10 @@
                     feesUSD
                     liquidity
                     txCount
-                          open
-                          high
-                          low
-                          close
+                    open
+                    high
+                    low
+                    close
                   }
                 }
               }
