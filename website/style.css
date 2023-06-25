@@ -98,6 +98,23 @@ img.matplot {
     max-width: 800px;
     display: block;
 }
+.retro-title {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 3em;
+    color: #6d00c1; /* Classic green */
+    text-shadow: 4px 3px #867f89; /* Red shadow for 3D effect */
+    padding: 20px;
+    text-align: center;
+}
+
+.retro-title:hover {
+    animation: color-change 5s infinite;
+}
+@keyframes color-change {
+    0% { color: #f524d3; text-shadow: 5px 3px #b6b6b6; }
+    50% { color: #6d00c1; text-shadow: 4px 3px #867f89; }
+    100% { color: #f524d3; text-shadow: 5px 3px #b6b6b6; }
+}
 
 #caption {
     font-family: Arial, Helvetica, sans-serif;
