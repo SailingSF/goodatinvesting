@@ -4,6 +4,9 @@
 <head>
     <title>goodatinvesting.eth</title>
     <link href="/website/style.css" rel="stylesheet">
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js">
+    </script>
 </head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3L56JJV28F"></script>
@@ -19,11 +22,12 @@
         <h2>GoodAtInvesting.eth</h2>
         <h2 class="retro-title">GoodAtInvesting</h2>
         <script src="/website/script.js"></script>
-        <p>Hello, this is a website. In this website are the occasional blog I post on DeFi. I have an in all things financial especially if it's permissionless. Instead of boring my friends and family I will post here where no one will read it.<br> I try to research investing choices quite extensively with particular attention to visualizing potential outcomes in super sick matplotlib graphs in python. Posting these blogs helps me think through the the crypto world and describing for others is the best way to learn myself.<br><br> I hope to share a lot of investing ideas and inform on what I've learned. If you have beef with anything I say or want to dunk on any mistakes I've made then interact with me on twitter!<br><br> Also the domain, my ENS, and my twitter handle are all tongue in cheek. But hopefully the themes I discuss here give you a good idea of what being a good investor can mean and how to be a DeFi model citizen instead of a degen.
+        <p>Hello, this is a website. This is where I post the occasional blog I post on DeFi. I have an in all things financial especially if it's permissionless. Instead of boring my friends and family I will post here where no one will read it.<br> I try to research investing choices quite extensively with particular attention to visualizing potential outcomes in super sick matplotlib graphs in python. Posting these blogs helps me think through the the crypto world and describing for others is the best way to learn myself.<br><br> I hope to share a lot of investing ideas and inform on what I've learned. If you have beef with anything I say or want to dunk on any mistakes I've made then interact with me on twitter!<br><br> Also the domain, my ENS, and my twitter handle are all tongue in cheek. But hopefully the themes I discuss here give you a good idea of what being a good investor can mean and how to be a DeFi model citizen instead of a degen.
         </p>
         <p>Twitter: <a href="https://twitter.com/goodinvesting1">@GoodInvestor1</a></p>
         <p> Github: <a href="https://github.com/SailingSF/crypto_portfolio_management">Right here!</a></p>
         <h4>Posts</h4>
+        <a href="./website/var_pt1.html">Value at Risk Pt. 1</a><br>
         <a href="./website/thegraph_uniswap.html">The Graph Pt. 1 (Uniswap Pt. 3)</a><br>
         <a href="./website/uniswap_pt1.html">Uniswap Pt. 1</a> <a href="./website/uniswap_pt2.html">Uniswap Pt.2</a><br>
         <a href="./website/what_is_risk.html">Risk/Beta</a><br>
@@ -34,95 +38,286 @@
         <hr>
         <div class="post">
             <h2>GoodAtInvesting.eth</h2>
-                <div class="post">
-                    <h3>Free Data (Uniswap Pt. 3 + The Graph Pt. 1)</h3>
-            <h4 class="subtitle">An introduction to the graph using Uniswap V3 data</h4>
-            <h4>Real numbers</h4>
-            <p>In my exploration of Uniswap I've given some broad numbers as well as some quotes from online tools on what APYs to expect as well as current quotes and historical price charts. For APY estimations I was using <a href="https://www.metacrypt.org/tools/uniswap-v3-calculator-simulator/">Metacrypt</a> and for historical prices I was using Yahoo finance. Ultimately this is trusting those sources to be correct and assigning those whatever values we get to our individual use case.</p>
-            <p>For Yahoo Finance they have an easy to use API with a built in reader in the padas_datareader library for Python. It makes getting data for $SPY, $TSLA, $GE, $BTC, $ETH, and even $SHIB easily done with just changing the ticker. But all of these are measured in USD, feature no volume numbers, and are only daily close prices. If you want to get more granular than that or natively get the SHIB/ETH price it would appear it's not so easy.</p>
-            <p>The protocol “The Graph” has software and a network of incentives for users to build a GraphQL API that can access <em>indexed</em> data from a number of chains. The team at Uniswap Labs have done just that for V3 allowing users to access more human readable data from the Uniswap V3 protocol and build their applications on top of it.</p>
-            <h4>Graph —&gt; Subgraph</h4>
-            <p><a href="https://thegraph.com/">The Graph</a> is the overall protocol providing the tool to build subgraphs as well as the incentive structure to Index and Curate subgraphs for any smart contract on a number of EVM chains as well as Gnosis, Moonbeam, and a few others in beta. Given my previous descriptions of Uniswap V3 I will be showing how we can get data from the Uniswap V3 subgraph in order to better inform backtesting and our investment decisions in Uni LPs.</p>
-            <p>We can start by acknowledging some of the properties we've used thus far in our research like Liquidity, Ticks, and prices. All of these properties are accessible in the subgraph as they are defined in the Uniswap V3 Whitepaper and they are (importantly) indexed, meaning the change in these values through time is as easily accessible. Since we now have a better understanding of these V3 specific concepts we can now also access real historical values rather than assume some approximations.</p>
-            <h4>Indexes == History ≈ Future</h4>
-            <p>Getting the state of the current Ethereum (or other) blockchain has been relatively trivial. For Uniswap we can even go to the contract of the pool we're interested in and read the state right from etherscan as we can see from the properties <a href="https://etherscan.io/address/0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640#readContract">right here</a>.</p>
-            <img src="../website/images/etherscan_screen.png" class="matplot"></img>
-            </p>
-            <p>With the indexed history we can get price data right from the indexed contract itself rather than from yahoo finance. This enables us to get the real ETH/USDC price rather than USD price from wherever Yahoo is sourcing. This is also especially helpful when we want to see something like the ETH/WBTC price or ETH/SHIB and not compare two price series against the dollar. (Efficient markets being efficient I know this will unlikely result in any meaningful discrepancy, it's just better to get the data right from the source rather than a centralized intermediary)</p>
-            <p>Price is the simple one, but since we're experts at the “liquidity” value from our previous math lessons we can also see current liquidity granularity as well as historical liquidity. Having this historical liquidity we can make better estimates about future yields by making more accurate backtests.</p>
-            <p>But first we have to get this data.</p>
-            <h4>Querying with the GraphQL Query Language</h4>
-            <p>Yes, QL stands for Query Language.</p>
-            <p>I won't walk through the intricacies of GraphQL (the <a href="https://graphql.org/learn/">GraphQL foundation</a> has great resources) but I'll provide some examples so anyone can jump start using this data. The Graph “explore” page is typical of a public GraphQL API where we can build queries and see some documentation on the values and filters. Creating a query right in the builder or <a href="https://thegraph.com/hosted-service/subgraph/uniswap/uniswap-v3">explore page</a> is very helpful when we're starting out.</p>
-            <p>Let's start with what a query would look like to get price data for a set number of days? First we need to find the pool we want to query. We can just know that address of the pool or query the the subgraph to find it. Let's do that first. We'll get a list of pools with USDC and WETH as their tokens and then retrieve the addresses and the fee tiers in order to differentiate them.</p>
-            <pre class="code"><code>query usdc_weth_pools {
-                pools(where: {token0: &quot;0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48&quot;, 
-                    token1: &quot;0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2&quot;},
-                    orderBy: volumeUSD, orderDirection: desc){
-                  id
-                  feeTier
-                  volumeUSD
-                  txCount
-                  feesUSD
-                  token0 {
-                    id
-                    name
-                    symbol
-                  }
-                  token1 {
-                    id
-                    name
-                    symbol
-                  }
-                }
-              }</code></pre>
-              <p>As you can see, in GraphQL you request just the information you want and that's what you receive back. If you run this query in the GraphQL playground you can see the answer right next to it and confirm plenty of the information. </p>
-              <p>We can confirm here that the 5 basis point pool has the most volume so we can focus in on that pool at address <code>0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640</code>.</p>
-              <p>Now we know what pool we're querying we want to see what information we should get. Let's get daily prices and liquidity for the past 365 days. The <code>pool</code> object in the subgraph has a daily stats value where we can see all of that information. That query would be the following:</p>
-              <pre class="code"><code>query pool_stats ($pool: String, $days: Int) {
-                pool(id: $pool){
-                  poolDayData(first: $days, orderBy: date,
-                  orderDirection: desc){
-                    date
-                    token0Price
-                    volumeUSD
-                    feesUSD
-                    liquidity
-                    txCount
-                    open
-                    high
-                    low
-                    close
-                  }
-                }
-              }
-variables:
-    {
-    &quot;pool&quot;: &quot;0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640&quot;,
-    &quot;days&quot;: 365
-    }</code></pre>
-    <p id="caption">Yes I did sneak some query variables in on you, this makes the query much more flexible and dynamic if you want to expand on it.</p>
-    <p>Ok that's pretty neat. Now we have all the data we requested in a handy dandy JSON from the largest decentralized liquidity source for USDC/ETH. For free*.</p>
-    <p>*It's free now but once the hosted service is sunset you will have to pay for this in GRT, likely less than a cent for this info.</p>
-    <p>Rather than using the explore page from The Graph is we go direct to the <a href="https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3/graphql?query=%0A++++%23%0A++++%23+Welcome+to+The+GraphiQL%0A++++%23%0A++++%23+GraphiQL+is+an+in-browser+tool+for+writing%2C+validating%2C+and%0A++++%23+testing+GraphQL+queries.%0A++++%23%0A++++%23+Type+queries+into+this+side+of+the+screen%2C+and+you+will+see+intelligent%0A++++%23+typeaheads+aware+of+the+current+GraphQL+type+schema+and+live+syntax+and%0A++++%23+validation+errors+highlighted+within+the+text.%0A++++%23%0A++++%23+GraphQL+queries+typically+start+with+a+%22%7B%22+character.+Lines+that+start%0A++++%23+with+a+%23+are+ignored.%0A++++%23%0A++++%23+An+example+GraphQL+query+might+look+like%3A%0A++++%23%0A++++%23+++++%7B%0A++++%23+++++++field%28arg%3A+%22value%22%29+%7B%0A++++%23+++++++++subField%0A++++%23+++++++%7D%0A++++%23+++++%7D%0A++++%23%0A++++%23+Keyboard+shortcuts%3A%0A++++%23%0A++++%23++Prettify+Query%3A++Shift-Ctrl-P+%28or+press+the+prettify+button+above%29%0A++++%23%0A++++%23+++++Merge+Query%3A++Shift-Ctrl-M+%28or+press+the+merge+button+above%29%0A++++%23%0A++++%23+++++++Run+Query%3A++Ctrl-Enter+%28or+press+the+play+button+above%29%0A++++%23%0A++++%23+++Auto+Complete%3A++Ctrl-Space+%28or+just+start+typing%29%0A++++%23%0A++">endpoint of the API</a> in a web browser we get a better builder page where we can even use variables like I had in the previous query.</p>
-    <h4>Chart time</h4>
-    <p>Now what can we do from the very simple information pulled. Well we can make some price and volume charts if we want.</p>
-    <embed type="text/html" src="../website/images/graph.html" width="100%" height="610" maxwidth="800px">
-    <p>Dang. That's a nice chart. And it took very minimal code to generate thanks to the <a href="https://plotly.com/python/">plotly library</a>.</p>
-    <p>Ok so now we can make sik charts with free (or almost free if you're in 2023) data from a decentralized source indexing the Uniswap contracts. Unfortunately for me there isn't a ton of value (read 💰) in just making good looking charts, so how do we turn that into making some sweet, sweet yield.</p>
-    <p>Well for one, you may have noticed in a previous post about Uni V3 LP positions that I was just giving a flat yield percentage based on the predicted yield at the moment I wrote that article. Well now we can see what the actual yield would have been for a position of our choice now that we know the historical liquidity. Let's first plot that so we can see how much the liquidity changes over time.</p>
-    <img class="matplot" src="../website/images/ETH:USDC_subgraph_price_liq.png"></img>
-    <p>Seems to be something there. What about the volatility with liquidity? Let's do the 30 day volatility (rolling 30 day standard deviation of log returns) with the same liquidity bar graph.</p>
-    <img class="matplot" src="../website/images/ETH:USDC_subraph_vol_liq.png"></img>
-    <p>Hmm. Almost 0 correlation (-0.046). Ok well we won't solve any mysteries of the Uniswap LP universe here but this shows how easy it is to test some intuitions about the market dynamics. With these liquidity numbers we can calculate what real yields would have been given price ranges, and that's the real benefit as we can more accurately predict any yield we would receive so that we can make better decisions about the risk we're assuming.</p>
-    <h4>“Real” Yield</h4>
-    <p>In previous posts I've shown how to get the amount of “liquidity” one provides according to their ranges and deposit size, and now we have all this information from the subgraph, so let's see if we can get some real yields. In order to calculate our hypothetical fees we need to know our provided liquidity (✅), the pool's liquidity (✅), the pool volume (✅), and the pool fee (✅). These together will get us our daily fees (⁇) which with our initial investment we can calculate yield.</p>
-    <p>Given the price of ETH seems to move around quite a bit let's get some yields for a position of $1000 with bounds at 80% and 125% of the current price. Setting bounds like that enables us to deposit equal amounts of USDC and ETH.</p>
-    <img class="matplot" src="../website/images/ETH:USDC_subgraph_yield.png"></img>
-    <p>Whoah, daily fees move around a lot from a pedestrian 20% to an insane 1,000%+. It all averages out to around 84% for the past year though. Which is pretty good I would say. Obviously there is still the risks of impermanent loss (which is accelerated with Uni V3) as well as the price moving out of your range so you don't earn any yield at all unless you realize that impermanent loss, but now we can understand our returns better we can make more educated risk decisions.</p>
-    <h4>Data == Alfa 🌿</h2>
-    <p>Knowing where to get this level of data <em>reliably </em>is a huge part of the battle in generating alpha. By utilizing the Uniswap subgraph you can get much more detailed information and make your own charts rather than relying on graphs you see on crypto twitter. Whether you're into technical analysis (hopefully you've outgrown that) or building MEV sentiment bots on a low float token by providing just in time liquidity, using the subgraph should be a big help. This is only one subgraph as well, there are many more on many different protocols that are in need of exploration.</p>
-    <p>The Graph ecosystem deserves way more attention than it gets given its ability to disseminate data from the Ethereum state through time and make it accessible in GraphQL. Getting accurate, immutable, and decentralized data from the Ethereum state through The Graph network is a powerful tool and will only spin the EVM flywheel even faster and hopefully this post on the biggest DeFi protocol helps in that regard.</p>
+        <div class="post">
+<h2>
+    Value at Risk
+   </h2>
+<h4 class="subtitle">Finding the value risk from holding assets using various estimations</h4>
+ <p>
+ </p>
+ <p>
+    One of the big benefits of crypto and to a lesser extent, stocks, is their liquidity. The ability for a holder of some crypto or equity asset to exchange it for another or cold hard cash increases its value. You know if you suddenly needed stock in a car company or cash to pay rent you can make that happen in minutes to hours. Trading a stock to cash and then withdrawing to another account and then getting paper for it might take a few days but in the grand scheme of things it's quick even if it's glacial compared to crypto.
+   </p>
+ <p>
+    The benefit of this liquidity means holders can act quickly when given new information as well as feel more comfortable holding an asset since they know they can exchange it for another if needed. This exchange rate is obviously subject to market conditions and an asset like Bitcoin has a very different market than the S&amp;P 500. This makes holders who might need to exchange their assets more comfortable owning something that doesn't change in value as fast despite their long term view.
+   </p>
+ <p>
+    In more tangible terms, someone might think that in 10 years Bitcoin will be the only currency in the world, or MakerDAO will be a larger currency issuer than the US Government. In shorter terms though you might have to pay rent of buy a Ferrari, so despite your conviction 10 years from now you have priorities with shorter time horizons. While you know you can liquidate your BTC or MKR for Ferraris quickly, you don't know what the value of them will be when that time comes and your conviction of your 10 year thesis might have very little effect. Let's look at a way we can estimate what our risk of losing value on any asset would be so we can plan our portfolios for our 10 year theses and our Ferrari buying needs. The metric we'll look at is called the <strong>Value at Risk</strong>.
+   </p>
+ <h2>
+    What even does that even mean?
+   </h2>
+ <p>
+    Value at Risk or VaR is a traditional finance metric to quantify what amount of our assets we can lose with a given confidence interval over a certain period of time. In more simple terms, we can find the most
+    
+    we can expect to lose with a certain percentage of confidence based on the historical performance of a single asset or portfolio over some time period.
+   </p>
+ <p>
+    Value at Risk can most accurately be shown as a percentage. If we have an example of an asset with a VaR of 20% based on a 95% confidence interval and a time horizon of one week, we can say that there's a 95% percent chance we'll lose no more than 20% of value over one week.
+   </p>
+ <p>
+    Losing 20% sounds bad but if we're reasonably (95% sure) that we won't lose more than that, it can help us decide how much of an asset we want to hold. This measure of “risk” helps us determine how much we allocate to different assets. Even if we love Bitcoin, and are certain all world governments will default and the only valuable currency in the world will be the unit of account of some blockchain with less than 1,000,000 blocks, but we don't feel comfortable putting 100% of our savings in something that can be down 10% over a week, maybe we diversify into gold 🥇 and ornamental gourds 🧉 as well.
+   </p>
+ <img class="matplot" src="../website/images/var/var_assets_normal.png"></img>
+ <p>
+    At a glance this makes sense, the percentages we can expect to lose over 5 days track with our perception of each of these assets. Except for that car company.
+   </p>
+ <p>
+    Given the numbers we have here we should understand how to calculate them to ensure the way they're calculated makes sense with our understanding of how these things are valued.
+   </p>
+ <h2>
+    Math vs. math
+   </h2>
+ <p>
+    Seeing how VaR is calculated might help make better sense of what that VaR number really is if the method of calculation tracks with our understanding. To calculate the above VaRs I used the “parametric” method of using a <strong>normal</strong> distribution to calculate at what point we'll be 95% sure what our maximum loss would be. The formula for VaR I used:
+   </p>
+ <p>
+    The first thing we need is the Z score of returns for a confidence interval. A Z-Score on its own is meant to normalize a value in a distribution so that we can compare a value with what one would expect the return to be normally. Mathematically, it's the mean of a sample minus the value you're interested in, divided by the standard deviation. So we know how many standard deviations our sample is away from the mean of the population.
+   </p>
+ <p>
+    Z-alpha is the variable to denote the number of standard deviations where the top 95% of a <em>normal</em> distribution lies. It utilizes the confidence interval and for a normal distribution it's a single number (1.65 in the case of 95%) meaning that 95% of values should be above 1.65 standard deviations below the mean. For a one day VaR on BTC we have \(
+        \text{VaR} = -0.01 - 1.65 * 2.99 * \sqrt{1} = -4.9\%
+      \)
+ </p>
+ <p>
+    If we show a histogram of the returns, along with the assumed normal distribution curve and the VaR we should see how this comes together. Or it will show the shortcomings of this calculation…
+   </p>
+ <img class="matplot" src="../website/images/var/btc_distribution_normalcurve.png"></img>
+ <p>
+    Ok, we've found our first “wrong” assumption, returns are not normally distributed! The blue line shows the normal distribution based on the mean and the standard deviation of the daily returns of BTC for the past two years. We can see this line does not reflect the shape of the distribution at all. I wouldn't rely too heavily on a metric that makes an assumption as big (and wrong) as that. So let's see what else we can do.
+   </p>
+ <p>
+    Let's make sure we're not assuming the shape of some curve and just use the actual measured values of the past returns of any asset. We'll remove the smoothness of a curve that can theoretically be extrapolated for any time period, and we'll just rely on the actual data we have for the past two years.
+   </p>
+ <p>
+    Rather than take the 95th percentile of a normal distribution, let's take the 95th percentile of the <em>actual</em> daily returns for our assets. Rather than assuming that traders of crypto or any asset follow some “normal” distribution we'll just order the daily returns. I'll show this in python and maybe it will be more tangible than some math equation.
+   </p>
+
+<pre class="code"><code>def calc_var_sort(prices: pd.Series, confidence: float = 0.95, time: int = 1) -&gt; float:
+     '''
+     Calculate the Value at Risk (VaR) for a given series of returns using sorted historical data.
+     
+     Parameters:
+     - prices (pd.Series): The series of asset prices
+     - confidence_level (float): The confidence level for VaR (e.g., 0.95 for 95% confidence)
+     - time (int): The time horizon in days for which to calculate VaR
+     
+     Returns:
+     - var (float): The calculated VaR
+ 
+     '''
+     # Turn prices into returns
+     returns = prices.pct_change()
+     
+     # Sort the returns
+     sorted_returns = returns.sort_values()
+     
+     # Calculate the index corresponding to the (1 - confidence_level) quantile
+     index = int((1 - confidence_level) * len(sorted_returns))
+     
+     # Get the VaR value
+     var = sorted_returns.iloc[index]
+     
+     # Adjust VaR for the time horizon
+     var = var * np.sqrt(time)
+     
+     return var</code></pre>
+ <p>
+    Using this way to calculate VaR gets us the slightly different results on our assets than above. Note I am using the last 2 years of data so for crypto that's 730 trading days, and for equities it's 504 trading days.
+   </p>
+ <img class="matplot" src="../website/images/var/var_assets_sorted.png"></img>
+ <p>
+    Ok different, but not that different. Luckily the comparisons hold steady in that crypto is more volatile than a market index or a typewriter maker.
+   </p>
+ <p>
+    Sorting values does make more sense than assuming a normal distribution and is probably the best way to go especially because we know we can always get daily price history for assets like this. But let's say we still want some good old fashioned math and not rely on historical data. And maybe we want to use a bit more computer power. Let's see what we can do.
+   </p>
+ <h2>
+    Not normal curves
+   </h2>
+ <p>
+    The distribution of returns on Bitcoin may not be normal so we should find the actual distribution curve that represents daily returns, or at least is much closer. Let's go through some options. One distribution that's more popular in finance is the Cauchy distribution. You can think of this distribution as more pointy towards the mean with fatter tails allowing for days of higher losses or gains. In addition to the Cauchy distribution which has some fancy math behind it, we can also create a Kernel Density Estimation from the historical data we have, that essentially just fits any curve to the real data that we have.
+   </p>
+ <h3>
+    Cauchy
+   </h3>
+ <p>
+    Let's describe the Cauchy distribution first. The Cauchy model is given by this ugly piece of math:
+   </p>
+ <p>
+ \[
+ f(x; x_0, \gamma) = \frac{1}{\pi \gamma \left[1 + \left(\frac{x - x_0}{\gamma}\right)^2\right]}
+ \]
+    . This is better when we have less data to work with and means we're making fewer assumptions that past performance will be the same as the future. The Cauchy distribution also has the attribute of “fat tails” and a more convex shape making the median of the data the most common but with the increased chance of more extreme events. More extreme events definitely sounds like crypto.
+   </p>
+ <p>
+    So now we have a “natural” distribution that is probably better than the normal distribution which is popular but looks so wrong. What about an “unnatural” distribution? One where we're not assuming trading returns are fitting elegantly into some math formula and in actuality are driven by emotional humans reacting to random data.
+   </p>
+ <h3>
+    KDE
+   </h3>
+ <p>
+    Enter the Kernel Density Estimation. Instead of trying to get parameters for a natural curve, let's just put a curve over the real returns and have it fill in the gaps and smooth out the data as if we had longer timeframes.
+   </p>
+ <p>
+    The benefits of fitting a KDE distribution is that it doesn't rely on or assume any given model. It's just reliant on the data that you use to create it. The KDE is intuitive in that it just fits a given model and we can always go back and retrain given new information or more data. One can think of a KDE distribution as pouring melted glass on the histogram of real data, it takes the shape of the real data but is able to fill in the gaps and add smoothness to our curve.
+   </p>
+ <p>
+    Let's see what both of these distributions look like and then calculate some VaRs from those curves to see if they're any better.
+   </p>
+ <img class="matlab" src="../website/images/var/btc_distribution_kde_cauchy.png"></img>
+ <p>
+    While the Cauchy distribution looks pretty good when dealing with the middle of the data we can see that the “fat tail” concept has really hurt our VaR. The tail that's cut off in this graph keeps going and going making the 95th percentile much lower so that our VaR is a bigger negative number and might cause us to think we're risking a lot more money. The histogram is somewhat misleading as well as BTC has returned &lt;7.6% 12 times in the past 2 years, so the Cauchy VaR makes more sense than this plot shows. The issue is purely there's not enough samples to create a visible bin(bar) in the histogram.
+   </p>
+
+ <img class="matplot" src="../website/images/var/var_assets_kde_cauchy.png"></img>
+ <p>
+    Our KDE VaR does seem “better” and makes more sense with the plot but because we're only working with historical data and the KDE is very data dependent. The dependence on historical data might have the criticism of data mining (finance) or overfitting (math) as it's used to create forward estimations and makes a bigger assumption about forward returns being similar to the past. Maybe there's something we can do to add more data and our own outlook as well.
+   </p>
+ <h2>
+    Adding forward data with our own outlook
+   </h2>
+ <p>
+    Up to this point we've been creating all metrics with past data and even if our Normal and Cauchy curves are less data dependent they're still being fit on two historically bad years for bitcoin. Having your data represent only the past performance is not indicative if you believe your asset is going to change behavior (like if it were to dramatically improve against the dollar because of sudden US hyperinflation).
+   </p>
+ <p>
+    If you believe your asset will go up in value we should find a way to include that in all of our estimations. No one can know the exact daily movements, but we can assume that volatility will be similar and then we can have our own opinion on the overall direction over a year. If we thought BTC was going to appreciate 20% we could use the past KDE to estimate daily returns but with an annual return of 20% for the next year.
+   </p>
+ <img class="matplot" src="../website/images/var/btc_prices_forward.png"></img>
+ <p>
+    That… looks like it makes sense. Let's see how I made that.
+   </p>
+<pre class="code"><code>def kde_forward_prices(start_price, desired_return, kde, days=365, precision=0.01):
+     '''
+     Function for creating a sample series of prices with a desired return.
+     This version uses KDE to sample returns.
+     The precision variable ensures the given return is not lost by randomness
+     '''
+     #get the final price as the starting price with the desired return
+     desired_price = start_price * (1 + desired_return)
+     loc = desired_return / days  # Location parameter (median) of distribution
+     #simulate to ensure outcome
+     for k in range(0, 1000):
+         # Sample returns from the fitted KDE
+         returns = kde.resample(days).flatten()
+         prices = (1 + returns).cumprod()
+         prices = prices / prices[0] * start_price
+         final_price = prices[-1]
+         #check if calculated final price is within given precision, if not, try again
+         if final_price &gt;= desired_price * (1 - precision) and final_price &lt;= desired_price * (1 + precision):
+             break
+     return prices
+ 
+ #generate KDE based on historical returns
+ btc_hist_kernal = gaussian_kde(btc.pct_change().dropna())
+ 
+ #create prices with last given btc price, a 20% return, and the KDE
+ btc_forward = kde_forward_prices(btc[-1], 0.2, btc_hist_kernal)</code></pre>
+ <p>
+    This will make a somewhat random series of prices but with the same KDE and return, so if you run it you will have a different shape to the line but the one year return and KDE will be the same.
+   </p>
+ <p>
+    Now what if we calculated the VaR on the three year data that includes this one year of simulated data we might get closer to what a BTC VaR is to us since we included what we think Bitcoin will do for another year. We can see the new data we added still has down days, so the concept of a metric that tells us how much value we can lose over a given time period still seems like it will be representative; but if we think Bitcoin will have a good year this calculation gets us closer to what we actually think will happen.
+   </p>
+ <p>
+    Using this three year series with two years of historical and one year simulated gets us 1 day, 95% VaR of <strong>8.02%</strong> for the Cauchy distribution and <strong>4.74%</strong> for the KDE distribution. So the forward year simulation didn't change much but the fact that it didn't change much is informative in that even if we expect BTC to have a good 12 months we still have a risk of losing 5-8% of our value in 24 hours.
+   </p>
+ <p>
+    Next time we can look at ways to construct a portfolio and reduce our risks and preserve capital, but I still have one thing we can cover here. Initially when we were just using math I was finding the <em>5</em>
+    day Value at Risk by using the time horizon component of \(  
+        *\sqrt{\text{Days}}
+    \). There has to be a better way though, especially because as time goes on your chances of recovery rise as well. Just multiplying your possible one day loss for your time horizon would eventually get you above 100% as your horizon grows, and we should be able to see a real number for our requirement of a “possible loss over a realistic time frame.” If we don't check our portfolio more than once per week or we want to hold our assets for 6 months without changes we want to know what our possible losses could be.
+   </p>
+ <p>
+    Let's combine all the aspects we've done so far and simulate a ton of portfolios so we can feel more certain about this time horizon aspect.
+   </p>
+ <h2>
+    Enter the simulation
+   </h2>
+ <p>
+    We'll do this relatively simple Monte Carlo Simulation in Python and it will show a lot of the different elements we've developed so far. A Monte Carlo Simulation is just a way to make thousands of hypothetical portfolios and analyze the distribution of those results, named after the famous casino we're just rolling the dice over and over with the magic of computerz 🖥️.
+   </p>
+ <p>
+    Let's first make a function for finding a VaR at any time horizon by simulating the returns based on the KDE distribution and finding the 95th percentile return.
+   </p>
+<pre class="code"><code>def monte_carlo_var_kde(start_value, kde, N, M):
+     """
+     start_value: The initial value of the portfolio
+     kde: Kernel Density Estimation of the 1-day returns from scipy.stats gaussian_kdev (not multiplied by 100)
+     N: Time horizon in days
+     M: Number of Monte Carlo runs
+     """
+     # Initialize an array to hold the portfolio values at the end of N days for each Monte Carlo run
+     final_values = np.zeros(M)
+     
+     # Loop for each Monte Carlo run
+     for i in range(M):
+         # Sample N-day returns based on KDE
+         daily_returns = kde.resample(N).flatten()
+         
+         # Calculate the portfolio value at the end of N days for this Monte Carlo run
+         portfolio_values = start_value * np.cumprod(1 + daily_returns)
+         final_values[i] = portfolio_values[-1]
+     
+     # Sort the final M portfolio values to calculate VaR
+     final_sorted_values = np.sort(final_values)
+     
+     # 5% VaR is the value at the 5th percentile of the sorted final values
+     var_95 = (1 - np.percentile(final_sorted_values, 5)/start_value)*100
+ 
+         return var_95
+ 
+ kde = gaussian_kde(prices.pct_change().dropna())
+ var = (prices[-1], kde, 5, 10000)</code></pre>
+ <p>
+    Now if we use our bitcoin returns (sans simulated values) we can get a 5 day VaR and we can plot the 5 day returns from 10,000 simulations to see a smoother distribution from our pretend portfolios.
+   </p>
+ <img class="matplot" src="../website/images/var/btc_histogram_simulated5day.png"></img>
+ <p>
+    The 5 day 95th percentile VaR we get from this method is 11.49%. If we compare that to the one day VaR we calculated multiplied by our square root of 5 days we get \(
+           4.95 * \sqrt{5} = 11.06\%
+          \)
+    , so… pretty close. But what about if we don't want to adjust our portfolio for 6 months? Let's see if this method is even better for longer time horizons. If we run our function, we get a VaR or 55.14% from 10,000 simulated portfolios compared to \(
+            4.95*\sqrt{180}=66.41\%
+    \)
+    so we can start to see this divergence at larger time frames.
+   </p>
+ <p>
+    Here are all of our assets using this method.
+   </p>
+ <img class="matplot" src="../website/images/var/var_assets_montecarlo.png"></img>
+ <p>
+    Because I was curious I wanted to see what the relationship between the long timeframe and short timeframe.
+   </p>
+ <img class="matplot" src="../website/images/var/180var_over_5var.png"></img>
+ <p>
+    It appears there's somewhat an inverse relationship between the overall volatility of the asset and the difference between short and long time horizons. Interesting, but not so interesting that I'm going to look deeper into that.
+   </p>
+ <p>
+    This simulation is no harder to calculate than all the math we've shown thus far and it does make more intuitive sense as well for finding a theoretical Value at Risk so I think it's a great option for anyone with a basic grasp of python to use. It also has the added benefit that this would be extremely difficult to do for any of the excel jockeys 🏇 out there so you can have some more justified coding elitism.
+   </p>
+ <h2>
+    Conclusion
+   </h2>
+ <p>
+    Hopefully this exploration into Value at Risk helped understanding what this metric is and some good ways to calculate it. For me, exploring the different ways to calculate this metric helped me understand what the VaR really is as well as its limitations. I would definitely have a lot of questions for someone who was using a multi day VaR from a normal distribution and using it for anything other than comparing to other assets. I also have the ability to calculate the VaR of any asset using these methods now that I've written the code, so doing a more robust analysis is even easier than some napkin math now.
+   </p>
+ <p>
+    I'll put some of this code on my github for easy use but just copy and pasting should be more helpful. I have a number of function in my crypto portfolio management repo that you can use to help do a lot of the calculations I've done in this blog.
+   </p>
+ <p>
+    As I mentioned before, next we can look at how we can reduce this VaR (and risk in general) with the magic of ✨diversification✨.
+   </p>
         </div>
     </div>
 </body>
