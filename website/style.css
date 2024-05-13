@@ -99,6 +99,16 @@ img.matplot {
     display: block;
 }
 
+img.medium {
+    max-width: 60%;
+    display: block;
+}
+
+img.large {
+    max-width: 80%;
+    display: block;
+}
+
 .mjx-chtml {
     max-width: 100%;
     overflow-x: auto;
