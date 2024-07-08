@@ -56,36 +56,34 @@ pre {
 
 .code,
 code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-    font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+    background: rgba(135, 131, 120, 0.15);
+    border-radius: 3px;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 85%;
+    tab-size: 2;
+    font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace !important;
     word-wrap: break-word;
-    
-
 }
 
 .code {
-	padding: 1.5em 1em;
-
+    padding: 1.5em 1em;
 }
+
 .code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
+    white-space: pre-wrap;
+    word-break: break-all;
 }
 
 .code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
+    background: none;
+    padding: 0;
+    font-size: 100%;
+    color: inherit;
     word-wrap: normal;
 }
 .code { 
-    font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+    font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace !important;
 }
 
 img {
@@ -114,8 +112,7 @@ img.large {
     overflow-x: auto;
     margin-top: 10px;
     margin-bottom: 10px;
-  }
-  
+}
 
 .retro-title {
     font-family: 'Courier New', Courier, monospace;
@@ -151,4 +148,32 @@ img.large {
     color: red;
     text-align: center;
     font-style: italic;
+}
+
+/* Add the following styles at the end of your CSS file */
+
+/* Ensure code blocks use a monospace font */
+pre[class*="language-"], code[class*="language-"] {
+    font-family: monospace !important;
+    background: rgba(135, 131, 120, 0.15);
+    border-radius: 3px;
+    padding: 0.2em 0.4em;
+    font-size: 85%;
+    tab-size: 2;
+    word-wrap: break-word;
+}
+
+pre[class*="language-"] {
+    white-space: pre-wrap;
+    margin: 2em auto;
+    max-width: 80%;
+    overflow: auto;
+    border-radius: 5px;
+}
+
+code[class*="language-"] {
+    background: none;
+    padding: 0;
+    font-size: 1em;
+    color: #393A34;
 }
