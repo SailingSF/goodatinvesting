@@ -51,7 +51,7 @@
          <h1>AI in Your Earnings Calls</h1>
          <h4 class="subtitle">Building a RAG app to decipher corporate earnings calls</h4>
          <h2>Introduction</h2>
-         <p>In my last post I introduced my AI financial assistant in AlphaCharter. With AlphaCharter you can analyze fundamental data from any public company along with their market cap and price in order to see things like historical PE ratios, EV/EBITDA, Free Cash Flow, Operating Margin, and many more (literally any combination of fundamentals). The way I do this is by giving an instructed AI model access to the balance sheets, income statements, and cash flows of all listed companies. Public companies have to report those general accounting metrics like revenue, cash from financing, long term debt, etc which are audited and reported to the SEC. From those numbers the AI can create metrics and ratios that are compared across companies in order for you to visualize them. 📈</p>
+         <p>In my <a href="../website/introducing_alphacharter.html">last post</a> I introduced my AI financial assistant in AlphaCharter. With AlphaCharter you can analyze fundamental data from any public company along with their market cap and price in order to see things like historical PE ratios, EV/EBITDA, Free Cash Flow, Operating Margin, and many more (literally any combination of fundamentals). The way I do this is by giving an instructed AI model access to the balance sheets, income statements, and cash flows of all listed companies. Public companies have to report those general accounting metrics like revenue, cash from financing, long term debt, etc which are audited and reported to the SEC. From those numbers the AI can create metrics and ratios that are compared across companies in order for you to visualize them. 📈</p>
          <p>If you want to go deeper on a company's products, regional performance, or plans for the future, that data isn't available in the quarterly financial statements. A lot of this <em>is</em> said in their conference call however, among other interesting points about the company.</p>
          <p>In order to access the data from conference calls I built a feature into AlphaCharter to allow you to explore this information right in your chat. In order to access conference call data efficiently I used an AI adjacent technology called vector search in order to enable “Retrieval Augmented Generation.” In this post I will show the benefits of this feature, how it works, and then I'll show the how with some of the code I used. The entire example python notebook 🐍📒 is <a href="https://github.com/SailingSF/rag_example">here</a>.</p>
          <h2>iAnalyst</h2>
@@ -68,7 +68,7 @@
          <p>To show how valuable using AI can be you can take a call transcript and copy and paste it into a chatbot like ChatGPT or Claude and then ask something like what was iPhone revenue this quarter, you will get exactly the answer you're looking for.</p>
          <img class="medium" src="../website/images/alphacharter/chatgpt_ask_transcript.png" alt="screenshot of asking chatGPT what iPhone revenue was after pasting in a conference call transcript"></img>
          <p>Doing this is much faster than reading the whole thing and it allows you to ask follow up questions and use the general knowledge of an LLM. In order to copy and paste these transcripts the use has to have access to this data to start with, and copy and pasting is not the most user friendly experience. What if our AI assistant knew to just go retrieve the transcripts and read it when you ask so that it can answer that question for you? That would be awesome and very doable but it there are ways to improve this even further.</p>
-         <p>Apple's last earnings call transcript is 8,000 words long, or 10,000 “tokens” 🪙 for the way AI measures input length. If our AI assistant went and grabbed a transcript automatically based on our prompt that would mean a lot of text has to be read to find one mention and to answer a simple question. AI models can't take unlimited input text and have a concept of a “context window” that is the maximum amount of input information they can handle. GPT-4o has a 128,000 token context window which means that at most we can only give it 12 transcripts, that sound like a lot until you realize a question like “what are iPhone revenues of the past 4 years?” wouldn't work.</p>
+         <p>Apple's last earnings call transcript is 8,000 words long, or 10,000 “tokens” 🪙 for the way AI measures input length. If our AI assistant went and grabbed a transcript automatically based on our prompt that would mean a lot of text has to be read to find one mention and to answer a simple question. AI models can't take unlimited input text and have a concept of a “context window” that is the maximum amount of input information they can handle. GPT-4o has a 128,000 token context window which means that at most we can only give it 12 transcripts, that sound like a lot until you realize a question like “what are iPhone revenues of the past 4 years?” wouldn't work.</p>
          <p>We only want a few lines from each transcript, if only there was a way to get just the relevant section and do this more efficiently. Thanks to AI (and tokenization and vectors and linear algebra) we can do just that.</p>
          <h2>Vectorize this</h2>
          <p>I won't go into much detail on tokenization and vector math here to keep this simple, the key points are that the way AI interprets text is through turning text into “tokens” (roughly 1 word) which can be represented as a matrix of numbers. These numbers can be dependent on the previous words to enable context so that “drone bee” is more similar to “worker ant” than “predator drone” which might be closer to “Apache helicopter” and so on. These matrices can be compared to each other so that we can find similar tokens in larger text.</p>
@@ -83,14 +83,14 @@
          <h2>AI, but it's smarter</h2>
          <p>Now all in one app you can ask something as specific as “what has iPhone revenue been over the past 5 years?” And our AI app can ask for transcript sections that are similar to the phrase “iPhone revenue,” put those sections into the AI's context and spit out an answer for you:</p>
          <img class="medium" src="../website/images/alphacharter/AI_response_with_rag.png" alt="Screenshot of an AI response with the built in RAG app"></img>
-         <p>This type of AI use is called Retrieval Augmented Generation (RAG) because we are retrieving some text before we generate an answer. We created a database of our transcripts that allows our AI to more efficiently query for relevant sections of text, put that in our AI prompt as context, and allow our answer to be very precise and sourced from real data reducing the possibility our AI model makes something up and “hallucinate."</p>
+         <p>This type of AI use is called Retrieval Augmented Generation (RAG) because we are retrieving some text before we generate an answer. We created a database of our transcripts that allows our AI to more efficiently query for relevant sections of text, put that in our AI prompt as context, and allow our answer to be very precise and sourced from real data reducing the possibility our AI model makes something up and "hallucinate."</p>
          <p>Having this feature in AlphaCharter allows anyone to do days of stock research in only a few minutes and help you along the way. You could start with a question about Apple's earnings growth, then see their revenue growth to get an idea if their sales are increasing more than expenses, then you could see what's driving that and ask about iPhone revenue and services revenue, and suddenly you know more about Apple than all wall street analysts put together. Maybe you're less of a prick too!</p>
          <h2>The Code</h2>
-         <p>Ok non technical people can stop reading now, everything else will just be about how I did this and what technologies are needed. I put everything in a simple python notebook <a href="https://github.com/SailingSF/rag_example">here</a> as well but I will describe the process below. This will be to replicate the same example that I have above, we'll load Apple transcripts (but the code will be for company), we'll query the index we create to prove it works, and then we'll define and write a function for an OpenAI assistant to use. This process will allow us to be able to ask our AI assistant what Apple's iPhone sales have been and get an accurate answer.</p>
+         <p>Ok non technical people can stop reading now, everything else will just be about how I did this and what technologies are needed. I put everything in a simple python notebook <a href="https://github.com/SailingSF/rag_example">here</a> as well but I will describe the process below. This will be to replicate the same example that I have above, we'll load Apple transcripts (but the code will be for any company) as an index, we'll query the index we create to prove it works, and then we'll define and write a function and a definition for the OpenAI API to use. This process will allow us to be able to ask our AI assistant what Apple's iPhone sales have been and get an accurate answer sourced from earnings transcripts.</p>
          <p>Most of this example code is pieced together from OpenAI's cookbook as well as PineconeDB's docs and cookbook.</p>
          <h3>Prepare the data</h3>
-         <p>I don't have any tips and tricks to get all earnings call transcripts for all time, but they are out there. So this assumes you found or paid for them and saved them a json files. Most of the 🪄magic✨ is in what you do with this text anyway so the focus is on that.</p>
-         <p>In order to split or “chunk” the data we need a way to tokenize the text so that we can make each chunk equal in size. We'll define a token length function so that we can count the length in tokens of text, and then we will make a text splitter function. The tokenizer will be from the tiktoken library and the text splitter from langchain.text_splitter.</p>
+         <p>I don't have any tips and tricks to get all earnings call transcripts for all time, but they are out there. So this assumes you found or paid for them and saved them as json files. Most of the 🪄magic✨ is in what you do with this text anyway so the focus is on that.</p>
+         <p>In order to split or “chunk” the data we need a way to divide the text so that we can make each chunk equal in size. We'll define a token length function so that we can count the length in tokens of our text, and then we will make a text splitter function to divide it easily. The tokenizer will be from the 'tiktoken' library and the text splitter from 'langchain.text_splitter'.</p>
          <pre><code class="language-python" style="font-family: monospace;">
             import tiktoken
             from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -113,7 +113,7 @@
                 length_function=tiktoken_len,
                 separators=["\n\n", "\n", " ", ""]
             )</code></pre>
-            <p>With out defined function we will make a list that contains all of the chunks of data. We'll attach metadata to each chunk so that we can access and filter it easily in our Pinecone index. For metadata we'll make sure we have the stock symbol, the date of the transcript, the year, the quarter it's for, which consecutive chunk it is of the transcript, and using that info we'll make an id for each text chunk. The 'tqdm' just makes progress visible in a notebook, you don't need this.</p>
+            <p>With our defined function we will make a list that contains all of the chunks of data. We'll attach metadata to each chunk we make so that we can access and filter it easily when we load it into an index. For metadata we'll make sure we have the stock symbol, the date of the transcript, the year, the quarter it's for, which consecutive chunk it is of the transcript, and using that info we'll make an id for each text chunk.</p>
             <pre><code class="language-python">
                 # create individual chunks from full text
                 chunks = []
@@ -135,7 +135,7 @@
                     } for i in range(len(texts))])
             </code></pre>
             <h3>Defining our index</h3>
-            <p>We also need to define how we're going to embed this text, or how we're going to turn some text into a list of vectors that we can compare. Embedding is the act of turning our text into the matrix of numbers that tell an AI what they mean. This is what we're actually storing in our Pinecone index so that we can query it for similar chunks. We're using openAI models here so we'll use their embedding model and their embedding function.</p>
+            <p>We also need to define how we're going to embed this text, or how we're going to turn our text into a vectors that we can compare. Embedding is the act of turning our text into the matrix of numbers that tell an AI what they mean. This is what we're actually storing in our Pinecone index so that we can query it for similar chunks. We're using OpenAI models here so we specify their embedding model and their embedding function.</p>
             <pre><code class="language-python">
                 # openAI client
                 from openai import OpenAI
@@ -151,7 +151,7 @@
                     ], model=embed_model
                 )
             </code></pre>
-            <p>We do some sample embedding to get the length of the vector we can use when we do our next step… creating a Pinecone index. First we'll set the configuration for this index.</p>
+            <p>We do embed a sample just so we can see the length of the vector, this allows us to do our next step… creating a Pinecone index. First we'll set the configuration for this index.</p>
             <pre><code class="language-python">
                 from pinecone import Pinecone, ServerlessSpec
                 pc = Pinecone(api_key='')
@@ -179,7 +179,7 @@
                 # connect to index
                 index = pc.Index(index_name)
             </code></pre>
-            <p>Now we've created a serverless Pincecone index. One variable to note here is the 'metric' when creating the index is the method used to find the distance between two vectors. Pinecone has a good description of the different functions <a href="https://www.pinecone.io/learn/vector-similarity/">here</a>. The choice of metric is very easy though in that it's best for whatever metric was used in the embedding model. In this case, OpenAI's 'text-embedding-3-small' uses cosine similarity.</p>
+            <p>Now we've created a serverless Pincecone index we can upload our data to with the vector parameters of the models we're using. One variable to note here is the 'metric' when creating the index is the method used to find the distance between two vectors. Pinecone has a good description of the different functions <a href="https://www.pinecone.io/learn/vector-similarity/">here</a>. The choice of metric is very easy though in that it's whatever metric was used in the embedding model. In this case, OpenAI's 'text-embedding-3-small' uses cosine similarity, so we specify cosine here.</p>
             <h3>Inserting vectors</h3>
             <p>With our chunks of text and our index defined we can now write our data. We'll do this in batches and be able to watch the progress with tqdm.</p>
             <pre class="language-python"><code class="language-python">
@@ -221,7 +221,7 @@
             </code></pre>
             <p>We split our data into groups of 100, embedded each chunk and assigned metadata which we then “upsert-ed” to our index so now all of these Apple transcripts live there.</p>
             <h3>Test query</h3>
-            <p>Let's see what a sample query looks like to confirm what we've done.</p>
+            <p>Let's see what a sample query looks like to confirm what we've done works.</p>
             <pre><code class="language-python">
                 query = 'iPhone sales'
 
@@ -279,7 +279,7 @@
             </code></pre>
             <p>It looks like our response is exactly what was expected, 5 chunks of earnings call transcripts where Tim Apple is talking about iPhone revenue.</p>
             <h3>The context function</h3>
-            <p>So now we know how to make an index, inset data to it, and then query that index for similar text. Let's make the querying now into one function that an AI assistant can call to autonomously retrieve earnings call context. Here's our single python function:</p>
+            <p>So now we know how to make an index, insert data to it, and then query that index for similar text. Let's make the querying now into one function that an AI assistant can call to autonomously retrieve earnings call context. We want a function where we can retrieve context from a certain query, but we also want to make sure we're filtering on the stock symbol to get the right company and the dates of the earnings call to make sure we're relevant to the original question. Asking "iPhone revenue for the past 5 years" we want to make sure we don't include a mention from ATT in 2010. The point of this function is to take predictable inputs and get predictable outputs that can be interpreted by an AI model. Here's our single python function:</p>
             <pre><code class="language-python">
                 def earnings_context(symbol: str, query: str, start_date: str, end_date: str = None):
 
@@ -318,7 +318,7 @@
     
             </code></pre>
             <p>This function takes our query and some metadata filters to make sure we're getting the right thing, queries our index, and returns a simplified and sorted dictionary we can pass back to our AI assistant so that it knows the logical context it got from the function call.</p>
-            <p>In order to tell an OpenAI assistant what functions it can use we have to define a JSON schema that we'll attach to our assistant. Here is my function definition:</p>
+            <p>In order to tell an OpenAI assistant what functions it can use we have to define a JSON schema that we'll attach to our assistant. This helps tell the AI model what the capabilities are of the tool you're using so that it can call this autonomously and get the most use out of it. Here is my function definition:</p>
             <pre><code class="language-python">
                 {
                     "name": "earnings_context",
@@ -351,9 +351,9 @@
                     }
                   }
             </code></pre>
-            <p>And that's it! Attach this function to an assistant or just use it when calling OpenAI's 'completions' and have it call that function to use only relevant context for answering your questions that can be answered by earnings calls. As far as costs go this is very cheap and much cheaper than passing entire transcripts to the AI model. Even if you didn't care about cost, passing only relevant data is a good way to reduce AI model hallucinations and improve accuracy. Plus it's cool. 😎</p>
+            <p>And that's it! Attach this function to an assistant or just use it when calling OpenAI's 'completions' and have it use our function to get only relevant context for answering your questions that can be answered by earnings calls. As far as costs go this is very cheap and much cheaper than passing entire transcripts to the AI model as well. Even if you didn't care about cost, passing only relevant data is a good way to reduce AI model hallucinations and improve accuracy. Plus it's cool. 😎</p>
             <h2>Areas to improve</h2>
-            <p>There are a few ways I could see this improving, there are ways to make this more efficient cost and data wise as well as with more usage find more relevant and useful data.</p>
+            <p>There are a few ways I could see this improving, there are ways to make this more efficient cost and data wise as well as with be able to find more relevant and useful data.</p>
             <ol>
                 <li>Have the assistant function specify how much context it wants</li><br>
                 <ul>
