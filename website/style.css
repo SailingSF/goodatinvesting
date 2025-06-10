@@ -86,32 +86,55 @@ code {
     font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace !important;
 }
 
+/* Improved image styling */
 img {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 100%;
+    height: auto;
+    margin: 1em auto;
+    display: block;
 }
 
 img.matplot {
-    max-width: 800px;
+    max-width: min(800px, 100%);
+    width: auto;
+    height: auto;
     display: block;
+    margin: 1.5em auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 img.medium {
-    max-width: 60%;
+    max-width: min(60%, 600px);
     display: block;
+    margin: 1em auto;
 }
 
 img.large {
-    max-width: 80%;
+    max-width: min(80%, 800px);
     display: block;
+    margin: 1em auto;
 }
 
+/* Ensure MathJax equations render properly */
 .mjx-chtml {
     max-width: 100%;
     overflow-x: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 1em 0;
+    text-align: center;
+}
+
+/* Block equations */
+.MathJax_Display {
+    text-align: center;
+    margin: 1em 0;
+}
+
+/* Inline equations */
+.MathJax {
+    display: inline;
+    margin: 0;
 }
 
 .retro-title {
