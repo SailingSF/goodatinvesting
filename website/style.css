@@ -375,3 +375,52 @@ code[class*="language-"] {
     font-size: 1em;
     color: #393A34;
 }
+
+/* GitHub Calendar Custom Styles */
+.github-section {
+    max-width: 740px;
+    margin: 0 auto 30px;
+    /* Use GitHub-like fonts */
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.github-section *, .github-section svg text {
+    font-family: inherit;
+}
+
+/* Hide unwanted elements */
+.github-section a[href*="count"],
+.github-section .contrib-footer,
+.github-section p:contains("Learn") {
+    display: none !important;
+}
+
+/* Style the calendar container */
+.github-section .calendar {
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    padding: 20px;
+    background: #fff;
+}
+
+/* Ensure SVG scales nicely */
+.github-section svg {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 676px;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Rounded squares for contributions */
+.github-section rect {
+    rx: 3px;
+    ry: 3px;
+}
+
+/* Loading text styling */
+.github-section .loading {
+    text-align: center;
+    font-style: italic;
+    color: #586069;
+}
