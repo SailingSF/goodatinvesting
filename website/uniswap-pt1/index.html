@@ -22,6 +22,7 @@
         <div class="post">
             <h3>Uniswap V3 Pt.1</h3>
             <h4 class="subtitle">A protocol overview and its math with some commentary on potential applications</h4>
+            <p class="post-date">Published: September 11, 2022</p>
             <h4>A Technical Overview</h4>
             <p>Uniswap V3 has now been out for months and has quickly dominated the DEX market, but I believe we are still in early stages for the potential that this DeFi protocol, primitive, and paradigm. Uniswap has innovated with every iteration and brought forth technology and applications that have not been replicated anywhere else before. This means the features of the protocol don't have a history in TradFi or elsewhere to give us examples of uses and applications to build off of. This makes UniV3 represent a new primitive that is only possible in Web3 and is teeming with potential. </p>
             <p>In this series I will focus on how users can make the most of this protocol with this first post being a broader introduction to its mechanics.</p>
@@ -30,7 +31,7 @@
             <figure><a href="https://miro.medium.com/max/594/1*gh35sRDaNmnVY7S5avb42A.png"><img style="width:340px; margin-left:auto; margin-right: auto; display:block;" src="https://miro.medium.com/max/594/1*gh35sRDaNmnVY7S5avb42A.png"/></a></figure>
             <p>Swapping from one asset to another was simple, but depending on the depth of the pool your swap could move the price quite significantly. This is fine when smaller users are swapping assets (but beware of gas fees) but is not acceptable for whales to swap large amounts in a short period of time. This led to centralized exchanges and OTC (Over The Counter) desks to retain significant market share as doing large swaps on chain was just not feasible. For that matter neither were small swaps once gas fees were factored in, but Uniswap going L2 has mediated that issue significantly.</p>
             <p>The innovation in V3 is the ability to deposit liquidity only in a specific range, greatly increasing the capital efficiency of the Uniswap TVL. LPs now provide their capital only within a specific range which usually follows a normal distribution around the current price. Here is a visualization from <a href="https://metacrypt.org">metacrypt.org</a>.</p>
-            <figure><img style="width:75%; display:block" src="../website/images/univ3_liquidity_distribution.png"/></figure>
+            <figure><img style="width:75%; display:block" src="/website/images/univ3_liquidity_distribution.png"/></figure>
             <p>This capital efficiency obviously helps anyone looking to swap tokens as these liquidity ranges mean swaps with have significantly less price impact and can be done at much larger sizes. What it also helps are liquidity providers receive much higher returns for providing liquidity to this pool. Since your liquidity is now specified within a range, you inherently are providing much more liquidity to receive the swap fees when the price is within your set range. Additionally, the lack of price impact for traders has made volume on each pool has explode, and now you now have more transactions to pay swap fees.</p>
             <p>Liquidity Providers only earn those fees when the price is within their given range, but when the price is in those ranges it is pretty friggin' sweet. Since fees are distributed based on the proportion of liquidity that you are providing a position of WETH/DAI with bounds at $1500 and $1800 would garner much more fees than the same position between $1000 and $2300. But how would we figure out the fees we could get? Or know what ranges to input as a Liquidity Provider? Let's dig in deeper.</p>
             <h4>Math is a really cool thing</h4>
@@ -131,7 +132,7 @@
             <h4>Next time on <del>Dragon Ball Z</del> this blog</h4>
             <p>Instead of daydreaming about what others could build I put together a python function to simulate Uniswap V3 LP positions so we can backtest and get a more visual perspective on how to position our assets and see where and how LPing would be a good decision. Until next time!</p>
         </div>
-        <a id="home" href="../index.html">HOME</a>
+        <a id="home" href="/index.html">HOME</a>
     </div>
 </body>
 
