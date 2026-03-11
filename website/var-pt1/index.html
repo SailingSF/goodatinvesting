@@ -39,6 +39,7 @@
                 Value at Risk
             </h2>
             <h4 class="subtitle">Finding the value risk from holding assets using various methods</h4>
+            <p class="post-date">Published: October 2, 2023</p>
             
             <p>
                 One of the big benefits of crypto and to a lesser extent, stocks, is their liquidity. The ability for a holder of some crypto or equity asset to exchange it for another or cold hard cash increases its value. You know if you suddenly needed stock in a car company or cash to pay rent you can make that happen in minutes to hours. Trading a stock to cash and then withdrawing to another account and then getting paper for it might take a few days but in the grand scheme of things it's quick even if it's glacial compared to crypto.
@@ -68,7 +69,7 @@
                 Losing 20% sounds bad but if we're reasonably (95% sure) that we won't lose more than that, it can help us decide how much of an asset we want to hold. This measure of "risk" helps us determine how much we allocate to different assets. Even if we love Bitcoin, and are certain all world governments will default and the only valuable currency in the world will be the unit of account of some blockchain with less than 1,000,000 blocks, but we don't feel comfortable putting 100% of our savings in something that can be down 10% over a week, maybe we diversify into gold 🥇 and ornamental gourds 🧉 as well.
             </p>
             
-            <img class="matplot" src="../website/images/var/var_assets_normal.png" alt="VaR comparison chart for different assets">
+            <img class="matplot" src="/website/images/var/var_assets_normal.png" alt="VaR comparison chart for different assets">
             
             <p>
                 At a glance this makes sense, the percentages we can expect to lose over 5 days track with our perception of each of these assets. Except for that car company.
@@ -104,7 +105,7 @@
                 If we show a histogram of the returns, along with the assumed normal distribution curve and the VaR we should see how this comes together. Or it will show the shortcomings of this calculation…
             </p>
             
-            <img class="matplot" src="../website/images/var/btc_distribution_normalcurve.png" alt="BTC distribution vs normal curve">
+            <img class="matplot" src="/website/images/var/btc_distribution_normalcurve.png" alt="BTC distribution vs normal curve">
             
             <p>
                 Ok, we've found our first "wrong" assumption, returns are not normally distributed! The blue line shows the normal distribution based on the mean and the standard deviation of the daily returns of BTC for the past two years. We can see this line does not reflect the shape of the distribution at all. I wouldn't rely too heavily on a metric that makes an assumption as big (and wrong) as that. So let's see what else we can do.
@@ -152,7 +153,7 @@
                 Using this way to calculate VaR gets us the slightly different results on our assets than above. Note I am using the last 2 years of data so for crypto that's 730 trading days, and for equities it's 504 trading days.
             </p>
             
-            <img class="matplot" src="../website/images/var/var_assets_sorted.png" alt="VaR comparison using sorted method">
+            <img class="matplot" src="/website/images/var/var_assets_sorted.png" alt="VaR comparison using sorted method">
             
             <p>
                 Ok different, but not that different. Luckily the comparisons hold steady in that crypto is more volatile than a market index or a typewriter maker.
@@ -208,13 +209,13 @@
                 Let's see what both of these distributions look like and then calculate some VaRs from those curves to see if they're any better.
             </p>
             
-            <img class="matplot" src="../website/images/var/btc_distribution_kde_cauchy.png" alt="BTC distribution with KDE and Cauchy curves">
+            <img class="matplot" src="/website/images/var/btc_distribution_kde_cauchy.png" alt="BTC distribution with KDE and Cauchy curves">
             
             <p>
                 While the Cauchy distribution looks pretty good when dealing with the middle of the data we can see that the "fat tail" concept has really hurt our VaR. The tail that's cut off in this graph keeps going and going making the 95th percentile much lower so that our VaR is a bigger negative number and might cause us to think we're risking a lot more money. The histogram is somewhat misleading as well as BTC has returned &lt;7.6% 12 times in the past 2 years, so the Cauchy VaR makes more sense than this plot shows. The issue is purely there's not enough samples to create a visible bin(bar) in the histogram.
             </p>
 
-            <img class="matplot" src="../website/images/var/var_assets_kde_cauchy.png" alt="VaR comparison using KDE and Cauchy methods">
+            <img class="matplot" src="/website/images/var/var_assets_kde_cauchy.png" alt="VaR comparison using KDE and Cauchy methods">
             
             <p>
                 Our KDE VaR does seem "better" and makes more sense with the plot but because we're only working with historical data and the KDE is very data dependent. The dependence on historical data might have the criticism of data mining (finance) or overfitting (math) as it's used to create forward estimations and makes a bigger assumption about forward returns being similar to the past. Maybe there's something we can do to add more data and our own outlook as well.
@@ -232,7 +233,7 @@
                 If you believe your asset will go up in value we should find a way to include that in all of our estimations. No one can know the exact daily movements, but we can assume that volatility will be similar and then we can have our own opinion on the overall direction over a year. If we thought BTC was going to appreciate 20% we could use the past KDE to estimate daily returns but with an annual return of 20% for the next year.
             </p>
             
-            <img class="matplot" src="../website/images/var/btc_prices_forward.png" alt="BTC forward price simulation">
+            <img class="matplot" src="/website/images/var/btc_prices_forward.png" alt="BTC forward price simulation">
             
             <p>
                 That… looks like it makes sense. Let's see how I made that.
@@ -341,7 +342,7 @@ var = monte_carlo_var_kde(prices[-1], kde, 5, 10000)</code></pre>
                 Now if we use our bitcoin returns (sans simulated values) we can get a 5 day VaR and we can plot the 5 day returns from 10,000 simulations to see a smoother distribution from our pretend portfolios.
             </p>
             
-            <img class="matplot" src="../website/images/var/btc_histogram_simulated5day.png" alt="BTC 5-day simulated returns histogram">
+            <img class="matplot" src="/website/images/var/btc_histogram_simulated5day.png" alt="BTC 5-day simulated returns histogram">
             
             <p>
                 The 5 day 95th percentile VaR we get from this method is 11.49%. If we compare that to the one day VaR we calculated multiplied by our square root of 5 days we get:
@@ -371,13 +372,13 @@ var = monte_carlo_var_kde(prices[-1], kde, 5, 10000)</code></pre>
                 Here are all of our assets using this method.
             </p>
             
-            <img class="matplot" src="../website/images/var/var_assets_montecarlo.png" alt="VaR comparison using Monte Carlo method">
+            <img class="matplot" src="/website/images/var/var_assets_montecarlo.png" alt="VaR comparison using Monte Carlo method">
             
             <p>
                 Because I was curious I wanted to see what the relationship between the long timeframe and short timeframe.
             </p>
             
-            <img class="matplot" src="../website/images/var/180var_over_5var.png" alt="Relationship between 180-day and 5-day VaR">
+            <img class="matplot" src="/website/images/var/180var_over_5var.png" alt="Relationship between 180-day and 5-day VaR">
             
             <p>
                 It appears there's somewhat an inverse relationship between the overall volatility of the asset and the difference between short and long time horizons. Interesting, but not so interesting that I'm going to look deeper into that.

@@ -37,11 +37,12 @@
         <div class="post">
             <h1>Value at Risk pt.2 (Diversification)</h1>
             <h4 class="subtitle">The magic of covariance</h4>
+            <p class="post-date">Published: October 27, 2023</p>
 
             <h2>How to reduce the value that we are risking</h2>
             
             <p>
-                Last post I explained the metric of the value at risk (<a href="../website/var_pt1.html">link</a>). We were able to find the value a single asset is risking more accurately with different distributions so that the number we get for a VaR feels more tangible. Holding something like $BTC🟠 or $SPY🕵️ we have a good understanding of what value we can lose over a given timeframe. Measuring the value is one thing though, now we have to minimize that number so that we can prevent some downside.
+                Last post I explained the metric of the value at risk (<a href="/website/var-pt1/">link</a>). We were able to find the value a single asset is risking more accurately with different distributions so that the number we get for a VaR feels more tangible. Holding something like $BTC🟠 or $SPY🕵️ we have a good understanding of what value we can lose over a given timeframe. Measuring the value is one thing though, now we have to minimize that number so that we can prevent some downside.
             </p>
             
             <p>
@@ -57,7 +58,7 @@
             </p>
             
             <p>
-                The holy grail in finance is to find two things with a negative correlation that you think will both go up in the long term. I covered a lot of this in a post I did about beta (<a href="../website/what_is_risk.html">link</a>) but it's important to know that in order to reduce risk we want to find things that move opposite each other over one day periods. If ETH is up ⬆️ we want something like IBM or bonds to be down ⬇️ and vice versa so that over one day periods our portfolio doesn't lose us a lot of money.
+                The holy grail in finance is to find two things with a negative correlation that you think will both go up in the long term. I covered a lot of this in a post I did about beta (<a href="/website/what-is-risk/">link</a>) but it's important to know that in order to reduce risk we want to find things that move opposite each other over one day periods. If ETH is up ⬆️ we want something like IBM or bonds to be down ⬇️ and vice versa so that over one day periods our portfolio doesn't lose us a lot of money.
             </p>
             
             <p>
@@ -94,7 +95,7 @@
                 A portfolio 💼 is just a group of assets with weights that can be though of as a new return series that we can turn into the same charts and histograms as before. Our assembly of different assets with different weights can create a more desirable line on a chart and Value at Risk than a single asset can. Here are some examples to illustrate the possibilities for different types of investors.
             </p>
             
-            <img class="matplot" src="../website/images/var/portfolios_6yr.png" alt="Portfolio performance comparison over 6 years">
+            <img class="matplot" src="/website/images/var/portfolios_6yr.png" alt="Portfolio performance comparison over 6 years">
             
             <p>I have created 4 different "portfolios" here:</p>
             
@@ -113,7 +114,7 @@
                 This chart really highlights the bond bear market and how much is held down the 60/40 (boomer favorite) portfolio. To try to be fair, here is the past 3 years rather than 6 to try to show closer values.
             </p>
             
-            <img class="matplot" src="../website/images/var/portfolios_3yr.png" alt="Portfolio performance comparison over 3 years">
+            <img class="matplot" src="/website/images/var/portfolios_3yr.png" alt="Portfolio performance comparison over 3 years">
             
             <p>
                 Ouch, really not that much better. But maybe we can find a reason someone would own bonds or a 60/40 portfolio. Remember that pure returns and lines on a chart aren't everything. And we can see that crypto portfolio had some wild swings and if we had a shorter time horizon than 3 years, maybe it wasn't a good choice.
@@ -151,7 +152,7 @@
                 While talking about distributions, I have to take this opportunity to post one of the most #rare charts around. How would you visualize multiple distributions at once? Violin plot. 🎻
             </p>
             
-            <img class="matplot" src="../website/images/var/violin_dists.png" alt="Violin plot showing multiple return distributions">
+            <img class="matplot" src="/website/images/var/violin_dists.png" alt="Violin plot showing multiple return distributions">
             
             <p>
                 But back to how to finding the risk of losing 5%, we can calculate a covariance matrix and use the 'Z alpha' term of 1.65 for a normal distribution, orrrr we can find the lower 5% of a using a "Probability Point Function" of a different distribution. We can even use a fun new one. 🤪
@@ -163,7 +164,7 @@
                 You didn't think I'd write this without a fun new distribution did you? Another distribution I've been using that I think suits financial returns even better (by being symmetric and not at risk of overfitting like with KDE) is the Student's T Distribution. Popularized and named by a statistician at the Guinness brewery in Ireland in 1908 it blah blah blah, here's what it looks like.
             </p>
             
-            <img class="matplot" src="../website/images/var/spy_hist_distributions.png" alt="SPY histogram with different distribution fits">
+            <img class="matplot" src="/website/images/var/spy_hist_distributions.png" alt="SPY histogram with different distribution fits">
             
             <p>
                 The Student's T distribution has a parameter "degrees of freedom" with a range from 1 to infinity where 1 makes the the distribution look like the Cauchy distribution (fat tails and higher frequency around the mean) and \(\infty\) as the normal distribution (small tails and lower frequency around the mean).
@@ -177,13 +178,13 @@
             
             <p>Now that we know different ways we can assume a distribution of returns, we can start comparing the Values at Risk for these different distributions.</p>
             
-            <img class="matplot" src="../website/images/var/var_portfolios.png" alt="VaR comparison across different distributions for portfolios">
+            <img class="matplot" src="/website/images/var/var_portfolios.png" alt="VaR comparison across different distributions for portfolios">
             
             <p>
                 Everything looks pretty similar except for the Cauchy which is much higher as it assumes much bigger tails in the distribution. So, the different distributions don't make a huge difference to the calculated VaR and we learned all that math just to barely see a difference in an asset's risk profile. I wouldn't say this is wasted effort though, we understand that even with all of these different distributions, they're not going to change our outcome that much but we understand what a VaR acutally is and we can more confidently use it in building a portfolio.
             </p>
             
-            <img class="matplot" src="../website/images/var/var_returns_hist.png" alt="VaR returns histogram comparison">
+            <img class="matplot" src="/website/images/var/var_returns_hist.png" alt="VaR returns histogram comparison">
             
             <p>
                 The real value we're looking for is how much diversification helps us reduce our risk. So now that we've compared different distribution VaRs to the same asset, let's see what diversification does to our VaR compared to just a single asset of the underlying.
@@ -195,7 +196,7 @@
                 Now let's visualize the power of diversification. Most risk metrics, including VaR, are not the sum of their parts. Meaning 50% an asset with a VaR of 1, and 50% an asset with VaR of 3 does not make a portfolio with a VaR of 2. Due to the correlation or covariance of assets, the Value at Risk of a portfolio can sometimes be less than even the less volatile asset in a portfolio, and at a minimum it's certainly not the weighted average of the underlying assets. We can also include less volatile assets even at lower weights to bring down our VaR but not hurt returns too significantly. I've made a few portfolios and shown the VaR for their underlying components and of the portfolio, as well as the CAGR (Cumulative Annual Growth Rate, or annualized geometric mean) of that portfolio for the past 6 years.
             </p>
             
-            <img class="matplot" src="../website/images/var/portfolio_vars.png" alt="Portfolio VaR vs individual asset VaRs with CAGR">
+            <img class="matplot" src="/website/images/var/portfolio_vars.png" alt="Portfolio VaR vs individual asset VaRs with CAGR">
             
             <p>
                 Hopefully these bar charts are demonstrating that a portfolio's VaR isn't immediately obvious when seeing the underlying assets' risk profile. Also showing the CAGR of the more risky portfolios shows that there is some reward for taking that risk.
@@ -206,7 +207,7 @@
             </p>
             
             <p>
-                On considering how you want to arrange your portfolio, each individual may have a different definition of risk adjusted returns. You could use the Sharpe or Sortino ratios (<a href="../website/sharpe_ratio.html">covered here</a>), or you could want to own a certain asset but know you need a one day liquidity and not have your assets fall by more than X%.
+                On considering how you want to arrange your portfolio, each individual may have a different definition of risk adjusted returns. You could use the Sharpe or Sortino ratios (<a href="/website/sharpe-ratio/">covered here</a>), or you could want to own a certain asset but know you need a one day liquidity and not have your assets fall by more than X%.
             </p>
             
             <p>
@@ -357,14 +358,14 @@ def var_portfolio_studentt(price_list, weights = 'equal', alpha = 0.95):
             </p>
             
             <p>
-                While I wouldn't expect anyone to use this function to direct all of their investments, it does help illustrate Value at Risk as well as the relationship of anti-correlated (negative covariance) assets. For instance in this function if you want to maximize your MKR exposure but your significant other will beat you up if you lose more than 5% of your portfolio in a day you can input that here with some other desired assets. If you put short term bonds in there like the SHY ETF, you'll get to hold more MKR but you other exposure is essentially cash. An optimized MKR portfolio with a max VaR of 5% would be 61% MKR and 39% SHY for a CAGR over the last 5 years of 27%. Spelling it out like that it doesn't sound that good. 10% is less than the S&P 500 over the same period, and the VaR of just the SPY ETF is 1.8%. So it probably would've been better to just own that. But this function isn't for optimizing for a Sharpe ratio (<a href="../website/sharpe_ratio.html">link, si tu veux</a>) where we try to balance risk and return. That can be done another time.
+                While I wouldn't expect anyone to use this function to direct all of their investments, it does help illustrate Value at Risk as well as the relationship of anti-correlated (negative covariance) assets. For instance in this function if you want to maximize your MKR exposure but your significant other will beat you up if you lose more than 5% of your portfolio in a day you can input that here with some other desired assets. If you put short term bonds in there like the SHY ETF, you'll get to hold more MKR but you other exposure is essentially cash. An optimized MKR portfolio with a max VaR of 5% would be 61% MKR and 39% SHY for a CAGR over the last 5 years of 27%. Spelling it out like that it doesn't sound that good. 10% is less than the S&P 500 over the same period, and the VaR of just the SPY ETF is 1.8%. So it probably would've been better to just own that. But this function isn't for optimizing for a Sharpe ratio (<a href="/website/sharpe-ratio/">link, si tu veux</a>) where we try to balance risk and return. That can be done another time.
             </p>
             
             <p>
                 You can also pick and choose what assets you'll let be in your portfolio. If you refuse to own bonds you can try passing just crypto and stock. For instance if you did that with MKR, ETH, BTC, and SPY with a VaR not exceeding 5% again this function would recommend a portfolio of just MKR and IBM at 59/41. So less MKR, but not much less, and the returns of this portfolio will be higher, or at least it was in the past.
             </p>
             
-            <img class="matplot" src="../website/images/var/mkr_maxi.png" alt="MKR maximized portfolio performance comparison">
+            <img class="matplot" src="/website/images/var/mkr_maxi.png" alt="MKR maximized portfolio performance comparison">
             
             <p>
                 We can see we get the huge one day boosts when MKR does well and the drawdowns are limited since we rebalance to our other asset. We can also see that just holding more of MKR doesn't mean we get higher returns, both of these portfolios have a 5% VaR and we optimized for MKR holdings, not any risk adjusted returns. So, theoretically, we <em>could</em> optimize for that. 🧐
@@ -376,7 +377,7 @@ def var_portfolio_studentt(price_list, weights = 'equal', alpha = 0.95):
             
             <p>Adieu.</p>
             
-            <p><a href="../index.html">HOME</a></p>
+            <p><a href="/index.html">HOME</a></p>
         </div>
     </div>
 </body>
