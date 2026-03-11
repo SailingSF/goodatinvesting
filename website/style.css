@@ -125,6 +125,45 @@ img.large {
     margin: 1em auto;
 }
 
+img.matplot-wide {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: 1.5em auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+table.compact {
+    margin: 1.5em auto;
+    border-collapse: collapse;
+    font-size: 11pt;
+    width: auto;
+}
+
+table.compact th,
+table.compact td {
+    border: 1px solid #ccc;
+    padding: 6px 14px;
+    text-align: center;
+}
+
+table.compact thead {
+    background-color: #f0f0f0;
+}
+
+table.compact th {
+    font-weight: bold;
+    font-size: 10pt;
+    color: #444;
+}
+
+table.compact td {
+    color: #333;
+}
+
 /* Ensure MathJax equations render properly */
 .mjx-chtml {
     max-width: 100%;

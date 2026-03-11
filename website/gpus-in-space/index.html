@@ -41,14 +41,14 @@
          <h2>GPU Specs</h2>
             <p>To keep this model grounded, I needed a reference system. I used NVIDIA's GB200 NVL72 rack: 72 Blackwell B200 GPUs, about 120 kW of compute, and about 3,000 kg on Earth. This is the latest and greatest that you can get today.</p>
 
-            <table>
+            <table class="compact">
                 <thead>
                     <tr>
                         <th>GPU Rack</th>
                         <th>GPUs</th>
                         <th>Compute Energy</th>
                         <th>Weight (On Earth)</th>
-                        <th>Weight (Assumed Space Mode)</th>
+                        <th>Weight (Space Mode)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,7 +64,7 @@
 
             <p>For the orbital version, I stripped out the terrestrial cooling hardware, enclosure, and as much structural dead weight as I could justify, taking that down to roughly 750 kg in what I'll call <strong>Space Mode&trade;</strong>.</p>
             <p>The goal is simple: take the same kind of chips you'd use in a terrestrial inference* datacenter and ask what it would take to build the orbital equivalent.</p>
-            <p><small>*inference in AI means serving already trained models. This will have lower power demands per chip and is the part of AI that will need the most scaling. This is a concession made by Dwarkesh's steel-manning of orbital datacenters: <a href="https://www.dwarkesh.com/p/notes-on-space-gpus">https://www.dwarkesh.com/p/notes-on-space-gpus</a></small></p>
+            <p id="caption">*Inference in AI means serving already trained models. This will have lower power demands per chip and is the part of AI that will need the most scaling. This is a concession made by Dwarkesh's <a href="https://www.dwarkesh.com/p/notes-on-space-gpus">steel-manning of orbital datacenters</a>.</p>
             <p>From here, everything reduces to two questions: how do you power the GPUs, and how do you get rid of the heat?</p>
             <p>On Earth, power is the hard part. Solar has clouds and nighttime, gas turbines come with permitting fights, and grid interconnection is slow and painful. Cooling, by comparison, is relatively manageable because air and water easily move that heat elsewhere.</p>
             <p>In space, that trade flips. Power is easier to find. Cooling is where the fantasy starts to fall apart.</p>
@@ -83,7 +83,7 @@
             <p>We're using \(q_{emit}\) as how much energy we emit per area of radiator so that we know how big of a radiator we need to attach to our orbiting GPU rack. \(T_{rad}\) (radiator temperature) we can try to fluctuate and \(T_{sink}\) (space temperature) is constant, the rest of the variables are constants and efficiency numbers.</p>
             <p>When we use a realistic temperature for the radiator which will be the temperature of the GPU minus some resistance loss from the chip to the radiator material we see how key high temperatures are for making this radiator work.</p>
 
-            <img class="matplot" alt="Radiator sizing chart showing area needed vs GPU temperature" src="/website/gpus-in-space/images/radiator_sizing.png">
+            <img class="matplot-wide" alt="Radiator sizing chart showing area needed vs GPU temperature" src="/website/gpus-in-space/images/radiator_sizing.png">
 
             <p>So the hotter the GPU the more efficient our radiator. NVIDIA specifies that the maximum temperature for their B200s is \(83^oC\), we can hope that with some modifications or a future NVIDIA chip, we'll be able to operate a little bit hotter.</p>
             <p>In my model I chose \(90^o C\) for the GPU operating temperature and a \(30^o\) drop off temperature to the radiator to account for internal resistance. You can see my baseline selection on the left chart, which give a \(243.4 \, m^2\) area and a \(486.7 \, kg\) mass using an optimistic aluminum honeycomb radiator.</p>
@@ -96,14 +96,14 @@
             <p>The next consideration to make for our satellites is how often are they getting sunshine (and thus power). You can absolutely make satellites that get 24/7 sunshine in polar orbit. In our model we use a mix of orbits to not crowd any one area which in theory would improve communication and make placing them easier. Assuming we have perfect inter-satellite data links and down to earth (a big but reasonable assumption for SpaceX/Starlink) we can create a constellation with an average sunlight of &gt;95% to support continuous uptime.</p>
             <p>As you go in higher elevation you get more sunlight too, as the earth becomes smaller to the satellite and doesn't block the sun as often. Going higher also means it costs more money to get a satellite there, so we can try to minimize that.</p>
 
-            <img class="matplot" alt="Sunlight fractions by orbit angle and altitude" src="/website/gpus-in-space/images/sunlight_fractions.png">
+            <img class="matplot-wide" alt="Sunlight fractions by orbit angle and altitude" src="/website/gpus-in-space/images/sunlight_fractions.png">
 
             <p>On the left we can see as we vary beta (angle of orbit to the sun 0 being around the equator, 90 being around the poles but looking at the sun) and altitude we can get different percentages of sunlight time. On the right shows the fraction of sunlight time for a equator orbiting satellite as we increase altitude.</p>
             <p>In low orbit, the Earth gets in the way a lot. Satellites regularly pass through eclipse, which means no sunlight and no solar generation.</p>
             <p>You can solve that with batteries, but batteries are just more mass, which means more launch cost. So instead of pretending batteries are free, I modeled a constellation that gets most of its uptime from orbit selection and geometry.</p>
             <p>Using the modeling in my notebook I chose a mixed plane constellation with an average altitude at 7,000m and a beta breakdown below to create a constellation with &gt;95% sun time and even coverage.</p>
 
-            <table>
+            <table class="compact">
                 <thead>
                     <tr>
                         <th>Beta</th>
@@ -147,12 +147,12 @@
             <p>That means the overwhelming majority of the project cost is not compute. It is self-inflicted orbital inconvenience.</p>
             <p>Below is a breakdown of the mass for each satellite along with the costs of other datacenter sizes.</p>
 
-            <img class="matplot" alt="Cost breakdown of orbital datacenter components" src="/website/gpus-in-space/images/cost_breakdown.png">
+            <img class="matplot-wide" alt="Cost breakdown of orbital datacenter components" src="/website/gpus-in-space/images/cost_breakdown.png">
 
          <hr>
 
             <p>Using the "Space Premium" we can decide if it's worth it to do this at all. With that same budget, could you buy land, secure power, build cooling, bribe regulators and politicians, and stand up a terrestrial facility of the same size?</p>
-            <p>Easily.</p>
+            <p><strong>Easily.</strong></p>
 
          <hr>
 
