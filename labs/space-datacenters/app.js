@@ -163,12 +163,17 @@ function buildDollarAxis(maxValue) {
   return { tickvals, ticktext, top };
 }
 
-function applyRangeConfig(inputEl, valueEl, config, formatter) {
+function applyRangeConfig(inputEl, valueEl, config, options = {}) {
+  const { percent = false, decimals = 0 } = options;
+  const scale = percent ? 100 : 1;
   inputEl.min = config.min;
   inputEl.max = config.max;
   inputEl.step = config.step;
   inputEl.value = config.default;
-  valueEl.textContent = formatter(config.default);
+  valueEl.min = config.min * scale;
+  valueEl.max = config.max * scale;
+  valueEl.step = percent ? (config.step * scale) : config.step;
+  valueEl.value = (config.default * scale).toFixed(decimals);
 }
 
 function formatReferenceTokens(ids, options = {}) {
@@ -431,17 +436,17 @@ function configureBetaEditor(defaults) {
 }
 
 function updateValueLabels() {
-  els.datacenterMwValue.textContent = `${Number(els.datacenterMw.value).toFixed(0)} MW`;
-  els.altitudeKmValue.textContent = `${Number(els.altitudeKm.value).toFixed(0)} km`;
-  els.gpuTempValue.textContent = `${Number(els.gpuTemp.value).toFixed(0)} °C`;
-  els.transportDeltaTValue.textContent = `${Number(els.transportDeltaT.value).toFixed(0)} °C`;
-  els.overheadFracValue.textContent = `${(Number(els.overheadFrac.value) * 100).toFixed(1)}%`;
-  els.launchBaseCostValue.textContent = `${formatCurrency(Number(els.launchBaseCost.value), { compact: false })} / kg`;
-  els.ispTransferValue.textContent = `${Number(els.ispTransfer.value).toFixed(0)} s`;
-  els.propulsionStructFracValue.textContent = `${(Number(els.propulsionStructFrac.value) * 100).toFixed(1)}%`;
-  els.arraySpecificPowerValue.textContent = `${Number(els.arraySpecificPower.value).toFixed(0)} W/kg`;
-  els.epsilonValue.textContent = Number(els.epsilon.value).toFixed(2);
-  els.radiatorArealDensityValue.textContent = `${Number(els.radiatorArealDensity.value).toFixed(1)} kg/m²`;
+  els.datacenterMwValue.value = Number(els.datacenterMw.value).toFixed(0);
+  els.altitudeKmValue.value = Number(els.altitudeKm.value).toFixed(0);
+  els.gpuTempValue.value = Number(els.gpuTemp.value).toFixed(0);
+  els.transportDeltaTValue.value = Number(els.transportDeltaT.value).toFixed(0);
+  els.overheadFracValue.value = (Number(els.overheadFrac.value) * 100).toFixed(1);
+  els.launchBaseCostValue.value = Number(els.launchBaseCost.value).toFixed(0);
+  els.ispTransferValue.value = Number(els.ispTransfer.value).toFixed(0);
+  els.propulsionStructFracValue.value = (Number(els.propulsionStructFrac.value) * 100).toFixed(1);
+  els.arraySpecificPowerValue.value = Number(els.arraySpecificPower.value).toFixed(0);
+  els.epsilonValue.value = Number(els.epsilon.value).toFixed(2);
+  els.radiatorArealDensityValue.value = Number(els.radiatorArealDensity.value).toFixed(1);
   const selectedLaunchPreset = state.defaults.launch_cost_presets[els.launchPreset.value];
   els.launchBaselineAltValue.textContent = `${selectedLaunchPreset.base_alt_km.toFixed(0)} km`;
 }
@@ -1250,7 +1255,7 @@ function renderAll() {
 }
 
 function updateConstellationSpeedLabel() {
-  els.constellationSpeedValue.textContent = `${state.constellationSpeedRps.toFixed(2)} rev/s`;
+  els.constellationSpeedValue.value = state.constellationSpeedRps.toFixed(2);
 }
 
 function updateConstellationPlayButton() {
@@ -1310,11 +1315,53 @@ function scheduleRender() {
   state.renderTimer = setTimeout(renderAll, 110);
 }
 
+function wireNumberInputs() {
+  const pairs = [
+    { range: els.datacenterMw, number: els.datacenterMwValue, decimals: 0 },
+    { range: els.altitudeKm, number: els.altitudeKmValue, decimals: 0 },
+    { range: els.gpuTemp, number: els.gpuTempValue, decimals: 0 },
+    { range: els.transportDeltaT, number: els.transportDeltaTValue, decimals: 0 },
+    { range: els.overheadFrac, number: els.overheadFracValue, percent: true, decimals: 1 },
+    { range: els.launchBaseCost, number: els.launchBaseCostValue, decimals: 0 },
+    { range: els.ispTransfer, number: els.ispTransferValue, decimals: 0 },
+    { range: els.propulsionStructFrac, number: els.propulsionStructFracValue, percent: true, decimals: 1 },
+    { range: els.arraySpecificPower, number: els.arraySpecificPowerValue, decimals: 0 },
+    { range: els.epsilon, number: els.epsilonValue, decimals: 2 },
+    { range: els.radiatorArealDensity, number: els.radiatorArealDensityValue, decimals: 1 }
+  ];
+
+  pairs.forEach(({ range, number, percent, decimals }) => {
+    const scale = percent ? 100 : 1;
+
+    range.addEventListener("input", () => {
+      number.value = (Number(range.value) * scale).toFixed(decimals);
+    });
+
+    const syncRangeFromNumber = () => {
+      const raw = Number(number.value) / scale;
+      const clamped = clampValue(raw, Number(range.min), Number(range.max));
+      range.value = clamped;
+      number.value = (clamped * scale).toFixed(decimals);
+      scheduleRender();
+    };
+
+    number.addEventListener("change", syncRangeFromNumber);
+    number.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        syncRangeFromNumber();
+      }
+    });
+  });
+}
+
 function wireEvents() {
   state.controls.forEach((el) => {
     el.addEventListener("input", scheduleRender);
     el.addEventListener("change", scheduleRender);
   });
+
+  wireNumberInputs();
 
   els.launchPreset.addEventListener("change", () => {
     const preset = state.defaults.launch_cost_presets[els.launchPreset.value];
@@ -1377,6 +1424,24 @@ function wireEvents() {
     }
   });
 
+  const syncConstellationSpeed = () => {
+    const raw = Number(els.constellationSpeedValue.value);
+    const clamped = clampValue(raw, 0, 1.4);
+    els.constellationSpeed.value = clamped;
+    els.constellationSpeedValue.value = clamped.toFixed(2);
+    state.constellationSpeedRps = clamped;
+    if (!state.constellationAnimating) {
+      redrawConstellationScene();
+    }
+  };
+  els.constellationSpeedValue.addEventListener("change", syncConstellationSpeed);
+  els.constellationSpeedValue.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      syncConstellationSpeed();
+    }
+  });
+
   window.addEventListener("resize", scheduleRender);
 }
 
@@ -1401,47 +1466,17 @@ function configureControls(defaults) {
   });
   els.launchPreset.value = defaults.ranges.launch_preset.default;
 
-  applyRangeConfig(els.datacenterMw, els.datacenterMwValue, defaults.ranges.datacenter_mw, (v) => `${v} MW`);
-  applyRangeConfig(els.altitudeKm, els.altitudeKmValue, defaults.ranges.altitude_km, (v) => `${v} km`);
-  applyRangeConfig(els.gpuTemp, els.gpuTempValue, defaults.ranges.gpu_temp_c, (v) => `${v} °C`);
-  applyRangeConfig(els.transportDeltaT, els.transportDeltaTValue, defaults.ranges.transport_delta_t_c, (v) => `${v} °C`);
-  applyRangeConfig(els.overheadFrac, els.overheadFracValue, defaults.ranges.overhead_frac, (v) => `${(v * 100).toFixed(1)}%`);
-  applyRangeConfig(
-    els.launchBaseCost,
-    els.launchBaseCostValue,
-    defaults.ranges.launch_base_cost_per_kg,
-    (v) => `${formatCurrency(v)} / kg`
-  );
-  applyRangeConfig(
-    els.ispTransfer,
-    els.ispTransferValue,
-    defaults.ranges.isp_transfer_s,
-    (v) => `${v} s`
-  );
-  applyRangeConfig(
-    els.propulsionStructFrac,
-    els.propulsionStructFracValue,
-    defaults.ranges.propulsion_struct_frac,
-    (v) => `${(v * 100).toFixed(1)}%`
-  );
-  applyRangeConfig(
-    els.arraySpecificPower,
-    els.arraySpecificPowerValue,
-    defaults.ranges.array_specific_power_w_per_kg,
-    (v) => `${v} W/kg`
-  );
-  applyRangeConfig(
-    els.epsilon,
-    els.epsilonValue,
-    defaults.ranges.epsilon,
-    (v) => Number(v).toFixed(2)
-  );
-  applyRangeConfig(
-    els.radiatorArealDensity,
-    els.radiatorArealDensityValue,
-    defaults.ranges.radiator_areal_density_kg_per_m2,
-    (v) => `${Number(v).toFixed(1)} kg/m²`
-  );
+  applyRangeConfig(els.datacenterMw, els.datacenterMwValue, defaults.ranges.datacenter_mw, { decimals: 0 });
+  applyRangeConfig(els.altitudeKm, els.altitudeKmValue, defaults.ranges.altitude_km, { decimals: 0 });
+  applyRangeConfig(els.gpuTemp, els.gpuTempValue, defaults.ranges.gpu_temp_c, { decimals: 0 });
+  applyRangeConfig(els.transportDeltaT, els.transportDeltaTValue, defaults.ranges.transport_delta_t_c, { decimals: 0 });
+  applyRangeConfig(els.overheadFrac, els.overheadFracValue, defaults.ranges.overhead_frac, { percent: true, decimals: 1 });
+  applyRangeConfig(els.launchBaseCost, els.launchBaseCostValue, defaults.ranges.launch_base_cost_per_kg, { decimals: 0 });
+  applyRangeConfig(els.ispTransfer, els.ispTransferValue, defaults.ranges.isp_transfer_s, { decimals: 0 });
+  applyRangeConfig(els.propulsionStructFrac, els.propulsionStructFracValue, defaults.ranges.propulsion_struct_frac, { percent: true, decimals: 1 });
+  applyRangeConfig(els.arraySpecificPower, els.arraySpecificPowerValue, defaults.ranges.array_specific_power_w_per_kg, { decimals: 0 });
+  applyRangeConfig(els.epsilon, els.epsilonValue, defaults.ranges.epsilon, { decimals: 2 });
+  applyRangeConfig(els.radiatorArealDensity, els.radiatorArealDensityValue, defaults.ranges.radiator_areal_density_kg_per_m2, { decimals: 1 });
 
   const initialLaunchPreset = defaults.launch_cost_presets[els.launchPreset.value];
   els.launchBaseCost.value = initialLaunchPreset.base_cost_per_kg;

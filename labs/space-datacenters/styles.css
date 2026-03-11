@@ -163,7 +163,7 @@ label {
   content: attr(data-tooltip);
   position: absolute;
   left: 50%;
-  top: calc(100% + 0.45rem);
+  bottom: calc(100% + 0.45rem);
   transform: translateX(-50%);
   width: min(300px, 72vw);
   background: linear-gradient(165deg, #2f1a4a, #4a2e67);
@@ -185,12 +185,13 @@ label {
   content: "";
   position: absolute;
   left: 50%;
-  top: calc(100% + 0.15rem);
+  bottom: calc(100% + 0.15rem);
   transform: translateX(-50%);
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
-  border-bottom: 6px solid #3a2458;
+  border-top: 6px solid #3a2458;
   opacity: 0;
+  pointer-events: none;
   z-index: 31;
 }
 
@@ -416,6 +417,61 @@ output {
   font-weight: 500;
 }
 
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.slider-row input[type="range"] {
+  flex: 1;
+  min-width: 0;
+}
+
+.value-with-unit {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.value-input {
+  width: 4.5rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.25rem 0.35rem;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: right;
+  color: var(--ink);
+  background: #fffdff;
+  -moz-appearance: textfield;
+}
+
+.value-input::-webkit-inner-spin-button,
+.value-input::-webkit-outer-spin-button {
+  opacity: 1;
+  height: 1.2rem;
+}
+
+.value-input:focus {
+  outline: 2px solid var(--accent-cool);
+  outline-offset: 1px;
+  border-color: var(--accent-cool);
+}
+
+.value-input.wide {
+  width: 5.5rem;
+}
+
+.value-unit {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
 input[type="range"] {
   width: 100%;
   accent-color: #be49df;
@@ -563,8 +619,9 @@ select {
   flex: 1;
 }
 
-.constellation-speed-control output {
+.constellation-speed-control .value-input {
   font-size: 0.8rem;
+  width: 3.5rem;
 }
 
 .constellation-family-cards {

@@ -41,8 +41,13 @@
               Datacenter size to replace
               <button type="button" class="tooltip-trigger" data-tooltip-key="datacenter_mw" aria-label="Datacenter size help">i</button>
             </span>
-            <output id="datacenter-mw-value"></output>
-            <input id="datacenter-mw" type="range" />
+            <span class="slider-row">
+              <input id="datacenter-mw" type="range" />
+              <span class="value-with-unit">
+                <input type="number" id="datacenter-mw-value" class="value-input" />
+                <span class="value-unit">MW</span>
+              </span>
+            </span>
           </label>
 
           <label>
@@ -50,8 +55,13 @@
               Altitude
               <button type="button" class="tooltip-trigger" data-tooltip-key="altitude_km" aria-label="Altitude help">i</button>
             </span>
-            <output id="altitude-km-value"></output>
-            <input id="altitude-km" type="range" />
+            <span class="slider-row">
+              <input id="altitude-km" type="range" />
+              <span class="value-with-unit">
+                <input type="number" id="altitude-km-value" class="value-input" />
+                <span class="value-unit">km</span>
+              </span>
+            </span>
           </label>
 
           <section class="focus-controls" aria-labelledby="focus-controls-title">
@@ -74,8 +84,13 @@
                 Base launch cost (to baseline altitude)
                 <button type="button" class="tooltip-trigger" data-tooltip-key="launch_base_cost_per_kg" aria-label="Base launch cost help">i</button>
               </span>
-              <output id="launch-base-cost-per-kg-value"></output>
+            <span class="slider-row">
               <input id="launch-base-cost-per-kg" type="range" />
+              <span class="value-with-unit">
+                <input type="number" id="launch-base-cost-per-kg-value" class="value-input wide" />
+                <span class="value-unit">$/kg</span>
+              </span>
+            </span>
             </label>
 
             <label>
@@ -83,8 +98,13 @@
                 Transfer Isp
                 <button type="button" class="tooltip-trigger" data-tooltip-key="isp_transfer_s" aria-label="Transfer Isp help">i</button>
               </span>
-              <output id="isp-transfer-s-value"></output>
+            <span class="slider-row">
               <input id="isp-transfer-s" type="range" />
+              <span class="value-with-unit">
+                <input type="number" id="isp-transfer-s-value" class="value-input" />
+                <span class="value-unit">s</span>
+              </span>
+            </span>
             </label>
 
             <label>
@@ -92,8 +112,13 @@
                 Propulsion dry-mass fraction
                 <button type="button" class="tooltip-trigger" data-tooltip-key="propulsion_struct_frac" aria-label="Propulsion dry-mass fraction help">i</button>
               </span>
-              <output id="propulsion-struct-frac-value"></output>
+            <span class="slider-row">
               <input id="propulsion-struct-frac" type="range" />
+              <span class="value-with-unit">
+                <input type="number" id="propulsion-struct-frac-value" class="value-input" />
+                <span class="value-unit">%</span>
+              </span>
+            </span>
             </label>
 
             <p class="control-note">
@@ -107,8 +132,13 @@
                 Solar array specific power
                 <button type="button" class="tooltip-trigger" data-tooltip-key="array_specific_power_w_per_kg" aria-label="Array specific power help">i</button>
               </span>
-              <output id="array-specific-power-w-per-kg-value"></output>
+            <span class="slider-row">
               <input id="array-specific-power-w-per-kg" type="range" />
+              <span class="value-with-unit">
+                <input type="number" id="array-specific-power-w-per-kg-value" class="value-input" />
+                <span class="value-unit">W/kg</span>
+              </span>
+            </span>
             </label>
 
             <label>
@@ -116,8 +146,12 @@
                 Radiator emissivity
                 <button type="button" class="tooltip-trigger" data-tooltip-key="epsilon" aria-label="Radiator emissivity help">i</button>
               </span>
-              <output id="epsilon-value"></output>
+            <span class="slider-row">
               <input id="epsilon" type="range" />
+              <span class="value-with-unit">
+                <input type="number" id="epsilon-value" class="value-input" />
+              </span>
+            </span>
             </label>
 
             <label>
@@ -125,8 +159,13 @@
                 Radiator areal density
                 <button type="button" class="tooltip-trigger" data-tooltip-key="radiator_areal_density_kg_per_m2" aria-label="Radiator areal density help">i</button>
               </span>
-              <output id="radiator-areal-density-value"></output>
+            <span class="slider-row">
               <input id="radiator-areal-density" type="range" />
+              <span class="value-with-unit">
+                <input type="number" id="radiator-areal-density-value" class="value-input" />
+                <span class="value-unit">kg/m²</span>
+              </span>
+            </span>
             </label>
 
             <div id="parameter-anchor-cards" class="parameter-anchor-cards"></div>
@@ -140,8 +179,13 @@
                 GPU temperature
                 <button type="button" class="tooltip-trigger" data-tooltip-key="gpu_temp_c" aria-label="GPU temperature help">i</button>
               </span>
-              <output id="gpu-temp-c-value"></output>
+            <span class="slider-row">
               <input id="gpu-temp-c" type="range" />
+              <span class="value-with-unit">
+                <input type="number" id="gpu-temp-c-value" class="value-input" />
+                <span class="value-unit">°C</span>
+              </span>
+            </span>
             </label>
 
             <label>
@@ -149,8 +193,13 @@
                 Transport temperature drop (delta T)
                 <button type="button" class="tooltip-trigger" data-tooltip-key="transport_delta_t_c" aria-label="Transport delta T help">i</button>
               </span>
-              <output id="transport-delta-t-c-value"></output>
+            <span class="slider-row">
               <input id="transport-delta-t-c" type="range" />
+              <span class="value-with-unit">
+                <input type="number" id="transport-delta-t-c-value" class="value-input" />
+                <span class="value-unit">°C</span>
+              </span>
+            </span>
             </label>
 
             <label>
@@ -158,8 +207,13 @@
                 Overhead fraction
                 <button type="button" class="tooltip-trigger" data-tooltip-key="overhead_frac" aria-label="Overhead fraction help">i</button>
               </span>
-              <output id="overhead-frac-value"></output>
+            <span class="slider-row">
               <input id="overhead-frac" type="range" />
+              <span class="value-with-unit">
+                <input type="number" id="overhead-frac-value" class="value-input" />
+                <span class="value-unit">%</span>
+              </span>
+            </span>
             </label>
 
             <label>
@@ -236,8 +290,13 @@
               <button type="button" id="constellation-play-toggle" class="constellation-play-toggle">Pause Motion</button>
               <label class="constellation-speed-control">
                 Orbit motion speed
-                <output id="constellation-speed-value"></output>
-                <input id="constellation-speed" type="range" min="0" max="1.4" step="0.05" />
+                <span class="slider-row">
+                  <input id="constellation-speed" type="range" min="0" max="1.4" step="0.05" />
+                  <span class="value-with-unit">
+                    <input type="number" id="constellation-speed-value" class="value-input" min="0" max="1.4" step="0.05" />
+                    <span class="value-unit">rev/s</span>
+                  </span>
+                </span>
               </label>
             </div>
             <div id="chart-constellation" class="chart constellation-chart"></div>
