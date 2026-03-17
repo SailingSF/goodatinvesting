@@ -18,6 +18,12 @@
         Tune key assumptions from the notebook model and see how much extra CAPEX is required to place
         equivalent GPU compute in orbit.
       </p>
+      <p>
+        The <strong>Space Premium</strong> is the gap between a space-based GPU fleet and simply buying
+        the same GPU hardware for a terrestrial datacenter. It captures every space-specific cost: launch,
+        solar arrays to power the chips, radiators to cool them, and satellite bus structure. Adjust the
+        inputs on the left and watch the premium respond in real time.
+      </p>
     </header>
 
     <main class="layout">
@@ -31,8 +37,15 @@
             <strong>satellite mass</strong> respond.
           </p>
           <p>
+            <strong>Three things to try first:</strong> (1) Change <em>Compute module preset</em>
+            to Vera Rubin Space-1 to see how a higher-TDP chip shifts the fleet cost.
+            (2) Drag <em>Altitude</em> from 550 km to 7,000 km to see the launch penalty climb.
+            (3) Halve the <em>Base launch cost</em> (Starship scenario) to see how dominant
+            launch economics are.
+          </p>
+          <p>
             Use the <span class="tooltip-inline">i</span> icons beside each parameter for plain-language definitions
-            and a good starting value.
+            and source references.
           </p>
         </div>
         <form id="controls-form">
@@ -48,11 +61,12 @@
                 <span class="value-unit">MW</span>
               </span>
             </span>
+            <p class="control-note">How much terrestrial compute capacity to match. Larger values scale the whole fleet proportionally — the Space Premium grows linearly here.</p>
           </label>
 
           <label>
             <span class="label-heading">
-              Altitude
+              Orbital altitude
               <button type="button" class="tooltip-trigger" data-tooltip-key="altitude_km" aria-label="Altitude help">i</button>
             </span>
             <span class="slider-row">
@@ -62,13 +76,14 @@
                 <span class="value-unit">km</span>
               </span>
             </span>
+            <p class="control-note">Higher orbits cost exponentially more to reach via the Hohmann transfer penalty. LEO (~550 km) is cheapest; MEO (~7,000 km) is the notebook baseline; GEO (~35,786 km) is extremely expensive to reach.</p>
           </label>
 
           <section class="focus-controls" aria-labelledby="focus-controls-title">
-            <h3 id="focus-controls-title">Notebook-anchored sensitivity knobs</h3>
+            <h3 id="focus-controls-title">Key sensitivity knobs</h3>
             <p class="control-note">
-              These are the main parameters carried over from the notebook references for launch economics,
-              solar-array mass efficiency, and radiator performance.
+              These are the parameters with the biggest effect on the Space Premium. Anchor values
+              come from the notebook references; the cards below each group show the specific numbers.
             </p>
 
             <label>
@@ -77,6 +92,7 @@
                 <button type="button" class="tooltip-trigger" data-tooltip-key="compute_preset" aria-label="Compute module preset help">i</button>
               </span>
               <select id="compute-preset"></select>
+              <p class="control-note">Sets the GPU chip generation: rack power (kW), module mass (kg), and cost anchor ($/kW). The anchor cards below update to match the selected chip.</p>
             </label>
 
             <label>
@@ -113,6 +129,7 @@
                 <span class="value-unit">s</span>
               </span>
             </span>
+            <p class="control-note">Specific impulse of the kick stage used to raise orbit above the baseline altitude. Higher Isp = less propellant mass needed = lower altitude penalty.</p>
             </label>
 
             <label>
@@ -127,6 +144,7 @@
                 <span class="value-unit">%</span>
               </span>
             </span>
+            <p class="control-note">Kick-stage hardware mass as a share of propellant mass. The hardware also has to be launched, so a higher fraction makes altitude changes more expensive.</p>
             </label>
 
             <p class="control-note">
@@ -147,6 +165,7 @@
                 <span class="value-unit">W/kg</span>
               </span>
             </span>
+            <p class="control-note">How many watts of solar power each kilogram of array delivers. Higher values mean lighter arrays, which cuts both array mass and launch cost. Solar arrays are the largest mass driver at high altitudes.</p>
             </label>
 
             <label>
@@ -160,6 +179,7 @@
                 <input type="number" id="epsilon-value" class="value-input" />
               </span>
             </span>
+            <p class="control-note">How efficiently the radiator surface radiates heat to space (1.0 = perfect blackbody). Higher emissivity means more heat rejection per m², so smaller and lighter radiators.</p>
             </label>
 
             <label>
@@ -174,6 +194,7 @@
                 <span class="value-unit">kg/m²</span>
               </span>
             </span>
+            <p class="control-note">Mass per square meter of radiator panel. A heavier radiator per m² directly increases satellite mass and launch cost, since more area is needed to reject the full compute heat load.</p>
             </label>
 
             <div id="parameter-anchor-cards" class="parameter-anchor-cards"></div>
@@ -181,10 +202,11 @@
 
           <details class="advanced-controls">
             <summary>Advanced thermal and fleet assumptions</summary>
+            <p class="control-note">These settings affect the thermal sizing model and orbital sunlight geometry. They have smaller effects than launch cost and altitude for most scenarios, but matter at the margins — particularly GPU temperature for radiator sizing.</p>
 
             <label>
               <span class="label-heading">
-                GPU temperature
+                GPU junction temperature
                 <button type="button" class="tooltip-trigger" data-tooltip-key="gpu_temp_c" aria-label="GPU temperature help">i</button>
               </span>
             <span class="slider-row">
@@ -194,11 +216,12 @@
                 <span class="value-unit">°C</span>
               </span>
             </span>
+            <p class="control-note">Operating temperature of the GPU heat source. The radiator must stay cooler than this (minus the transport delta T below). Higher values allow a warmer — and therefore more efficient — radiator, reducing required area.</p>
             </label>
 
             <label>
               <span class="label-heading">
-                Transport temperature drop (delta T)
+                Transport temperature drop (ΔT)
                 <button type="button" class="tooltip-trigger" data-tooltip-key="transport_delta_t_c" aria-label="Transport delta T help">i</button>
               </span>
             <span class="slider-row">
@@ -208,11 +231,12 @@
                 <span class="value-unit">°C</span>
               </span>
             </span>
+            <p class="control-note">Temperature budget lost between the GPU and the radiator surface (heat pipes, pumped loops, interface resistances). A larger ΔT forces a cooler radiator, which needs more area to reject the same heat.</p>
             </label>
 
             <label>
               <span class="label-heading">
-                Overhead fraction
+                Non-compute power overhead
                 <button type="button" class="tooltip-trigger" data-tooltip-key="overhead_frac" aria-label="Overhead fraction help">i</button>
               </span>
             <span class="slider-row">
@@ -222,6 +246,7 @@
                 <span class="value-unit">%</span>
               </span>
             </span>
+            <p class="control-note">Extra electrical load beyond the GPU compute modules — power conversion losses, coolant pumps, control electronics, and support systems. Raises total satellite power draw and therefore solar array size.</p>
             </label>
 
             <label>
@@ -230,6 +255,7 @@
                 <button type="button" class="tooltip-trigger" data-tooltip-key="beta_preset" aria-label="Beta mix preset help">i</button>
               </span>
               <select id="beta-preset"></select>
+              <p class="control-note">Beta angle is the angle between the orbital plane and the sun direction. Higher beta = more time in sunlight. This preset controls the assumed distribution of beta angles across the constellation.</p>
             </label>
 
             <section class="beta-editor" aria-labelledby="beta-editor-title">
@@ -248,52 +274,64 @@
 
       <section class="panel results">
         <h2>Results</h2>
+        <p class="control-note" style="margin-bottom:0.6rem">All figures update live. The <strong>Space Premium</strong> (highlighted) is the headline — it measures how much more expensive a space-based GPU fleet is compared to buying the same GPU hardware for a ground datacenter.</p>
         <div class="kpi-grid">
           <article class="kpi primary">
             <p>Space Premium</p>
             <strong id="kpi-space-premium">-</strong>
+            <p class="kpi-desc">Extra CAPEX above GPU hardware cost — the price of orbit: launch + arrays + radiators + bus structure.</p>
           </article>
           <article class="kpi">
             <p>Fleet CAPEX</p>
             <strong id="kpi-fleet-capex">-</strong>
+            <p class="kpi-desc">Total cost of all satellites: GPU hardware + every space-specific cost.</p>
           </article>
           <article class="kpi">
             <p>GPU Hardware Cost</p>
             <strong id="kpi-gpu-cost">-</strong>
+            <p class="kpi-desc">What the equivalent compute would cost to buy outright for a terrestrial datacenter. Space Premium = Fleet CAPEX − this number.</p>
           </article>
           <article class="kpi">
             <p>Effective Launch Cost</p>
             <strong id="kpi-launch-cost">-</strong>
+            <p class="kpi-desc">$/kg delivered to the target altitude, after applying the Hohmann transfer mass multiplier for orbits above the baseline altitude.</p>
           </article>
           <article class="kpi">
             <p>Weighted Satellite Mass</p>
             <strong id="kpi-sat-mass">-</strong>
+            <p class="kpi-desc">Beta-angle-weighted average mass per satellite. Includes compute module, radiators, solar arrays, and bus structure.</p>
           </article>
           <article class="kpi">
             <p>Satellites Needed</p>
             <strong id="kpi-satellites">-</strong>
+            <p class="kpi-desc">Fleet size required to deliver the target compute continuously, scaled up to compensate for eclipse downtime.</p>
           </article>
         </div>
 
         <div class="chart-grid">
           <article class="chart-card">
             <h3>Fleet CAPEX Split</h3>
+            <p class="chart-intro">GPU hardware cost vs. the Space Premium (everything else). A thin GPU bar and tall Space Premium bar means orbit is adding a large multiple on top of the hardware price.</p>
             <div id="chart-cost-split" class="chart"></div>
           </article>
           <article class="chart-card">
             <h3>Space Premium vs Datacenter MW</h3>
+            <p class="chart-intro">How the Space Premium scales with the datacenter size you want to replace. The dot marks your current selection. In this model the premium scales linearly — no economies of scale from building a larger space fleet.</p>
             <div id="chart-premium-vs-mw" class="chart"></div>
           </article>
           <article class="chart-card chart-wide">
             <h3>Space Premium Cost Build-Up</h3>
+            <p class="chart-intro">Waterfall showing the four space-specific cost categories that add up to the Space Premium. Hover each bar to see the dollar value. Launch typically dominates at high altitudes; solar arrays are the main mass driver.</p>
             <div id="chart-space-components" class="chart"></div>
             <p id="chart-space-components-note" class="chart-note"></p>
             <h4 class="subchart-title">Launch Cost Drivers by Mass</h4>
+            <p class="chart-intro">How launch spend breaks down by which component is being lifted. Lighter solar arrays (higher W/kg) or radiators (lower kg/m²) directly cut the launch bill proportionally.</p>
             <div id="chart-launch-breakdown" class="chart chart-secondary"></div>
             <p id="chart-launch-breakdown-note" class="chart-note"></p>
           </article>
           <article class="chart-card chart-wide">
             <h3>Constellation Visualizer</h3>
+            <p class="chart-intro">Illustrative 2D perspective sketch of the fleet at the selected altitude. Satellites are grouped by beta-angle family (color-coded). This is for visual intuition only — orbits are not propagated mechanically.</p>
             <div class="constellation-toolbar">
               <button type="button" id="constellation-play-toggle" class="constellation-play-toggle">Pause Motion</button>
               <label class="constellation-speed-control">
@@ -324,11 +362,31 @@
         that an equivalent terrestrial datacenter would also buy.
       </p>
       <p>
-        Space Premium = Fleet CAPEX - Fleet GPU Hardware Cost.
+        <strong>Space Premium = Fleet CAPEX − Fleet GPU Hardware Cost.</strong>
+        The GPU hardware cost is what you'd pay to buy the same compute on the ground. Everything else —
+        launch, solar arrays, radiators, and bus structure — is the Space Premium.
       </p>
       <p>
-        Launch cost uses the notebook's baseline-to-altitude mass-multiplier framing, so heavier solar arrays
-        or radiators automatically drive higher delivered launch spend.
+        <strong>How a satellite is sized:</strong> Each satellite carries one compute module (the selected
+        chip rack). The model then calculates how much solar array mass is needed to power it, how much
+        radiator area is needed to reject the heat, and how much bus structure results from those masses.
+        The total satellite mass drives launch cost.
+      </p>
+      <p>
+        <strong>Sunlight-only simplification:</strong> Rather than modeling batteries for eclipse periods,
+        the model sizes the fleet assuming compute runs only in sunlight and uses more satellites to hit the
+        target continuous MW. Sunlight fraction depends on orbital altitude and the beta-angle distribution
+        of the constellation.
+      </p>
+      <p>
+        <strong>Launch cost model:</strong> A baseline $/kg to the preset reference altitude (e.g., 550 km),
+        then a Hohmann-transfer mass multiplier for reaching higher orbits. The multiplier grows steeply
+        above ~2,000 km. Isp and propulsion dry-mass fraction control the steepness of that curve.
+      </p>
+      <p>
+        <strong>What this model does not include:</strong> operations costs, on-orbit maintenance, inter-satellite
+        links, latency penalties, regulatory/spectrum costs, battery mass for eclipse computing, multi-orbit
+        shell architecture, or revenue potential. It is a first-order capital cost feasibility estimate.
       </p>
     </section>
 
