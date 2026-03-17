@@ -34,6 +34,7 @@
         0.05
       ]
     ],
+    "compute_preset": "gb200_nvl72",
     "launch_preset": "notebook_midrange_reusable",
     "launch_model": {
       "base_alt_km": 550,
