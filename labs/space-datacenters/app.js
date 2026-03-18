@@ -43,6 +43,7 @@ const els = {
   transportDeltaTValue: document.getElementById("transport-delta-t-c-value"),
   overheadFrac: document.getElementById("overhead-frac"),
   overheadFracValue: document.getElementById("overhead-frac-value"),
+  computePreset: document.getElementById("compute-preset"),
   launchPreset: document.getElementById("launch-preset"),
   launchBaseCost: document.getElementById("launch-base-cost-per-kg"),
   launchBaseCostValue: document.getElementById("launch-base-cost-per-kg-value"),
@@ -235,6 +236,10 @@ function applyParameterTooltips(defaults) {
     radiator_areal_density_kg_per_m2: withRefs("radiator_areal_density_kg_per_m2",
       `Radiator mass per square meter. Higher values make the same radiator area heavier and increase both satellite mass and launch spend. ` +
       `Good default: ${ranges.radiator_areal_density_kg_per_m2.default.toFixed(1)} kg/m².`),
+    compute_preset: withRefs("compute_preset",
+      `Select the compute module chip generation. This sets the rack power (kW), module mass (kg), and compute cost anchor used in fleet sizing. ` +
+      `GPU junction temperature is shown as an anchor reference in the cards below but remains independently adjustable via the Advanced thermal slider. ` +
+      `Good default: NVIDIA GB200 NVL72 (B200 baseline).`),
     beta_preset: withRefs("beta_preset",
       `Distribution of orbital beta angles used to estimate sunlight availability across the constellation. ` +
       `Lower beta angles generally include more eclipse time, while higher beta angles tend to have longer sunlit windows. ` +
@@ -251,7 +256,12 @@ function applyParameterTooltips(defaults) {
 }
 
 function renderParameterAnchorCards(defaults) {
-  els.parameterAnchorCards.innerHTML = (defaults.parameter_reference_cards || [])
+  const selectedPresetKey = els.computePreset ? els.computePreset.value : defaults.ranges.compute_preset.default;
+  const computePreset = defaults.compute_module_presets?.[selectedPresetKey];
+  const computeCards = computePreset?.anchor_cards || [];
+  const otherCards = defaults.parameter_reference_cards || [];
+
+  els.parameterAnchorCards.innerHTML = [...computeCards, ...otherCards]
     .map((card) => `
       <article class="parameter-anchor-card">
         <p class="parameter-anchor-title">${card.title}</p>
@@ -483,9 +493,19 @@ function getCurrentInputPayload() {
 
 function makeConstantsFromDefaults(inputs) {
   const base = state.defaults.constants;
-  return {
-    ...base
-  };
+  const constants = { ...base };
+
+  if (els.computePreset) {
+    const presetKey = els.computePreset.value;
+    const computePreset = state.defaults.compute_module_presets?.[presetKey];
+    if (computePreset) {
+      constants.P_COMPUTE_KW = computePreset.p_compute_kw;
+      constants.M_COMPUTE_KG = computePreset.m_compute_kg;
+      constants.COMPUTE_COST_PER_KW = computePreset.compute_cost_per_kw;
+    }
+  }
+
+  return constants;
 }
 
 function renderKpis(result) {
@@ -1187,6 +1207,7 @@ function renderReferencePanel(currentResult, inputs) {
     `Radiator emissivity: ${refInputs.epsilon.toFixed(2)}`,
     `Radiator areal density: ${refInputs.radiator_areal_density_kg_per_m2.toFixed(1)} kg/m²`,
     `Mode: ${refInputs.mode}`,
+    `Compute preset: ${refInputs.compute_preset || "gb200_nvl72"}`,
     `Beta preset: ${refInputs.beta_preset}`
   ]
     .map((line) => `<li>${line}</li>`)
@@ -1216,6 +1237,7 @@ function renderReferencePanel(currentResult, inputs) {
     `Current vs reference space premium: ${premiumSign}${compactMoney(Math.abs(premiumDelta))}`,
     `Current vs reference fleet CAPEX: ${capexSign}${compactMoney(Math.abs(capexDelta))}`,
     `Current vs reference satellites: ${satDelta >= 0 ? "+" : ""}${satDelta}`,
+    `Current compute preset: ${els.computePreset ? els.computePreset.value : "gb200_nvl72"}`,
     `Current beta preset: ${inputs.beta_preset}`
   ]
     .map((line) => `<li>${line}</li>`)
@@ -1363,6 +1385,11 @@ function wireEvents() {
 
   wireNumberInputs();
 
+  els.computePreset.addEventListener("change", () => {
+    renderParameterAnchorCards(state.defaults);
+    scheduleRender();
+  });
+
   els.launchPreset.addEventListener("change", () => {
     const preset = state.defaults.launch_cost_presets[els.launchPreset.value];
     els.launchBaseCost.value = preset.base_cost_per_kg;
@@ -1458,6 +1485,14 @@ function configureControls(defaults) {
   els.betaPreset.appendChild(customOption);
   els.betaPreset.value = defaults.ranges.beta_preset.default;
 
+  Object.entries(defaults.compute_module_presets).forEach(([key, preset]) => {
+    const option = document.createElement("option");
+    option.value = key;
+    option.textContent = preset.label;
+    els.computePreset.appendChild(option);
+  });
+  els.computePreset.value = defaults.ranges.compute_preset.default;
+
   Object.entries(defaults.launch_cost_presets).forEach(([key, preset]) => {
     const option = document.createElement("option");
     option.value = key;
@@ -1494,6 +1529,7 @@ function configureControls(defaults) {
   updateConstellationPlayButton();
 
   state.controls = [
+    els.computePreset,
     els.betaPreset,
     els.datacenterMw,
     els.altitudeKm,

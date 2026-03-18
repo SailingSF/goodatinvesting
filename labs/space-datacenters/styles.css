@@ -489,7 +489,7 @@ select {
 
 .kpi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 0.75rem;
 }
 
@@ -511,6 +511,20 @@ select {
   margin-top: 0.3rem;
   font-size: 1.05rem;
   letter-spacing: -0.01em;
+}
+
+.kpi-desc {
+  margin: 0.25rem 0 0;
+  font-size: 0.76rem;
+  line-height: 1.35;
+  opacity: 0.78;
+}
+
+.chart-intro {
+  margin: 0 0 0.5rem;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.45;
 }
 
 .kpi.primary {

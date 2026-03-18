@@ -35,6 +35,110 @@
       [90.0, 0.05]
     ]
   },
+  "compute_module_presets": {
+    "gb200_nvl72": {
+      "label": "NVIDIA GB200 NVL72 (B200 baseline)",
+      "description": "Notebook baseline: 72 × B200 GPUs at 1,000 W TDP, space-optimized at 750 kg. Original notebook anchor chip.",
+      "p_compute_kw": 120.0,
+      "m_compute_kg": 750.0,
+      "compute_cost_per_kw": 22500.0,
+      "gpu_tdp_w": 1000.0,
+      "num_gpus": 72,
+      "fp4_pflops_per_gpu": 18.0,
+      "t_gpu_c_anchor": 84.0,
+      "anchor_cards": [
+        {
+          "title": "Rack compute power",
+          "value": "120 kW per module",
+          "detail": "72 × 1,000 W B200 GPU TDP. Notebook anchor for a space-optimized NVL72-style rack.",
+          "refs": ["M1", "M2"]
+        },
+        {
+          "title": "Compute module mass",
+          "value": "750 kg space-optimized module",
+          "detail": "Notebook estimate derived from a 3,000 kg ground NVL72 system with a DGX B200 cross-check; treated as a first-pass stripped-down spacecraft packaging estimate.",
+          "refs": ["M0", "M1", "M2"]
+        },
+        {
+          "title": "GPU junction temperature anchor",
+          "value": "84 °C",
+          "detail": "Rated junction temperature for the B200 GPU. Sets the heat-source temperature for radiator sizing. Adjust the GPU temperature slider to model different operating points.",
+          "refs": ["M2"]
+        },
+        {
+          "title": "FP4 compute density",
+          "value": "1,296 PFLOPS (18 PFLOPS/GPU × 72 GPUs)",
+          "detail": "Peak FP4 throughput per NVL72 compute module at the B200 generation. Not directly in the mass or cost model but reflects the compute density being targeted.",
+          "refs": ["M1", "M2"]
+        },
+        {
+          "title": "Compute cost anchor",
+          "value": "$22,500/kW (≈ $2.7M per 120 kW module)",
+          "detail": "Notebook cost anchor for the B200-generation NVL72 rack, applied per kW of compute power.",
+          "refs": ["M0", "M1", "M2"]
+        }
+      ],
+      "source_links": [
+        {
+          "label": "Introl GB200 NVL72 Deployment Guide",
+          "url": "https://introl.com/blog/gb200-nvl72-deployment-72-gpu-liquid-cooled"
+        },
+        {
+          "label": "NVIDIA DGX B200 User Guide",
+          "url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/introduction-to-dgxb200.html"
+        }
+      ]
+    },
+    "rubin_space1": {
+      "label": "NVIDIA Vera Rubin Space-1",
+      "description": "Next-generation 72-GPU NVL72-style rack using the Vera Rubin Space-1 chip. 1,800 W GPU TDP at 180 kW rack power; same compute cost anchor as B200 (no public Rubin pricing available).",
+      "p_compute_kw": 180.0,
+      "m_compute_kg": 800.0,
+      "compute_cost_per_kw": 22500.0,
+      "gpu_tdp_w": 1800.0,
+      "num_gpus": 72,
+      "fp4_pflops_per_gpu": 50.0,
+      "t_gpu_c_anchor": 90.0,
+      "anchor_cards": [
+        {
+          "title": "Rack compute power",
+          "value": "180 kW per module",
+          "detail": "72 × 1,800 W Vera Rubin Space-1 GPU TDP. 50% higher rack power than the B200 NVL72, requiring proportionally more solar array and radiator mass.",
+          "refs": ["M3"]
+        },
+        {
+          "title": "Compute module mass",
+          "value": "800 kg space-optimized module",
+          "detail": "Estimated space-optimized mass for a Rubin NVL72-style rack. Heavier than B200 (750 kg) primarily due to higher power and cooling demands. Treated as a first-pass packaging estimate.",
+          "refs": ["M3"]
+        },
+        {
+          "title": "GPU junction temperature anchor",
+          "value": "90 °C",
+          "detail": "Rated junction temperature for the Vera Rubin Space-1 GPU (up from 84 °C on B200). Higher junction temperature slightly reduces radiator area needed per watt by raising the radiating surface temperature. Adjust the GPU temperature slider to model different operating points.",
+          "refs": ["M3"]
+        },
+        {
+          "title": "FP4 compute density",
+          "value": "3,600 PFLOPS (50 PFLOPS/GPU × 72 GPUs)",
+          "detail": "Peak FP4 throughput per NVL72-style Rubin Space-1 compute module. Roughly 2.8× more FP4 throughput than B200 at 1.5× the rack power — a significant compute-per-watt improvement.",
+          "refs": ["M3"]
+        },
+        {
+          "title": "Compute cost anchor",
+          "value": "$22,500/kW (≈ $4.1M per 180 kW module, B200 pricing proxy)",
+          "detail": "No public Rubin Space-1 pricing is available. This tool applies the same $22,500/kW B200 anchor, which results in higher per-module cost due to the larger rack power draw.",
+          "refs": ["M3"]
+        }
+      ],
+      "source_links": [
+        {
+          "label": "NVIDIA Vera Rubin architecture announcement (GTC 2025)",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-blackwell-ultra-and-vera-rubin-platforms-advance-ai"
+        }
+      ]
+    }
+  },
   "ranges": {
     "datacenter_mw": { "min": 10, "max": 2000, "step": 10, "default": 100 },
     "altitude_km": { "min": 300, "max": 20000, "step": 50, "default": 7000 },
@@ -48,7 +152,8 @@
     "epsilon": { "min": 0.6, "max": 0.98, "step": 0.01, "default": 0.9 },
     "radiator_areal_density_kg_per_m2": { "min": 0.5, "max": 10, "step": 0.1, "default": 2.0 },
     "beta_preset": { "default": "coverage_optimized" },
-    "launch_preset": { "default": "notebook_midrange_reusable" }
+    "launch_preset": { "default": "notebook_midrange_reusable" },
+    "compute_preset": { "default": "gb200_nvl72" }
   },
   "beta_mix_presets": {
     "coverage_optimized": {
@@ -144,12 +249,6 @@
   },
   "parameter_reference_cards": [
     {
-      "title": "Compute mass anchor",
-      "value": "750 kg space-optimized module",
-      "detail": "Notebook estimate derived from a 3,000 kg ground NVL72 system with a DGX B200 cross-check; treated as a first-pass stripped-down spacecraft packaging estimate.",
-      "refs": ["M0", "M1", "M2"]
-    },
-    {
       "title": "Launch cost anchor",
       "value": "$2,500/kg to 550 km",
       "detail": "Notebook default is a mid-range reusable-launch anchor between Falcon 9 and Falcon Heavy reference points, then scales nonlinearly with transfer delta-v.",
@@ -210,6 +309,13 @@
       "title": "NVIDIA DGX B200 User Guide",
       "url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/introduction-to-dgxb200.html",
       "detail": "Used in the notebook for the 142.4 kg DGX B200 server mass cross-check and other system specs."
+    },
+    {
+      "id": "M3",
+      "category": "Mass / Compute",
+      "title": "NVIDIA Vera Rubin Space-1 specifications (GTC 2025)",
+      "url": "https://nvidianews.nvidia.com/news/nvidia-blackwell-ultra-and-vera-rubin-platforms-advance-ai",
+      "detail": "NVIDIA Vera Rubin Space-1 anchor values used in this tool: 72 GPUs, 1,800 W GPU TDP, 180 kW rack compute power, 800 kg space-optimized module mass, 90 °C GPU junction temperature, 50 FP4 PFLOPS per GPU. Compute cost per kW uses the B200 anchor ($22,500/kW) as no public Rubin pricing is available."
     },
     {
       "id": "S1",
