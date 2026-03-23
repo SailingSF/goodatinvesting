@@ -99,15 +99,17 @@ body {
 
 .how-to-use {
   margin-bottom: 0.9rem;
-  border: 1px solid var(--line);
+  border: 1px solid #d4c5ef;
+  border-left: 3px solid var(--accent-cool);
   border-radius: 10px;
-  background: #fff9ff;
-  padding: 0.7rem;
+  background: linear-gradient(135deg, #f8f3ff 0%, #fff9ff 100%);
+  padding: 0.75rem 0.85rem;
 }
 
 .how-to-use h3 {
   margin: 0 0 0.25rem;
   font-size: 0.95rem;
+  color: var(--accent-cool);
 }
 
 .how-to-use p {
@@ -475,6 +477,11 @@ output {
 input[type="range"] {
   width: 100%;
   accent-color: #be49df;
+  cursor: pointer;
+}
+
+input[type="range"]:active {
+  accent-color: #9f2fcf;
 }
 
 select {
@@ -498,6 +505,12 @@ select {
   border-radius: 12px;
   padding: 0.75rem;
   background: #fffdff;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.kpi:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(38, 24, 62, 0.1);
 }
 
 .kpi p {
@@ -534,6 +547,10 @@ select {
   box-shadow: 0 12px 24px rgba(172, 70, 205, 0.28);
 }
 
+.kpi.primary:hover {
+  box-shadow: 0 16px 32px rgba(172, 70, 205, 0.36);
+}
+
 .kpi.primary p {
   color: #fce7fb;
 }
@@ -554,6 +571,11 @@ select {
   border-radius: 12px;
   padding: 0.6rem;
   background: linear-gradient(180deg, #ffffff 0%, #fffaff 100%);
+  transition: box-shadow 200ms ease;
+}
+
+.chart-card:hover {
+  box-shadow: 0 6px 18px rgba(38, 24, 62, 0.08);
 }
 
 .chart-card h3 {
@@ -739,6 +761,26 @@ select {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
+}
+
+.results-live-tag {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fff;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  margin-left: 0.4rem;
+  position: relative;
+  top: -1px;
+}
+
+.kpi.primary .kpi-desc {
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .model-notes {
