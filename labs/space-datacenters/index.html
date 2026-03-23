@@ -15,14 +15,13 @@
       <p class="eyebrow">Space Datacenter Feasibility</p>
       <h1>Interactive Space Premium Explorer</h1>
       <p>
-        Tune key assumptions from the notebook model and see how much extra CAPEX is required to place
-        equivalent GPU compute in orbit.
+        What if you moved a datacenter into orbit? This tool lets you explore how much extra it would cost
+        — the <strong>"Space Premium"</strong> — by adjusting assumptions about rocket launches, solar panels,
+        cooling, and orbital altitude. Drag the sliders and watch the numbers update in real time.
       </p>
       <p>
-        The <strong>Space Premium</strong> is the gap between a space-based GPU fleet and simply buying
-        the same GPU hardware for a terrestrial datacenter. It captures every space-specific cost: launch,
-        solar arrays to power the chips, radiators to cool them, and satellite bus structure. Adjust the
-        inputs on the left and watch the premium respond in real time.
+        The Space Premium captures every space-specific cost: launch, solar arrays to power the chips,
+        radiators to cool them, and satellite bus structure — everything beyond the GPU hardware itself.
       </p>
     </header>
 
@@ -201,7 +200,7 @@
           </section>
 
           <details class="advanced-controls">
-            <summary>Advanced thermal and fleet assumptions</summary>
+            <summary>Advanced settings (thermal, orbital geometry)</summary>
             <p class="control-note">These settings affect the thermal sizing model and orbital sunlight geometry. They have smaller effects than launch cost and altitude for most scenarios, but matter at the margins — particularly GPU temperature for radiator sizing.</p>
 
             <label>
@@ -273,7 +272,7 @@
       </aside>
 
       <section class="panel results">
-        <h2>Results</h2>
+        <h2>Results <span class="results-live-tag">Live</span></h2>
         <p class="control-note" style="margin-bottom:0.6rem">All figures update live. The <strong>Space Premium</strong> (highlighted) is the headline — it measures how much more expensive a space-based GPU fleet is compared to buying the same GPU hardware for a ground datacenter.</p>
         <div class="kpi-grid">
           <article class="kpi primary">

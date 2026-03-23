@@ -79,7 +79,7 @@ body {
 .panel {
   background: linear-gradient(180deg, var(--panel) 0%, var(--panel-soft) 100%);
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 4px;
   box-shadow: var(--shadow);
   padding: 1rem;
   backdrop-filter: blur(2px);
@@ -99,15 +99,17 @@ body {
 
 .how-to-use {
   margin-bottom: 0.9rem;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: #fff9ff;
-  padding: 0.7rem;
+  border: 1px solid #d4c5ef;
+  border-left: 3px solid var(--accent-cool);
+  border-radius: 3px;
+  background: linear-gradient(135deg, #f8f3ff 0%, #fff9ff 100%);
+  padding: 0.75rem 0.85rem;
 }
 
 .how-to-use h3 {
   margin: 0 0 0.25rem;
   font-size: 0.95rem;
+  color: var(--accent-cool);
 }
 
 .how-to-use p {
@@ -168,7 +170,7 @@ label {
   width: min(300px, 72vw);
   background: linear-gradient(165deg, #2f1a4a, #4a2e67);
   color: #fff;
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 0.6rem 0.7rem;
   font-size: 0.78rem;
   font-weight: 500;
@@ -224,7 +226,7 @@ label {
 
 .focus-controls {
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 0.85rem;
   background: linear-gradient(180deg, #fff7fe 0%, #fffcff 100%);
   display: grid;
@@ -244,7 +246,7 @@ label {
 
 .parameter-anchor-card {
   border: 1px solid #eadbf4;
-  border-radius: 10px;
+  border-radius: 4px;
   padding: 0.65rem;
   background: rgba(255, 255, 255, 0.78);
 }
@@ -288,7 +290,7 @@ label {
 
 .advanced-controls {
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 4px;
   background: rgba(255, 255, 255, 0.68);
   padding: 0.15rem 0.75rem 0.75rem;
 }
@@ -310,7 +312,7 @@ label {
 
 .beta-editor {
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 4px;
   padding: 0.7rem;
   background: linear-gradient(180deg, #fff6fe 0%, #fef7ff 100%);
 }
@@ -329,7 +331,7 @@ label {
 
 .beta-preset-chip {
   border: 1px solid #ceb7e2;
-  border-radius: 999px;
+  border-radius: 3px;
   padding: 0.3rem 0.6rem;
   font-size: 0.77rem;
   background: #fffcff;
@@ -349,7 +351,7 @@ label {
 .beta-mix-visual {
   margin-top: 0.55rem;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 3px;
   height: 0.9rem;
   overflow: hidden;
   background: #f3ecfa;
@@ -398,7 +400,7 @@ label {
   border: 1px solid var(--line);
   background: #fffcff;
   color: var(--ink);
-  border-radius: 8px;
+  border-radius: 3px;
   padding: 0.45rem 0.6rem;
   cursor: pointer;
   font-size: 0.8rem;
@@ -439,7 +441,7 @@ output {
 .value-input {
   width: 4.5rem;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: 3px;
   padding: 0.25rem 0.35rem;
   font: inherit;
   font-size: 0.85rem;
@@ -475,12 +477,17 @@ output {
 input[type="range"] {
   width: 100%;
   accent-color: #be49df;
+  cursor: pointer;
+}
+
+input[type="range"]:active {
+  accent-color: #9f2fcf;
 }
 
 select {
   width: 100%;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 3px;
   padding: 0.5rem;
   background: #fffdff;
   color: var(--ink);
@@ -495,9 +502,15 @@ select {
 
 .kpi {
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 0.75rem;
   background: #fffdff;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.kpi:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(38, 24, 62, 0.1);
 }
 
 .kpi p {
@@ -534,6 +547,10 @@ select {
   box-shadow: 0 12px 24px rgba(172, 70, 205, 0.28);
 }
 
+.kpi.primary:hover {
+  box-shadow: 0 16px 32px rgba(172, 70, 205, 0.36);
+}
+
 .kpi.primary p {
   color: #fce7fb;
 }
@@ -551,9 +568,14 @@ select {
 
 .chart-card {
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 0.6rem;
   background: linear-gradient(180deg, #ffffff 0%, #fffaff 100%);
+  transition: box-shadow 200ms ease;
+}
+
+.chart-card:hover {
+  box-shadow: 0 6px 18px rgba(38, 24, 62, 0.08);
 }
 
 .chart-card h3 {
@@ -589,7 +611,7 @@ select {
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(164, 140, 216, 0.22);
-  border-radius: 14px;
+  border-radius: 4px;
   background: linear-gradient(180deg, rgba(37, 26, 59, 0.04), rgba(37, 26, 59, 0.1));
 }
 
@@ -598,7 +620,7 @@ select {
   height: 100%;
   min-height: 380px;
   display: block;
-  border-radius: 14px;
+  border-radius: 4px;
 }
 
 .constellation-toolbar {
@@ -613,7 +635,7 @@ select {
   border: 1px solid var(--line);
   background: #fffdff;
   color: var(--ink);
-  border-radius: 8px;
+  border-radius: 3px;
   padding: 0.45rem 0.65rem;
   font-size: 0.82rem;
   font-weight: 600;
@@ -654,7 +676,7 @@ select {
 
 .constellation-insight-card {
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 4px;
   padding: 0.6rem 0.7rem;
   background: linear-gradient(180deg, #fff9ff 0%, #fffdfd 100%);
 }
@@ -704,7 +726,7 @@ select {
 .constellation-insight-bar {
   margin-top: 0.35rem;
   height: 0.5rem;
-  border-radius: 999px;
+  border-radius: 2px;
   overflow: hidden;
   background: #efe8f8;
 }
@@ -718,7 +740,7 @@ select {
 .constellation-family-card {
   border: 1px solid var(--line);
   border-left-width: 4px;
-  border-radius: 10px;
+  border-radius: 4px;
   padding: 0.45rem 0.55rem;
   background: linear-gradient(180deg, #fff9ff 0%, #fff5fd 100%);
 }
@@ -739,6 +761,26 @@ select {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
+}
+
+.results-live-tag {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fff;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  padding: 0.15rem 0.45rem;
+  border-radius: 2px;
+  margin-left: 0.4rem;
+  position: relative;
+  top: -1px;
+}
+
+.kpi.primary .kpi-desc {
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .model-notes {
@@ -772,7 +814,7 @@ select {
 
 .source-footnote {
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 0.8rem;
   background: linear-gradient(180deg, #fffefe 0%, #fff9ff 100%);
   scroll-margin-top: 1rem;
