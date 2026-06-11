@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<head>
+    <title>SpaceX Is Not Worth $1.77 Trillion</title>
+    <link href="/website/style.css" rel="stylesheet">
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js">
+    </script>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L56JJV28F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-3L56JJV28F');
+</script>
+<body>
+    <div class="page">
+        <h2 class="retro-title">GoodAtInvesting</h2>
+        <script src="/website/script.js"></script>
+      <div class="post">
+         <h1>SpaceX Is Not Worth $1.77 Trillion</h1>
+         <h4 class="subtitle">Three valuation methods, one trillion-dollar gap, and all the receipts from the S-1.</h4>
+         <p class="post-date">Published: June 10, 2026</p>
+
+         <hr>
+
+         <h2>Valuation Upfront</h2>
+            <p>SpaceX is worth $350B. Nowhere close to $1.77T and it is truly impossible to get to that valuation even if you make insane assumptions that equate Elon Musk to a god-king and the kind of financial optimism that would make Sam Bankman Fried blush and Bernie Madoff chuckle from hell.</p>
+            <p>And honestly, $350B is me being generous: that's the last <em>private</em> mark, from December 2024. Every actual valuation method I ran (a DCF, sum-of-the-parts on public peers, a real-options model on the AI bet) lands somewhere between $159B and $224B. The IPO priced at $135 a share, $1.77T. My base case says that share is worth about $7&ndash;12. The rest of this post is the receipts.</p>
+
+            <img class="matplot" alt="The gap between what the S-1 supports and what the IPO priced" src="/website/spacex-ipo/images/trillion_gap.png">
+
+         <hr>
+
+         <h2>Background</h2>
+            <p>All calculations and many more charts are available in this github repo with a folder full of notebooks as well as clean data in CSVs from the S-1. <a href="https://github.com/SailingSF/spacex_ipo_analysis">Github</a></p>
+            <p>What many think of as the company SpaceX, as the rocket company that lands boosters and puts satellites and people into space is less than 1/3 of what the company actually does. SpaceX is mostly an internet service provider (profitable) and an AI infrastructure company (very, very, very not profitable). The rocket stuff is rounding error in its finances. But it is very cool.</p>
+            <p>The FY2025 numbers: $18.7B of total revenue, of which $11.4B is Starlink, $4.1B is rockets, and $3.2B is the "AI" segment (mostly the artist formerly known as Twitter, plus xAI; more on that later). Consolidated net loss: $4.9B. Yes, the company doing the biggest IPO in human history loses about five billion dollars a year.</p>
+            <p>Space also drives the profitability of the SpaceX "Connectivity" company Starlink. By being able to launch satellites for cheap and put them wherever they want they have created a very profitable and growing internet business. For all of my sarcasm and negativity I do want to point out how great of a business Starlink is. Boasting almost 40% operating margins (which will grow) and $3 <em>Billion</em> in free cash flow this is a fantastic business. Until you realize that this wonderful company spent more than 2x that free cash flow in AI infrastructure (Nvidia GPUs, server racks, their own power plants) in a single quarter this year.</p>
+
+            <img class="matplot" alt="Starlink is the engine; AI is the furnace it shovels cash into" src="/website/spacex-ipo/images/integrated_engine_vs_furnace.png">
+
+         <hr>
+
+         <h2>Methods</h2>
+            <p>In my valuation I try to find the <em>real</em> free cash flow put off by each of the business SpaceX engages in. By free cash flow I mean how much profit did they make <strong>minus</strong> the money they spent on "capital expenditures." The reasons I focused on the FCF is because of how important capex spending is for SpaceX. In order to do business, SpaceX has to spend money on satellites that burn up eventually, rockets that eventually are retired, and GPUs that eventually become worthless. All of these things SpaceX depreciates effectively but it gets hidden in things like EBITDA. What matters is how much money they have to keep spending, that capex is fundamental to their busines. If they stop spending on new satellites, GPUs, etc. they will stop making money. Capex is not optional for SpaceX, it's fundamental to continuing operations.</p>
+
+         <h3>Beware Adjusted EBITDA</h3>
+            <p>One thing the S-1 mentions over and over is the fantastic adjusted EBITDA SpaceX generates, you may even see people compare EBITDA of SpaceX vs. other companies. It's important to fully ignore this. It tells you nothing. The D in EBITDA is depreciation, as in how much the satellites are devalued as they reach their end of life when they burn up in our atmosphere, or how much the Nvidia GPUs reduce in value as they are more likely to fail and become obsolete with new versions. All of this value is added back on top of their earnings</p>
+            <p>The other adjustment they make is stock based compensation. If you've heard anything about how tech workers get compensated, especially AI Engineers, they get tons of stock as part of their compensation. This is a real expense SpaceX has to buy back or dilute their shareholders.</p>
+            <p>Basically if you compare Adjusted EBITDA of SpaceX you're comparing the earnings of a company that has no satellites and pays no engineers. Don't be naive, use a real man's financial metric. Free cash flow.</p>
+            <p>The size of the gap is the tell. FY2025 Adjusted EBITDA: positive $6.6B. FY2025 net loss: negative $4.9B. That's an $11.5B spread between the number the bankers want you to look at and the number the accountants are legally required to print. Nowhere is this funnier than in the AI segment, which reports a <em>merely</em> negative $1.2B Adjusted EBITDA while spending $12.7B on GPUs in the same year; GPUs whose entire reason for appearing in this filing is that they depreciate.</p>
+
+            <img class="matplot" alt="AI segment Adjusted EBITDA vs. what's actually happening" src="/website/spacex-ipo/images/ai_adjusted_ebitda.png">
+
+         <hr>
+
+         <h2>Highlights and numbers to ignore</h2>
+            <p>SpaceX reports in three segments: Space, Connectivity, and AI. The trick to understanding the company is that each segment has one number that matters and several that are decoration. Let's go through them in reverse order of how much money they make.</p>
+
+         <h3>Space</h3>
+            <p>SpaceX builds rockets, fires them into space, and researches how to build bigger and better rockets.</p>
+            <p>All commercial rocket launches are Falcons usually taking satellites to space, most of the time their own for Starlink, and sometimes it takes the Dragon crew capsule to bring astronauts to the International Space Station. Selling whole or parts of rocket launches is how the Space segment makes money.</p>
+            <p>The operating stats are genuinely absurd: 170 launches in FY2025 (one every ~2 days), 2,213 metric tons to orbit, up from 1,210 tons just two years earlier. SpaceX <em>is</em> the global launch industry. Financially, the segment's $4.1B of revenue and roughly breakeven operations are the proof that being a monopolist in launch is a much worse business than being a monopolist's customer-slash-landlord (a manopsonist if you will), which is what Starlink is.</p>
+
+            <img class="matplot" alt="Launch cadence and mass to orbit" src="/website/spacex-ipo/images/space_cadence.png">
+
+            <p>Under Space is where the research and development of Starship is recorded. This is a huge bill ($3.0B of the segment's R&amp;D in FY2025, the entire reason Space posted a $657M operating loss), but once Starship goes "commercial" this huge expense goes away and things get much cheaper for SpaceX as it costs much less to get mass to orbit on Starship than on Falcon 9. Currently customers pay around $1800/kg to orbit versus the goal of $200/kg on Starship.</p>
+            <p>Once you stop paying for R&amp;D Space starts to make money! I made three scenarios of when Starship reaches commercialization which really decides when the Space segment starts to be profitable on its own.</p>
+
+            <img class="matplot" alt="Starship commercialization scenarios" src="/website/spacex-ipo/images/space_starship_scenarios.png">
+
+            <p>I assembled a free cash flow waterfall chart to show the FCF from 2025 and then our base case for 2030.</p>
+
+            <img class="matplot" alt="Space FCF decomposition" src="/website/spacex-ipo/images/space_fcf_decomposition.png">
+
+            <p>We see that we reduce our FCF loss from $3.2B to less than $500M which is not bad. The fact that Space "loses" money after capex even in 2030 is more than fine since most of the benefits come in the next segment...</p>
+
+         <h3>Connectivity</h3>
+            <p>Starlink is the business. Full stop. $11.4B of revenue in FY2025, up 50% year over year, with a 39% operating margin. 8.9M subscribers at the end of FY2025, 10.3M by the end of Q1-2026. For context, that subscriber growth, 5M to 10.3M in twelve months, is a <em>doubling</em> in a product category (residential internet) where incumbent ISPs throw parades when they grow 3%.</p>
+
+            <img class="matplot" alt="Subscribers up and to the right; ARPU deliberately down" src="/website/spacex-ipo/images/connectivity_subs_arpu.png">
+
+            <p>Notice the second line on that chart though: ARPU (average revenue per user, i.e. what the average subscriber pays per month) is <em>falling</em>: $99 in 2023, $81 in 2025, $66 in Q1-2026. This is not churn or weakness; it's strategy. The first 5M Starlink customers were rural Americans, yacht owners, and militaries, people with no alternative and deep pockets. The next 50M live in places where $80/month is not a real number. SpaceX is walking the price down the demand curve on purpose, because the S-1's own framing says the addressable market is the ~3 <em>billion</em> people with no usable internet at all. The price <em>is</em> the market size.</p>
+            <p>The reason they can do this and keep expanding margins is the launch moat. Every other would-be satellite ISP has to pay market rate to get their constellation to orbit. Starlink rides its own rockets at internal cost, roughly $17.5M per Falcon 9 launch versus the ~$70M sticker price competitors pay. (And to head off a common gotcha: yes, those launch costs are real and yes, they're in the numbers. They get capitalized into Connectivity's satellite assets and flow through reported margin as depreciation. The 39% margin is <em>after</em> the rockets.)</p>
+
+            <img class="matplot" alt="The launch moat: internal cost vs. what everyone else pays" src="/website/spacex-ipo/images/connectivity_launch_moat.png">
+
+            <p>Driving down their costs even further is what I call the <strong>flywheel scenario</strong>, and it's my bull case for the segment: Starship cuts the cost of bandwidth delivered to orbit &rarr; Starlink cuts prices (ARPU glides from $81 toward $38/month by 2030) &rarr; the affordable-market ceiling expands &rarr; subscribers go from ~10M to ~64M &rarr; and because the cost per bit is falling faster than the price per bit, computed operating margin <em>rises</em> to ~58% even as prices halve. The endpoint is roughly $40B of revenue and ~$24B of annual free cash flow in 2030. The counterintuitive part, and the reason I trust this scenario more than a hand-dialed "ARPU stays at $80 and subs grow anyway" bull case, is that the low price is <em>what unlocks</em> the subscriber number. You don't get 64M subscribers at yacht prices.</p>
+
+            <img class="matplot" alt="The affordability-cost flywheel: lower ARPU, more subs, higher margin" src="/website/spacex-ipo/images/connectivity_flywheel.png">
+
+            <p>So that's the engine: an ISP with a manopoly on rural areas (and the sea) with widening margins and a structural cost advantage no competitor can replicate without first building a reusable rocket company. If the S-1 stopped here, the $1.77T conversation would merely be "wildly optimistic" instead of what it actually is. Unfortunately, there's a third segment.</p>
+
+         <h3>AI</h3>
+            <p>Here is what the "AI" segment actually is, because the S-1 works hard to blur it: it's X (the former Twitter) plus xAI (the Grok company), stapled to a genuinely enormous datacenter construction project. Revenue in FY2025 was $3.2B, and the mix is the punchline: $1.8B of it is <em>X advertising</em>, a business that has shrunk from $2.3B in 2023. The actual AI products ("AI Solutions &amp; Infrastructure": Grok subscriptions, API, and compute) brought in $1.4B. So the segment carrying the trillion-dollar narrative earns most of its money selling ads on a social network in managed decline.</p>
+
+            <img class="matplot" alt="AI segment revenue mix: the AI is the small slice" src="/website/spacex-ipo/images/ai_revenue_mix.png">
+
+            <p>The spending, on the other hand, is extremely real. FY2025: $5.1B of R&amp;D (training runs and the salaries of people who run them), $9.6B of total operating expenses against that $3.2B of revenue, for a $6.4B operating loss. And that's before the capex: $12.7B in FY2025, then <strong>$7.7B in Q1-2026 alone</strong>, a ~$31B annualized run-rate. That money buys nameplate compute capacity, which the S-1 reports in gigawatts: 0.8 GW at the end of FY2025, 1.0 GW by March 2026. Two independent ways of counting the chips (1.0 GW of nameplate power at ~1.75 kW per GPU all-in, or $22.7B of server assets at ~$36k per fully-built GPU) both land in the same place: roughly <strong>600,000 GPUs</strong>.</p>
+
+            <img class="matplot" alt="The capex buildout, in gigawatts and dollars" src="/website/spacex-ipo/images/ai_capex_buildout.png">
+
+            <p>The problem with owning 600,000 GPUs is the same as the problem with owning 600,000 of anything Nvidia sells: they're melting. Not literally (usually), but economically: each new chip generation makes the previous one worth less to rent, and SpaceX books a 5-year useful life on hardware the market increasingly treats as having 3 good years. This is why "capex is not optional" isn't a slogan: the fleet has to re-buy itself perpetually just to stay rentable.</p>
+            <p>And here's the uncomfortable arithmetic on whether a GPU even earns its keep. At a 5-year life and 65% fleet utilization (the fraction of hours actually sold or used), the break-even rental rate is about <strong>$1.63 per GPU-hour</strong>. What the market pays is the open-market H100 rate, currently about $2 (the June 2026 band runs $1.50 to $3.00). The margin of safety between "this fleet pays for itself" and "this fleet is a bonfire" is well under a dollar an hour. Shorten the assumed life to 3 years and break-even jumps above the market rate entirely.</p>
+
+            <img class="matplot" alt="Can a GPU earn its keep? Break-even rent vs the market" src="/website/spacex-ipo/images/ai_gpu_treadmill.png">
+
+            <p>And when I say rates are falling, I mean it in a specific, chartable way. The H100 rented for roughly <strong>$8/hour at the 2023 scarcity peak, $2.85 by early 2024, and about $2 from mid-2025 onward</strong>, a ~70% collapse for the exact same chip, as Nvidia ramped supply and 300+ providers flooded the market. The per-chip view is the same fact from another angle: the newest generation always rents high (B300 at ~$7/hr, B200 at ~$5.24 and actually <em>up</em> ~7% this year) while every older generation rots down the curve toward the A100's $1.62. A GPU's rent decays with its age. SpaceX's fleet slides down that curve continuously, and the only way to stay at the expensive end is to keep writing ~$30B/year checks to Nvidia.</p>
+
+            <img class="matplot" alt="GPU rental market: the H100's price collapse, and rent by chip generation" src="/website/spacex-ipo/images/ai_gpu_rental_market.png">
+
+            <p>This is what SpaceX will need to spend in order to keep up and provide the latest GPUs, and it's why the AI segment isn't really a business yet. It's a position. A very large, rapidly depreciating position, funded by an ISP.</p>
+            <p>But what about all the compute sold to Anthropic and Google? Great, they can sell the most in demand asset in 2026, they actively need to do that in order to not be hoarding GPUs like a dragon in Memphis with a polluting cave. Remember, at today's rental rates even a well-run fleet is mostly just covering its own costs, not some magic free money machine that scales.</p>
+            <p>Ok, but then what about Grok? Can't it make the best AI with all of that compute it may choose not to sell? My opinion, but an AI Lab led by Elon where 100% of the founding team quit or was fired is not going to attract the level of talent needed to build AGI even with all the compute in the world.</p>
+            <p>To be fair, let me steelman the actual bull case, because it exists and it's computable: what if both levers swing their way? The fleet runs at hyperscaler-grade <strong>90% utilization</strong> <em>and</em> the compute-scarcity bet pays off, with rents back at <strong>$4&ndash;6/GPU-hour</strong> instead of ~$2-and-falling. I ran it through the same cost machine (depreciation + power + a capital charge). At 90% &times; $4/hr, today's ~$22B fleet grosses <strong>~$19B a year and clears ~$13B</strong> after all of its own costs. That's a fleet that pays for itself in under two years; valued as a perpetuity, one gigawatt of that is worth ~$130B, and the 10 GW buildout justifies a trillion-dollar AI segment all by itself. The arithmetic is not the problem.</p>
+
+            <img class="matplot" alt="The bull case: what the 1 GW fleet prints if utilization and rates stay high" src="/website/spacex-ipo/images/ai_bull_case.png">
+
+            <p>The inputs are the problem. Three things have to hold simultaneously: <strong>(1)</strong> rental rates have to roughly <em>double</em>, back toward 2023-shortage territory, while SpaceX, Microsoft, Google, CoreWeave, and three sovereign funds all add gigawatts of supply; <strong>(2)</strong> that 90% has to be <em>monetized</em> utilization, hours actually sold. Every GPU-hour reserved for training Grok is busy but books $0, so the bull case and the AGI case are competing for the same chips; and <strong>(3)</strong> the 5-year accounting life has to survive contact with Nvidia's release schedule (at $4/hr a 3-year life still works; at $2.20 the surplus thins to ~$2B, one price cut from zero). Strip it down and the AI segment is a leveraged long position on the price of compute: spectacular if rates and utilization both hold, a bonfire if either reverts. The IPO pays for the spectacular branch as if it were the only one.</p>
+
+         <hr>
+
+         <h2>Depreciating Cash Flows</h2>
+            <p>(The actual term is "Discounted Cash Flows," but for a company whose assets burn up in the atmosphere or get obsoleted by Jensen Huang annually, I think mine is more honest.)</p>
+            <p>A DCF is the least-fake way to value a company, so it's the spine of this analysis. The idea in one paragraph: a company is worth the cash it will hand its owners over its lifetime, except that cash arriving later is worth less than cash today, both because you could have invested today's dollar and because the future cash might simply not show up. So you forecast each year's free cash flow, then <em>discount</em> it back to present value using a rate that reflects how risky the promise is. That rate is the <strong>WACC</strong> (weighted average cost of capital): the blended annual return the company's lenders and shareholders demand for funding it. I used 12%: higher than a boring utility (Starlink-the-ISP alone would deserve less), lower than a venture bet (the AI segment alone would deserve much more), which is roughly what averaging an ISP with a money furnace gets you.</p>
+            <p>Mechanically: I built Bear / Base / Bull free cash flow paths for each segment from 2026&ndash;2030 (the Connectivity bull is the flywheel from above; Space follows the Starship-commercialization scenarios), discounted them at 12%, and then added a <strong>terminal value</strong>, the value of everything after 2030, calculated by assuming the company settles into a steady state and grows modestly forever. Terminal value is where every DCF hides its sins, so I'll flag mine: I normalized capex to maintenance levels in the terminal year (no, you don't get to keep growth capex <em>and</em> call it steady state), and I floored the AI segment's terminal value at zero, because in real life you can shut a money-losing division down, an option the spreadsheet should get credit for.</p>
+
+            <img class="matplot" alt="Segment free cash flow paths, Bear / Base / Bull" src="/website/spacex-ipo/images/dcf_step1_explicit_fcf.png">
+
+            <p>Sum the discounted cash flows and terminal value, and you get enterprise value. Subtract net debt ($14.4B, remember the $20B bridge loan), divide by the 12.5B pro-forma shares, and:</p>
+
+            <table class="compact">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Bear</th>
+                        <th>Base</th>
+                        <th>Bull</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Equity value</td>
+                        <td>&minus;$4B</td>
+                        <td>$91B</td>
+                        <td>$224B</td>
+                    </tr>
+                    <tr>
+                        <td>Per share</td>
+                        <td>&minus;$0.29</td>
+                        <td>$7.23</td>
+                        <td>$17.93</td>
+                    </tr>
+                    <tr>
+                        <td>Per share, with shut-down-AI floor</td>
+                        <td>$4.37</td>
+                        <td>$11.87</td>
+                        <td>$17.93</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>Yes, the bear case is <em>negative</em>: if AI keeps burning and never works, the whole company is worth less than nothing on a pure cash flow basis, which is why the "you can just stop" floor matters. And one more haircut: the AI burn has to be funded by selling stock, and in the base case that means selling roughly 45% of the company along the way. The dilution mostly reshuffles <em>ownership</em> rather than destroying value (the burn is already in the forecast), but post-dilution the realistic range is about <strong>$0&ndash;4 bear / $6&ndash;12 base / $17&ndash;18 bull per share</strong>.</p>
+
+            <img class="matplot" alt="The headline: DCF equity value by scenario" src="/website/spacex-ipo/images/dcf_step6_headline.png">
+
+            <p>The IPO priced at $135.</p>
+
+            <img class="matplot" alt="Sensitivity: per-share value across WACC and terminal growth" src="/website/spacex-ipo/images/dcf_step7_sensitivity.png">
+
+            <p>That sensitivity grid is there to preempt the obvious objection: no, you cannot torture the discount rate or the terminal growth assumption into producing $135. The grid tops out at $31.30.</p>
+
+         <hr>
+
+         <h2>Valuations</h2>
+            <p>A DCF is one opinion, so I cross-checked it with the standard banker toolkit, presented in the standard banker chart: the <strong>football field</strong>, which is just every method's low-to-high range drawn as horizontal bars so you can see where they overlap.</p>
+            <p>Method two is <strong>sum-of-the-parts on comps</strong> ("comps" = comparable companies): value each segment the way the market values its closest public peers, using EV/revenue multiples. In other words, "Starlink looks like a satellite ISP crossed with a hypergrowth telecom, so give its revenue the multiple the market gives those." Method three is a <strong>real-option</strong> model for AI: instead of forecasting AI cash flows (lol), treat the segment as a lottery ticket, probability of success times value if it works, which is honest about the fact that the AI bet is binary.</p>
+
+            <img class="matplot" alt="The football field: three methods, one overlap zone" src="/website/spacex-ipo/images/valuation_field.png">
+
+            <p>The result is almost suspiciously tidy. DCF says $55&ndash;224B. Sum-of-the-parts says $103&ndash;236B. The real-option approach says $159&ndash;241B. Three methods with completely different machinery converge on roughly <strong>$159&ndash;224B</strong> of equity value. And the $350B private mark, the number I "generously" granted in the opening, sits <em>above every single method's high end</em>. The private market was already pricing the bull case plus a tip. The IPO then priced five times <em>that</em>.</p>
+
+            <img class="matplot" alt="Sum of the parts, segment by segment" src="/website/spacex-ipo/images/val_sotp_segments.png">
+
+         <hr>
+
+         <h2>How do you value AI??</h2>
+            <p>The only question that matters, it explains the residual.</p>
+            <p>Look at the football field again: every method basically <em>agrees</em> about Starlink and the rockets. You can value an ISP: subscribers, ARPU, margins, peers, done. You can value a launch business. The entire spread between my bear case and the IPO price is one line item: what is SpaceX's AI bet worth? Answer $0 and the company is worth ~$100&ndash;150B of Starlink. Answer "OpenAI and Anthropic combined" and you still can't get to $1.77T (wait for the next section). The whole disagreement (me vs. the bankers, method vs. method, bulls vs. bears) is not about cash flows at all. It's about a probability.</p>
+
+            <img class="matplot" alt="The AI segment as an option: probability × payoff" src="/website/spacex-ipo/images/val_ai_option.png">
+
+            <p>So let's talk about probabilities.</p>
+
+         <hr>
+
+         <h2>The Bayesian Priors</h2>
+            <blockquote>
+                <p>Sam Bankman-Fried: "I could go on and on about the failings of Shakespeare... but I really shouldn't need to. The Bayesian Priors are pretty damning."</p>
+            </blockquote>
+            <p>What does that mean? In the case of SBF it means he has a loose grasp on literature and statistics.</p>
+            <p>Bayesian statistics is the way we measure probability, and it's the way traders sometimes calculate their bets. If you could win $100 by winning a coin-flip you should bet $50 on one of the options since P(heads) = 0.5 and $100 * 0.5 is $50. Likewise if you could win $1M by buying $300 call options on Nvidia and those options are only worth $1,000 with their earnings report tomorrow, the market is pricing a 1% chance their earnings news will raise the price enough to bring your options in the money. If you think that actually there's a 2% chance that the news is that good, you should buy those options. That's a "+EV" bet.</p>
+            <p>I think that's what's going on with AI valuations. The frontier labs are getting some percent chance of achieving AGI which is valued at some obscene number, call it $10T. Finding the valuations of these labs can give you an idea of how likely investors see that lab achieving that prize.</p>
+            <p>So let's run it. If AGI is a $10T prize, then a lab's valuation divided by $10T is the market's implied probability that <em>that lab</em> wins. OpenAI at $852B implies ~8.5%. Anthropic at $965B implies ~9.7%. xAI's own last private round, at $250B, implies about <strong>2.5%</strong>, and that's on roughly $0.5B of run-rate revenue, so even xAI's <em>own investors</em> were already paying ~500&times; sales for their lottery ticket. These are the priors. You can quibble with the prize size, but the <em>ratios</em> are the market talking.</p>
+            <p>Now the fun part. The IPO needs SpaceX's AI segment to be worth ~$1.55T (derivation below), which on the same $10T prize implies a <strong>~15.6% chance that xAI specifically achieves AGI</strong>. That's nearly double what the market assigns OpenAI (the lab with the largest research org, the consumer brand, better engineers, and a multi-year head start) and roughly <em>six times</em> what xAI's own private investors implied a year ago. The IPO is not pricing "xAI does well." It is pricing "xAI is the most likely company on Earth to build God," from a lab whose flagship product's most viral moments have been... making boobs.</p>
+
+            <img class="matplot" alt="The AGI lottery: implied P(AGI) by lab, at a $10T prize" src="/website/spacex-ipo/images/trillion_agi_lottery.png">
+
+            <p>The Bayesian priors are pretty damning.</p>
+
+         <hr>
+
+         <h2>Reverse-DCF</h2>
+            <p>What are they smoking (specifically, for a friend) to get to $1.77T?</p>
+            <p>Since no defensible forward model produces $1.77T, the honest exercise is to run the machine backwards: <em>assume</em> the price is right and solve for what would have to be true. This is the entire <code>trillion</code> notebook, and it goes in stages, each more chemically ambitious than the last.</p>
+            <p><strong>Stage 1: the bridge.</strong> Take my <em>bull</em> cases (not base, bull) for the parts of the company that have valuable revenue: Connectivity at $208B, Space at $22B, less $14B of net debt. To reach $1.77T of equity, the AI segment must fill the gap: <strong>$1.55 trillion</strong>. For calibration: OpenAI ($852B) and Anthropic ($965B) are worth $1.82T <em>combined</em>. The IPO is pricing xAI, a segment with $3.2B of revenue that is mostly still X ads, as approximately equal to both frontier labs put together, about 486&times; current segment revenue.</p>
+
+            <img class="matplot" alt="If AI alone carries $1.77T, it must be worth ~$1.55T" src="/website/spacex-ipo/images/trillion_bridge.png">
+
+            <p><strong>Stage 2: fine, gift the other segments mega-bulls.</strong> Suppose Starlink isn't a satellite ISP but a $100B-revenue global telecom valued at 7&times; sales: $700B. Suppose Space becomes a launch-and-orbital-logistics monopoly doing $55B of revenue at the same multiple: ~$385B. These are not forecasts; they're gifts. Even after handing out a trillion dollars of hypothetical monopolies, AI <em>still</em> needs ~$700B, a whole OpenAI, to close the gap. $1.77T isn't one heroic assumption. It's three simultaneous global monopolies.</p>
+
+            <img class="matplot" alt="Maximal sum-of-the-parts: even mega-bulls leave a $700B AI hole" src="/website/spacex-ipo/images/trillion_sotp.png">
+
+            <p><strong>Stage 3: the compute-landlord bet.</strong> Okay, what would make even the $700B "discount" AI segment cash flow? The fleet math from earlier: AI compute only mints money if GPU rental prices <em>rise</em> to roughly $4&ndash;7/GPU-hour. They are currently around $2 on the open market and falling. At 10 GW of capacity, the segment's value swings from <strong>&minus;$195B at $1/hour to +$1.1T at $6/hour</strong>. The trillion-dollar question is literally a bet that compute gets <em>scarcer</em> while every hyperscaler, sovereign fund, and SpaceX itself races to build more of it. And the build required for even the $700B version: ~15 GW of nameplate, ~9 million GPUs, ~$330B of capex, and the output of roughly 20 nuclear reactors.</p>
+
+            <img class="matplot" alt="AI segment value vs. GPU rental price: pick your reality" src="/website/spacex-ipo/images/trillion_compute_price.png">
+
+            <p><strong>Stage 4: "but orbital datacenters."</strong> The only-SpaceX-can-do-this trump card: if power is the constraint, put the GPUs in space, where the sun is free. I built a full first-principles model of this (radiators, eclipse fractions, the works), and the generous version, at the <em>mature-Starship</em> launch price of <strong>$200/kg</strong>, still doesn't close. Cheap launch does exactly what you'd hope: the launch bill collapses from ~$24B to ~$2B and stops being the story. The orbital datacenter is <em>still</em> ~2.6&times; the cost of the same compute on the ground ($19.9B vs $7.8B for 200 MW), because the bottleneck just moves: space-grade solar arrays at ~$50/W (&asymp;50&times; terrestrial solar) become the biggest line item, bigger than the GPUs. Even at <strong>$0/kg</strong>, free launch, orbit loses. There is no launch price at which this works; the cost floor is the hardware, not the rocket. Full model and assumptions in <a href="https://goodatinvesting.com/website/gpus-in-space/">my orbital datacenter post</a>.</p>
+            <p>So that's the full inventory of what $1.77T requires: a global telecom monopoly, <em>and</em> a launch-logistics monopoly, <em>and</em> a frontier-lab-beating AI company, <em>and</em> rising GPU prices in a supply glut, <em>and/or</em> orbital datacenters that violate no laws of physics but several laws of accounting, all priced as near-certainties, simultaneously, at $135 a share.</p>
+            <p>Starlink is a genuinely great business. I'd own it at the right price. The right price is about a tenth of the one on the ticket.</p>
+
+         <p><a href="/index.html">HOME</a></p>
+        </div>
+    </div>
+</body>
+</html>
