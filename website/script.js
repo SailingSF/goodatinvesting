@@ -1,5 +1,10 @@
 document.querySelector('.retro-title').addEventListener('click', function() {
-    alert('You clicked the title!');
+    this.classList.remove('glitch');
+    void this.offsetWidth; // restart the animation on rapid clicks
+    this.classList.add('glitch');
+});
+document.querySelector('.retro-title').addEventListener('animationend', function() {
+    this.classList.remove('glitch');
 });
 
 document.addEventListener('DOMContentLoaded', function() {
