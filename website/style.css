@@ -2,14 +2,62 @@
     font-family: 'Times New Roman', Times, serif;
 }
 
+/* Synthwave backdrop: fixed sky + neon grid rolling toward the viewer */
 body {
-    background-image: url("/website/background-1.png");   
-    background-repeat: no-repeat; 
     margin: 0px;
     padding: 0px;
     width: 100%;
-    height: 100%;
-    background-size: cover;
+    min-height: 100vh;
+    background: linear-gradient(#1c0b37 0%, #230d40 45%, #5a1680 68%, #9b2fc0 72%, #1c0b37 72%) fixed;
+}
+
+body::before, body::after {
+    content: "";
+    position: fixed;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* horizon glow */
+body::before {
+    left: 0;
+    right: 0;
+    top: 72vh;
+    height: 2px;
+    background: #f7b5ff;
+    box-shadow: 0 0 12px 3px #d63bff, 0 0 40px 8px #8a1fd1;
+}
+
+body::after {
+    left: -50%;
+    right: -50%;
+    top: 72vh;
+    height: 60vh;
+    background-image:
+        linear-gradient(#e7a6ff 2px, transparent 2px),
+        linear-gradient(90deg, #e7a6ff 2px, transparent 2px);
+    background-size: 80px 80px;
+    transform: perspective(300px) rotateX(60deg);
+    transform-origin: top;
+    -webkit-mask-image: linear-gradient(transparent, #000 35%);
+    mask-image: linear-gradient(transparent, #000 35%);
+    animation: grid-roll 4s linear infinite;
+}
+
+@keyframes grid-roll {
+    to { background-position: 0 80px; }
+}
+
+.page {
+    animation: page-in 0.6s ease-out backwards;
+}
+
+@keyframes page-in {
+    from { opacity: 0; transform: translateY(12px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body::after, .page { animation: none; }
 }
 
 .page {
@@ -201,6 +249,24 @@ table.compact td {
     0% { color: #f524d3; text-shadow: 5px 3px #b6b6b6; }
     50% { color: #6d00c1; text-shadow: 4px 3px #867f89; }
     100% { color: #f524d3; text-shadow: 5px 3px #b6b6b6; }
+}
+
+.retro-title { cursor: pointer; user-select: none; }
+
+.retro-title.glitch {
+    animation: glitch 0.5s steps(1) 1;
+}
+@keyframes glitch {
+    0%   { transform: translate(0); text-shadow: -3px 0 #00e5ff, 3px 0 #f524d3; }
+    15%  { transform: translate(-4px, 2px) skewX(8deg); clip-path: inset(10% 0 55% 0); }
+    30%  { transform: translate(4px, -1px); text-shadow: 4px 0 #00e5ff, -4px 0 #f524d3; clip-path: inset(60% 0 5% 0); }
+    45%  { transform: translate(-2px, 0) skewX(-10deg); clip-path: none; }
+    60%  { transform: translate(3px, 1px); text-shadow: -2px 0 #00e5ff, 2px 0 #f524d3; clip-path: inset(35% 0 30% 0); }
+    75%  { transform: translate(-1px, -2px); clip-path: none; }
+    100% { transform: none; text-shadow: 4px 3px #867f89; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .retro-title.glitch { animation: none; }
 }
 
 /* New layout styles */
