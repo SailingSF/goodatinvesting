@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<head>
+    <title>How to borrow billions for GPUs</title>
+    <link href="/website/style.css" rel="stylesheet">
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js">
+    </script>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3L56JJV28F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-3L56JJV28F');
+</script>
+<body>
+    <div class="page">
+        <h2 class="retro-title">GoodAtInvesting</h2>
+        <script src="/website/script.js"></script>
+      <div class="post">
+         <h1>How to borrow billions for GPUs</h1>
+         <h4 class="subtitle">...and what you actually own when you lend it to them</h4>
+         <p class="post-date">Published: November 6, 2026</p>
+
+         <hr>
+
+         <h2>Borrowing money as a big company</h2>
+            <p>Almost every company borrows money. When you're big enough, you can just say "I need $100 billion, I'll pay it back in 2030." If you're Apple, the market goes "Ok, but you gotta pay us $120 billion in 2030." If you're CoreWeave, it's "You gotta pay us $175 billion." These promises to pay back money are bonds, and the difference in what each company has to pay back is the yield.</p>
+
+         <hr>
+
+         <h2>Why does fixed income matter?</h2>
+            <p>The AI buildout is the largest project by value we've seen in our lifetimes, and even if you're not going to buy one of these bonds in your brokerage account they represent hundreds of billions of dollars already owned by pension funds, life insurers, and governments around the world. It's helpful to know what these things are that have soaked up traditionally "risk averse" dollars of the bond market. You probably own some already through a bond fund or a pension.</p>
+            <p>And if the AI buildout goes wrong, it goes wrong through credit: the lenders decide who gets refinanced and who doesn't. The bonds also tell you what the market thinks the buildout is worth in a way the stock can't.</p>
+
+         <hr>
+
+         <h2>The risk ladder</h2>
+            <p>This post walks through how different companies are financing the AI buildout, what their lenders actually own, and how to analyze it.</p>
+            <p>The bonds we'll look at are a ladder of risk and I'll show what investors get paid and what they are entitled to other than a pay day at the end of the term. My risk ladder is Apple (the control) → Google (the hyperscaler with less debt) → Meta (the new-er hyperscaler with some funky ways to not record debt on their balance sheet) → SpaceX (the newest hyperscaler who's building a lot of datacenters) → and CoreWeave (the neocloud who rents buildings to put GPUs in and then sells their usage).</p>
+            <p>Meta has two additional vehicles that issue the debt for their AI datacenters called Beignet and Sopaipilla who borrow the money and charge rent to Meta to pay back the money. I'll cover exactly what those are later.</p>
+            <p>A note on dates: bond prices in the table and the tour below are Oct 23, 2026 closes. The trades at the end use Nov 5 closes, and CoreWeave's stock fell from ~$54 to $43.65 in between, which is why its yields are higher there.</p>
+            <p>This table shows the different yields and what that yield is actually paying for.</p>
+            <table class="compact">
+                <thead><tr><th>Bond</th><th>Yield (Treasury ~4.8% at 5y, ~5.3% at 20–30y)</th><th>What the headline says you own</th><th>What you own</th><th>What the yield pays for</th></tr></thead>
+                <tbody>
+                    <tr><td>Apple</td><td>4.9% (2030)</td><td>Apple</td><td>Apple</td><td>Mostly nothing, which makes it the control (16bp)</td></tr>
+                    <tr><td>Alphabet / Meta</td><td>5.3% / 5.6% (2031)</td><td>Google Search / Facebook + Instagram</td><td>The same, unsecured</td><td>Being long-dated and the flood of new supply, not default (stock implies ~0bp)</td></tr>
+                    <tr><td>Beignet / Sopaipilla</td><td>7.5% / 7.7% (~15-year average life)</td><td>"Meta risk"</td><td>A loan to Meta's <strong>landlord</strong>: a 4-year lease plus a conditional, shrinking guarantee paid to the landlord</td><td>~130–150bp over Meta's own bonds for being short Meta's option to walk away, plus illiquidity</td></tr>
+                    <tr><td>SpaceX</td><td>7.1% (2031) to 8.1% (2056)</td><td>Starlink's cash machine</td><td>An unsecured promise with thin covenants, about to be outranked by GPU lenders</td><td>~230bp at 5 years while the stock sees ~1bp of default risk: you're paid for being primed (pushed down the line)</td></tr>
+                    <tr><td>CoreWeave</td><td>14.7–15.3% (2030–32)</td><td>GPUs</td><td>An unsecured promise. The best contract (Meta) is pledged to someone else</td><td>~1,050bp, which is real default risk, about the same as the stock implies</td></tr>
+                </tbody>
+            </table>
+            <ul>
+                <li>Big tech: fairly priced if you think a tech company is as likely to pay you as the US Government, there is no real premium to the country with aircraft carriers and nuclear bombs, but to be fair to Apple the new iPhone folds.</li>
+                <li>Meta's Fried Dough Special Purpose Vehicles (SPVs): fair if you read the documents.</li>
+                <li>SpaceX at ~7%: worth it if you're ~85%+ sure of being repaid. You're paid for a risk the stock can't see, and it starts in 2027, before the loan comes due.</li>
+                <li>CoreWeave at ~15%: a coin flip with a good payout ($189 vs. $126 by 2031). The size of the risk is fair, but the bonds may be under-pricing <em>when</em> it hits (2027).</li>
+            </ul>
+
+         <hr>
+
+         <h2>Bond Glossary (Fun)</h2>
+            <p>Here are some terms that might help understand bonds with relevant examples.</p>
+            <table class="compact">
+                <thead><tr><th>Term</th><th>Plain-language version</th><th>Worked example / analogy</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>A bond</strong></td><td>A loan you can resell. The company promises fixed payments (the coupon) and your money back on a date. If it can't pay, you get what a court or a sale recovers.</td><td>You lend $100; CoreWeave promises $9.75 a year and $100 back in Oct 2031.</td></tr>
+                    <tr><td><strong>The line (seniority)</strong></td><td>When a company fails, lenders are paid in order: secured lenders first from what's pledged to them, then unsecured lenders like you, then shareholders. Where you stand matters more than who the company is.</td><td>CoreWeave's notes stand behind ~$25B of secured debt.</td></tr>
+                    <tr><td><strong>Secured vs. unsecured</strong></td><td>Secured means a named asset (GPUs, a contract, a building) is pledged to the lender. Unsecured means you have a general claim on whatever is left. Every company bond in this post is unsecured. The Meta SPV notes are secured, but by a stake in the campus's joint venture, not by Meta. None gives you a GPU.</td><td>A mortgage vs. a credit card.</td></tr>
+                    <tr><td><strong>Covenants</strong></td><td>The promises in the bond's contract that protect your place in line. Thin covenants let the company add new lenders ahead of you later ("priming").</td><td>SpaceX's notes have no subsidiary guarantees, no change-of-control put, and carve-outs for new secured GPU debt.</td></tr>
+                    <tr><td><strong>Recovery</strong></td><td>What you get back in a default, as a share of face value. The post assumes 40% for unsecured notes and 60% for the SPV notes.</td><td>$100 of CoreWeave notes → ~$40, likely less with ~$25B ahead of you.</td></tr>
+                    <tr><td><strong>144A</strong></td><td>A bond sold only to large institutions. Every CoreWeave, SpaceX and Meta-SPV bond here is 144A. Readers can't buy them, which is why the trades at the end build each one from Treasuries and options.</td><td></td></tr>
+                    <tr><td><strong>Coupon vs. yield</strong></td><td>The coupon is what the company promised when it borrowed. The yield is what a buyer earns per year at today's price if every payment arrives.</td><td>CoreWeave promised 9.75%; at 81.25¢ a buyer earns ~15.3%.</td></tr>
+                    <tr><td><strong>Spread, in bp</strong></td><td>The yield minus a Treasury's of the same length: the extra charged for not lending to the government. 1 basis point (bp, or "bip" if you're cool) = 0.01 percentage point, so 100bp = 1%.</td><td>15.3% − 4.8% = 10.5 points = 1,052bp. Overnight rates are only at 388 bips. Say this around others and I promise you'll make fiends.</td></tr>
+                    <tr><td><strong>Default spread</strong></td><td>The part of the spread that pays for expected default losses. The rest pays for illiquidity, length, supply, being outranked. You can't see the split — the next two rows estimate it two different ways.</td><td></td></tr>
+                    <tr><td><strong>Rating as prior, price as posterior</strong></td><td>The rating says how often companies like this have defaulted since 1981. The price says what investors think now.</td><td>Callback to the "Bayesian priors" section of <a href="https://goodatinvesting.com/website/spacex-ipo/">the SpaceX post</a>.</td></tr>
+                    <tr><td><strong>Credit triangle: what the bond implies</strong></td><td>Pretend the bond's entire spread is just insurance against default. Then the yearly odds of default are roughly the spread divided by what you'd lose if it defaulted. Because the spread also pays for other things, this is the highest those odds could be.</td><td>Like insurance: premium ≈ chance of a claim × size of the claim. CoreWeave: 10.5% ÷ 60% lost ≈ 17.5% a year, or ~62% over 5 years.</td></tr>
+                    <tr><td><strong>Merton model: what the stock implies</strong></td><td>Shareholders get paid last, so a share is only worth something if the company ends up worth more than its debts. From the stock's total value, the debt, and how wildly options say the value will swing, you can back out the odds it won't cover the debt — then turn those odds into the spread a lender should charge.</td><td>A house with a mortgage: your equity is what's left after the bank. CoreWeave: $29.9B of stock, $35.55B of debt, ~86% swings → ~1,054bp, the same as its bond. Meta: ~0.4bp of its 80bp.</td></tr>
+                </tbody>
+            </table>
+
+         <hr>
+
+         <h2>Meet the Bonds</h2>
+            <p>These bonds are all rated and then priced by the open market. Here is a look at the spread (in basis points over Treasuries) of all the relevant bonds I looked at compared to the <em>average</em> of their given rating.</p>
+            <img class="matplot" alt="Same rating, very different price" src="/website/gpu-bonds/images/02_spread_vs_rating.png">
+         <h3>The control(s)</h3>
+            <p><strong>Apple</strong> is not a very indebted company, they aren't building out AI datacenters, and they print money. You can't be more safe than AAPL.</p>
+            <p><strong>Alphabet</strong> (read: Google) is building a lot of datacenters, but they make a lot of money. They were supposed to be the one that funded AI by selling stock instead of borrowing. They did both: $51.8B of bonds in the first half of this year and an $84.75B "equity raise." Here's the quiet part: about $30B of that raise is a paperwork change to how Google pays its employees' stock-comp taxes. And they still only pay 0.4–0.8% over Treasuries to borrow.</p>
+            <p>Both of these companies could repay their debt in under a year if they decided to stop growing.</p>
+         <h3>Meta - Facebook and Instagram's cash flows</h3>
+            <p>What do you own with a Meta bond? A senior unsecured claim on Facebook and Instagram's cash flows. Why does it pay slightly more? It's longer dated and there is a lot of competition for these AI bonds, meaning more supply, meaning more yield. Or the market thinks Meta is a little more likely to go bankrupt than Google and wants an extra 0.3% a year for it. The stock says the odds are about zero, so it's not that.</p>
+         <h3>Beignet and Sopaipilla - Meta's Landlord</h3>
+            <p>Beignet and Sopaipilla are two "Special Purpose Vehicles" (SPVs) that Meta set up with Blue Owl (Beignet, the Hyperion campus in Louisiana) and BlackRock (‼️) (Sopaipilla, in El Paso, Texas). Each SPV owns 80% of a datacenter campus (Meta owns the other 20%), issues bonds to pay for building it, and leases it to Meta, whose rent pays the bonds back. Your collateral is that 80% stake in the campus, not GPUs.</p>
+            <p>Meta has a 4-year lease on these datacenters, with the expectation to renew for up to 20 years. But they <em>can</em> walk away. If they do, and the SPV has no other way to make money, the campus gets sold. Meta covers some of the losses through a "residual value guarantee," but that guarantee is paid to the joint venture, not to you, and it shrinks over time.</p>
+            <p>These bonds only lose if Meta walks away and the guarantee doesn't cover the gap. You're paid ~1.3–1.5% a year more than Meta's own bonds (~2% over Treasuries) for being short Meta's option to leave, plus for being stuck in a bond that's hard to sell. If you think Meta has a reasonable chance of giving up on AI in 4 years and taking the reputation hit, don't buy this bond.</p>
+            <img class="matplot-wide" alt="Who wins when: Beignet vs. Meta&#x27;s own bonds" src="/website/gpu-bonds/images/07_spv_vs_meta_scenarios.png">
+            <p>Now the juicier ones.</p>
+
+         <hr>
+
+         <h2>SpaceX - The IPO wasn't enough. Elon Needs More</h2>
+            <p>You thought this company was about rockets? You thought $75 billion was enough? Wrong. It's about chips and they've already issued another $25 billion with a need for another $190-455 billion in the future according to analysts and their own words.</p>
+            <p>All of this debt means we finally get some real yield. SpaceX is rated BBB, the last rung before junk, but its bonds already pay more than the average junk bond (~230bp over Treasuries vs. ~210bp for BB). The market isn't waiting for the rating agencies. At 7.1% for the 2031 bonds, investors are paid well above Treasuries to fund this massive hyperscaler build-out, backed up by a profitable space-based internet business... and Elon.</p>
+            <img class="matplot-wide" alt="Keep buying GPUs and SpaceX needs new money from 2027" src="/website/gpu-bonds/images/06_spacex_runway.png">
+            <p>SpaceX's business is increasingly selling compute rather than using it for their own model which means the hope is that they can provide compute into a scarce market and continue to charge high prices, further funding more datacenters. By owning SpaceX bonds you are betting that compute will remain scarce and Elon will be able to find new money all while backed up by a stock worth trillions and a pretty good space business.</p>
+            <img class="matplot-wide" alt="The GPUs are the whole cash burn" src="/website/gpu-bonds/images/06_spacex_segments.png">
+            <p>Here's the quiet part: nothing in your bond ties Starlink or the $2 trillion stock to you. There are no subsidiary guarantees, and the covenants let SpaceX pledge new GPUs to new lenders ahead of you. The first ~$40B, a lease from Apollo, already does: Apollo owns those GPUs, so it gets paid first. You're the first mortgage on a house whose owner is about to take out several bigger loans on the extensions. That's why the stock sees ~1bp of default risk while the bonds pay ~230bp. You aren't paid for SpaceX going broke, you're paid for where you'll stand in line if it does. And the line starts growing in 2027, when SpaceX needs new money, years before your bond comes due.</p>
+            <p>But if SpaceX stopped building new datacenters and just used the ones they have, they would be a-ok. It just seems like borrowing money can be addictive. Speaking of addicted to borrowing money...</p>
+
+         <hr>
+
+         <h2>CoreWeave - Stumbling into the hottest business of all time</h2>
+            <p>The story of CoreWeave is a funny one. A company that started as a GPU cloud for rendering videos (back when that's what GPUs were for) found that mining Ethereum during idle time was pretty profitable, and then AI came around and it turns out their crypto miners and relationship with Nvidia was worth a lot. So they borrowed a ton of money to buy GPUs, signed long leases on buildings to put them in, and sell time on those GPUs under contracts that end years before the leases do.</p>
+            <img class="matplot-wide" alt="CoreWeave&#x27;s rent outlasts its customers" src="/website/gpu-bonds/images/08_rent_vs_contracts.png">
+            <p>Contracts average about 5 years, and most of today's backlog is used up by mid-2030, but the rent runs to ~2039. From 2031, ~$45B of rent is due against only ~$21B of contracted revenue. It's a restaurant with a 13-year lease and customers who only book a few years at a time.</p>
+            <img class="matplot-wide" alt="What a 15% yield buys: a big payoff if CoreWeave makes it to 2031, a loss if it doesn&#x27;t" src="/website/gpu-bonds/images/03_what_the_yield_buys.png">
+            <p>CoreWeave's corporate bonds yield a whole 15% for their 2031 notes. That much extra yield might tell you something is wrong, and there might be. CoreWeave's corporate bonds are held up by CoreWeave's ability to keep doing business and they have some great and secure customers. Their largest customer is Meta, who will pay them up to $35 billion over the next 5 years. But didn't we just talk about how Meta is financing their own datacenters? Oh yeah. So if Meta even slightly retreats from AI (or just doesn't grow as exponentially as they have) CoreWeave could be looking at a big hole in their revenue.</p>
+            <img class="matplot-wide" alt="CoreWeave&#x27;s customers, and who else they buy from" src="/website/gpu-bonds/images/08_customers.png">
+            <p>A lot of their customers are sourcing compute elsewhere which means there is competition and if you stop being the monopolist on GPUs you lose your pricing power. When a 5-year contract ends, lenders are only made whole if that old GPU keeps earning at least 46% of what it earned under contract, which means hourly rates on old GPUs can fall no faster than ~14% a year. H100 rental prices have fallen ~19% a year (<a href="https://goodatinvesting.com/website/spacex-ipo/">the GPU rent curve from my SpaceX post</a>).</p>
+            <img class="matplot-wide" alt="What an old GPU must earn for lenders to be repaid" src="/website/gpu-bonds/images/08_renewal_breakeven.png">
+            <p>The problem is that the corporate bondholders aren't entitled to any of the revenue from the big contracts, those all went to secured lenders and yield much less. These higher yielding bonds are a bet that CoreWeave has plenty left over even after paying back the first lenders.</p>
+            <p>What else can CoreWeave fall back on? They don't have a cute little side business of launching and landing rockets and selling satellite internet. They could sell more of their stock. Diluting shareholders in order to pay back their debt is a real backstop but there's only so much you can do and the stock is hoping for continued pricing power in GPUs; so if GPU rents keep falling then the stock keeps falling and there's not much left to sell to pay back bond holders.</p>
+            <img class="matplot-wide" alt="Selling stock covers the 2028 wall at today&#x27;s price, not if the stock falls with GPU prices" src="/website/gpu-bonds/images/08_equity_backstop.png">
+            <p>At ~15%, you're paid fairly to bet that GPUs stay scarce through 2031. Selling stock makes the 2030 bonds a bit safer, but the stock is riding the same bet, so it isn't a separate safety net. If you think old-GPU rents fall slower than ~14% a year, it's a good bet. If you think H100s were the pattern, don't buy it. If you do buy, own the 2030s (~14.7%, due June 2030): they get paid back before 2031, when the rent starts to outrun the contracts, and while the stock is most likely still worth selling. And keep an eye on the 2027 refinancing and what a 5-year-old GPU rents for when contracts roll off in 2028–30.</p>
+
+         <hr>
+
+         <h2>So what is the yield paying for?</h2>
+            <p>Put it all together and here's the chart I wish I'd seen before I started: each bond's spread, split into the default risk the stock market sees and everything else.</p>
+            <img class="matplot-wide" alt="For every AI bond but one, the yield isn&#x27;t paying for default" src="/website/gpu-bonds/images/00_what_the_spread_pays_for.png">
+            <p>For Apple, Alphabet and Meta it's ~all "everything else": being long-dated and the flood of new supply. For Beignet it's the structure, not Meta. For SpaceX it's ~230bp, of which the stock sees ~1bp: you're paid for getting pushed down the line. Only CoreWeave's yield is mostly paying for default, and there the stock and the bonds agree on how big the risk is, just not on when it shows up.</p>
+            <p>Once you know what each yield pays for, you can bet on the piece you disagree with.</p>
+
+         <hr>
+
+         <h2>How do I make money on this? (I really want to)</h2>
+            <p>Here are some trading ideas I came up with to juice the yield a bit.</p>
+            <p>Some fine print:</p>
+            <blockquote><p>Most of these bonds are 144A which means that only institutions can buy them. They're not on Robinhood.</p><p>Prices are the Nov 5, 2026 close: CoreWeave stock $43.65, SpaceX $123.57, CoreWeave's June 2030 notes at 82.25 (16.0% yield), SpaceX's 2031 notes at 93.30 (7.1%). Options expire Jan 19, 2029, the longest listed. Every trade is per $10,000 of bond face value, or the same cash (~$8,225 for CoreWeave, ~$9,330 for SpaceX) in Treasuries, which pay ~4.6% a year to Jan 2029.</p><p>"Yield" on each trade is the yearly return on the cash you put up, so you can compare it with a bond's yield.</p><p>A bond held to Jan 2029 at today's yield earns a little less a year than its yield to maturity (15.2% vs. 16.0% for CoreWeave, 6.8% vs. 7.1% for SpaceX), so compare each trade with the bond's row in the table, not its headline yield.</p><p>None of this is investment advice. It's one day's prices and a Jupyter notebook.</p></blockquote>
+            <table class="compact">
+                <thead><tr><th>Trade</th><th>What you put up</th><th>If nothing changes</th><th>Yield if nothing changes</th><th>Worst case at expiry</th></tr></thead>
+                <tbody>
+                    <tr><td>Treasuries alone</td><td>$9,330</td><td>+$969</td><td>4.6%</td><td>none</td></tr>
+                    <tr><td>CoreWeave 2030 notes alone</td><td>$8,225</td><td>+$3,014</td><td>15.2%</td><td>−$2,184 in a default</td></tr>
+                    <tr><td>SpaceX 2031 notes alone</td><td>$9,330</td><td>+$1,459</td><td>6.8%</td><td>−$4,149 in a default</td></tr>
+                    <tr><td>Build your own CoreWeave bond</td><td>$8,225</td><td>+$2,894</td><td>14.6%</td><td>−$3,106</td></tr>
+                    <tr><td>Build your own SpaceX bond</td><td>$9,330</td><td>+$1,853</td><td>8.6%</td><td>−$4,147</td></tr>
+                    <tr><td>1. Dilution, not default</td><td>$8,225</td><td>+$3,474</td><td>17.3%</td><td>unlimited above ~$125</td></tr>
+                    <tr><td>2. CoreWeave iron condor</td><td>$8,225</td><td>+$2,364</td><td>12.1%</td><td>−$6,636</td></tr>
+                    <tr><td>3. SpaceX seagull</td><td>$10,151</td><td>+$148</td><td>0.7%</td><td>−$4,352</td></tr>
+                    <tr><td>4. Let the bond buy you a put (Treasury version)</td><td>$11,396</td><td>−$1,097</td><td>−4.5%</td><td>−$1,097</td></tr>
+                    <tr><td>5. Institutional "nothing ever happens"</td><td>$9,330</td><td>+$3,709</td><td>16.4%</td><td>unlimited above ~$240</td></tr>
+                    <tr><td>6. Homemade convertible</td><td>$11,825</td><td>−$1,526</td><td>−6.1%</td><td>−$1,526</td></tr>
+                </tbody>
+            </table>
+         <h3>Build your own bond</h3>
+            <p>A risky bond is a safe bond, plus the risk that the company fails to pay back its debts. The premium of CoreWeave's bond (16% − 4.6% Treasuries ≈ 11%) is what you're paid for the chance that they fail, and you can sell a put spread at the expiry date to try to simulate that.</p>
+            <p>For CoreWeave you can sell six $20/$10 spreads (buy the $10 put, sell the $20 put). You collect $2,040 up front. If CoreWeave's stock is above $20 in Jan 2029 you don't owe anything, and your credit from the options plus Treasuries earns +$2,894, <strong>14.6% a year</strong> vs. 15.2% for the bond held to the same date. You break even down to ~$15, and the most you can lose is ~$3,100 (the bond loses ~$2,200 in a default). The catch: the options market gives CoreWeave ~45% odds of ending below $15, so this is a bet on the stock, not just on default.</p>
+            <p>For SpaceX you have to be a bit more aggressive with your options, because the market is really not pricing in a default for SpaceX. But if you thought SpaceX wasn't going to fall much you can beat the bond's yield by selling two $60/$30 spreads (buy the $30 put, sell the $60 put) for $884. If SpaceX is above $60 at expiry you don't owe anything, and with the Treasuries you make +$1,853, <strong>8.6% a year</strong> vs. 6.8% for the bond held to the same date. You break even at ~$51 (a 59% fall, ~26% odds per the options market) and lose up to ~$4,150 below $30. That's stock risk, not default risk: the deep put spreads that only lose in a real default pay almost nothing on SpaceX.</p>
+            <p><strong>Another disclaimer: "building your own bond" has a significant margin impact, and your Treasury purchase may not be as liquid as your options if you hold the Treasury notes directly. If you use ETFs you pay even more fees.</strong></p>
+            <img class="matplot-wide" alt="Can you build the bond from Treasuries and options?" src="/website/gpu-bonds/images/09_build_your_own_bond.png">
+            <img class="matplot-wide" alt="Build your own bond: payoff at expiry" src="/website/gpu-bonds/images/09_post_build.png">
+         <h3>CoreWeave bonds are fine, their stock is not</h3>
+            <p>This trade is if you think CoreWeave will be able to pay back their debt, but by diluting shareholders and issuing stock. So we can get that 16% yield but we think their stock will fall by issuing more shares or investors losing faith in a more competitive market.</p>
+         <h4>Trade 1: Dilution, not default</h4>
+            <p>Buy the June 2030 notes (16%), sell a January 2029 $90 call (just above Nvidia's $87.20 investment), and buy a $20 put. The call brings in $11.55 a share ($1,155) and the put costs $6.95 ($695), so the call pays for your insurance with $460 to spare. The put means you still come out slightly ahead in a default. The call means you give up the upside if the stock takes off, and since it isn't capped, your loss is technically infinite as the stock keeps rising. A "dilution rescue" here means no default, but CoreWeave sells enough stock to pay its debts and the price falls to $30.</p>
+            <ul>
+                <li>Dilution rescue ($30): <strong>+$4,058, 19.9% a year</strong> (bond alone +$3,598, 17.9%)</li>
+                <li>Nothing changes: <strong>+$3,474, 17.3% a year</strong> (bond alone +$3,014, 15.2%)</li>
+                <li>Default: <strong>+$176, 1.0% a year</strong> (bond alone −$2,184, −13.1%)</li>
+            </ul>
+            <p>The "free money" goes away if the stock rises above ~$125 (the options market gives that ~10% odds), if CoreWeave defaults after the put expires in Jan 2029, or if in a default CoreWeave recovers less than 40% of the money owed.</p>
+            <img class="matplot" alt="Trade 1 payoff" src="/website/gpu-bonds/images/09_post_trade1.png">
+         <h4>Trade 2: Complicated just for the fun of it</h4>
+            <p>If you want to have a fun options trade and think that CoreWeave isn't going to default but renting GPUs isn't going to take them to the moon, you can create an iron condor and buy some Treasuries, to sell the upside (and the downside) and make some yield. Put the ~$8,225 in Treasuries, sell ten $10/$5 put spreads (that's the "default" part of the bond) and sell two $90/$135 call spreads (that's "selling the upside"). You collect $1,510 up front.</p>
+            <ul>
+                <li>Anywhere between ~$10 and $90 in Jan 2029: <strong>+$2,364, 12.1% a year</strong>, no 144A bond required.</li>
+                <li>You break even at ~$8 and ~$102.</li>
+                <li>Default: −$2,636. The shortage lasts ($120): −$3,636. The most you can lose is ~$6,600, if CoreWeave ends above $135.</li>
+            </ul>
+            <p>It's less than the bond's 16%, but every loss is capped and you don't have to be an institution.</p>
+            <img class="matplot" alt="Trade 2 payoff" src="/website/gpu-bonds/images/09_post_trade2.png">
+         <h3>SpaceX - Solvent but overvalued</h3>
+            <p>These are the trades if you're like me and think SpaceX is not going bankrupt in the near future but also they are definitely overvalued. Read <a href="https://goodatinvesting.com/website/spacex-ipo/">my last post</a> to see my SpaceX valuation.</p>
+         <h4>Trade 3: The SpaceX seagull (with an extra wing)</h4>
+            <p>A seagull usually has three legs. This one has four. Buy Treasuries, buy a $75/$25 put spread, and sell a $250/$295 call spread. The options cost $821, which almost all of the Treasury interest ($969) pays for. <strong>+$5,071 (20.2% a year) if SpaceX falls to a $350B valuation</strong> (~$26 a share), +$148 if nothing changes (0.7% a year, so you've basically swapped your Treasury interest for a lottery ticket on my valuation), and a maximum loss of ~$4,350 if SpaceX ends above $295 and becomes the hottest compute seller of all time. You lose money above ~$252.</p>
+            <img class="matplot" alt="Trade 3 payoff" src="/website/gpu-bonds/images/09_post_trade3.png">
+         <h4>Trade 4: Let the bond buy you a put</h4>
+            <p>Buy the SpaceX notes and a $100 put ($2,155), or if you're not an institution a Treasury and a $100/$25 put spread ($2,066).</p>
+            <p>These trades don't lose more than ~$1,100 (−4.5% a year), and if the stock falls all the way to a $350B valuation we make <strong>~$6,300–6,600 (22–23% a year)</strong>. The Treasury version does better in a real default (+$6,400 vs. +$3,200), because Treasuries don't default.</p>
+            <img class="matplot" alt="Trade 4 payoff" src="/website/gpu-bonds/images/09_post_trade4.png">
+         <h4>Trade 5: Institutional "nothing ever happens"</h4>
+            <p>If you're an institution and can buy their bond, sell a $200 call against it ($2,250) and suddenly their bond's 6.8% a year (held to Jan 2029) turns into <strong>16.4% a year</strong> if nothing changes. It only loses money if SpaceX goes above ~$240 (~14% odds), but above that the loss is unlimited: at $300 it's −$6,000.</p>
+            <img class="matplot" alt="Trade 5 payoff" src="/website/gpu-bonds/images/09_post_trade5.png">
+         <h3>SpaceX Bull</h3>
+            <p>There is no way you're a SpaceX bull if you've made it this far with me, but here's a little treat in case you are.</p>
+         <h4>Trade 6: The homemade convertible bond spread</h4>
+            <p>Buy ~$9,330 of Treasuries and spend another ~$2,495 (about a quarter as much again) to buy a $150/$295 call spread. This is essentially a convertible bond where your note turns into shares, and if SpaceX goes up this spread will pay out up to $14,500 at $295 or above, <strong>+$12,974 net (39.9% a year)</strong>, essentially turning your 4.6% yielding Treasury into a leveraged bull play on SpaceX. The only downside is having to pay for this up front, unlike a convertible note. Oh, and if SpaceX isn't above ~$165 at expiry you lose money, at most $1,526 (−6.1% a year).</p>
+            <img class="matplot" alt="Trade 6 payoff" src="/website/gpu-bonds/images/09_post_trade6.png">
+
+         <hr>
+
+         <h2>So what do you actually own?</h2>
+            <ul>
+                <li><strong>Apple, Alphabet, Meta:</strong> the company. You're paid for lending long into a flood of new bonds, not for default.</li>
+                <li><strong>Beignet and Sopaipilla:</strong> a loan to Meta's landlord. You're short Meta's option to leave.</li>
+                <li><strong>SpaceX:</strong> an unsecured promise that's about to get pushed down the line. You're paid for where you'll stand, not for whether SpaceX survives.</li>
+                <li><strong>CoreWeave:</strong> a bet that old GPUs keep renting for close to what they rent for today. You're paid for real default risk, and it may show up sooner than the bonds think.</li>
+            </ul>
+            <p>What I'm watching:</p>
+            <ul>
+                <li>CoreWeave's Q3 10-Q (~Nov 10): backlog, debt, leases, margins, and how much stock they've sold.</li>
+                <li>How the Apollo lease gets priced (expected at year-end), the first big loan to cut in line ahead of SpaceX's bondholders.</li>
+                <li>Who Meta's guarantee actually pays. The offering documents aren't public, and Meta's 10-Q (paid to the joint venture) and the press (sized so the bonds are repaid) don't agree.</li>
+                <li>What a Blackwell GPU rents for in two years. All the GPU rent history here is one generation (H100), and newer chips may hold their value differently.</li>
+            </ul>
+            <p>The 144A bonds trade thinly, so prices are single prints from one day. None of this is investment advice.</p>
+
+         <p><a href="/index.html">HOME</a></p>
+        </div>
+    </div>
+</body>
+</html>
