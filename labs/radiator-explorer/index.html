@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Radiator Explorer: How a Space Datacenter Gets Rid of Heat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3L56JJV28F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3L56JJV28F');
+    </script>
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="tabs">
+        <a href="../space-datacenters/">Part 1 calculator</a>
+        <a href="../space-datacenters/part2/">Part 2 calculator</a>
+        <a href="../satellite-explorer/">3D satellite</a>
+        <a href="./" class="active">Radiator heat</a>
+      </nav>
+      <p class="eyebrow">GPUs in Space, Part 2</p>
+      <h1>Where the Heat Goes</h1>
+      <p class="lede">
+        In space there's no air to blow over a heat sink. Every watt the GPUs burn has to leave as infrared light
+        from a radiator, and a surface radiates as its temperature to the fourth power. Follow 132 kW from the GPU
+        die to deep space, then see why the sheet between the coolant tubes runs cold and costs you area.
+      </p>
+    </header>
+
+    <main class="layout">
+      <aside class="panel controls">
+        <h2>Inputs</h2>
+        <form id="controls"></form>
+        <label class="toggle"><input type="checkbox" id="backload" checked /> Sun and Earth heat the radiator too</label>
+        <p class="note">Worst day of the year at 550 km: Earth's infrared, sunlight reflected off Earth, and sunlight grazing the fins add <span id="backload-value"></span> W/m² that has to be radiated away as well.</p>
+        <button type="button" id="reset" class="reset">Reset to the drawn panel</button>
+      </aside>
+
+      <section class="results">
+        <div class="kpis" id="kpis"></div>
+
+        <article class="card">
+          <h3>1. The thermal chain: GPU junction to deep space</h3>
+          <p class="intro">Each step costs temperature. Whatever is left at the radiator tube sets how hard the radiator can push heat out. The drops are estimates for a pumped ammonia loop; move the sliders.</p>
+          <div id="chain" class="chain"></div>
+        </article>
+
+        <article class="card">
+          <h3>2. Inside the panel: heat leaves as infrared light</h3>
+          <p class="intro">A slice through the 25 mm panel, three tube spacings wide. Coolant tubes are bonded to both aluminum face sheets; heat spreads sideways through the thin sheet and radiates off its outer face. Each dot is light leaving the surface, and hotter metal sends far more of it (T⁴).</p>
+          <canvas id="section" class="section"></canvas>
+          <div class="legend" id="legend"></div>
+        </article>
+
+        <div class="two">
+          <article class="card">
+            <h3>3. One panel, face on</h3>
+            <p class="intro">4.56 × 4.70 m with 30 tubes. Bright stripes are the tubes; the dark bands between them radiate much less.</p>
+            <canvas id="face" class="face"></canvas>
+            <p class="intro small" id="face-note"></p>
+          </article>
+          <article class="card">
+            <h3>4. Temperature across one tube spacing</h3>
+            <p class="intro">From one tube to the next. The shaded gap between the curve and the dashed line is radiating power you paid for and don't get.</p>
+            <canvas id="profile" class="plot"></canvas>
+          </article>
+        </div>
+
+        <article class="card">
+          <h3>5. Why hotter GPUs help so much</h3>
+          <p class="intro">Radiator area needed for 132 kW against GPU junction temperature, with your temperature drops and panel design. The dot is your setting.</p>
+          <canvas id="sweep" class="plot wide"></canvas>
+        </article>
+
+        <p class="foot">Fin solved exactly (conduction along the sheet against εσT⁴ radiation). The Part 2 notebook linearizes the radiation and gets a slightly lower efficiency; both are shown. Panel construction and mass from the <a href="https://github.com/SailingSF/space_datacenters/tree/master/cad/radiator">radiator CAD</a>.
+          <a href="https://goodatinvesting.com/website/gpus-in-space-pt2/">Read the post →</a></p>
+      </section>
+    </main>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

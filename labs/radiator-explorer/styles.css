@@ -1,0 +1,57 @@
+* { box-sizing: border-box; }
+:root { --bg: #0c0915; --panel: #15101f; --line: rgba(206, 185, 226, 0.16); --ink: #ece6f7; --muted: #a497bd; --accent: #f08cc0; }
+body { margin: 0; background: radial-gradient(circle at 80% -10%, #3a1638 0%, transparent 40%), radial-gradient(circle at 0% 0%, #1e1a4a 0%, transparent 35%), var(--bg); color: var(--ink); font-family: "Plus Jakarta Sans", "Segoe UI", sans-serif; line-height: 1.45; min-height: 100vh; }
+.hero, .layout { width: min(1240px, calc(100vw - 2rem)); margin-inline: auto; }
+.hero { padding: 1.5rem 0 1rem; }
+.tabs { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1rem; }
+.tabs a { font-size: 0.8rem; font-weight: 600; padding: 0.3rem 0.65rem; border-radius: 3px; border: 1px solid rgba(206, 185, 226, 0.25); color: #d9c9f2; text-decoration: none; }
+.tabs a.active { background: linear-gradient(140deg, #6d55da, #ab46cd 45%, #ea4d9b); border-color: transparent; color: #fff; }
+.eyebrow { margin: 0; font: 600 0.78rem "Space Grotesk", sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+h1 { margin: 0.2rem 0 0.5rem; font: 700 clamp(1.9rem, 3.2vw, 2.7rem) "Space Grotesk", sans-serif; letter-spacing: -0.02em; }
+.lede { max-width: 75ch; color: var(--muted); margin: 0; }
+.layout { display: grid; gap: 1rem; padding-bottom: 2rem; }
+@media (min-width: 1000px) {
+  .layout { grid-template-columns: 320px minmax(0, 1fr); align-items: start; }
+  .controls { position: sticky; top: 1rem; }
+}
+.panel, .card { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 1rem; }
+.panel h2 { margin: 0 0 0.6rem; font: 700 1.2rem "Space Grotesk", sans-serif; }
+.group-title { margin: 0.8rem 0 0.2rem; font: 600 0.78rem "Space Grotesk", sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
+.control { display: block; margin-bottom: 0.65rem; }
+.control .head { display: flex; justify-content: space-between; font-size: 0.86rem; font-weight: 600; }
+.control .head output { font-variant-numeric: tabular-nums; color: #fff; }
+.control input { width: 100%; accent-color: #ea4d9b; }
+.control small { display: block; color: var(--muted); font-size: 0.74rem; }
+.toggle { display: flex; gap: 0.45rem; align-items: center; font-size: 0.86rem; font-weight: 600; margin-top: 0.6rem; }
+.note { color: var(--muted); font-size: 0.74rem; margin: 0.3rem 0 0.8rem; }
+.reset { width: 100%; padding: 0.5rem; border: 1px solid rgba(206, 185, 226, 0.3); background: transparent; color: #d9c9f2; border-radius: 4px; font: 600 0.82rem "Plus Jakarta Sans", sans-serif; cursor: pointer; }
+.reset:hover { border-color: var(--accent); }
+.results { display: grid; gap: 1rem; min-width: 0; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.6rem; }
+.kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 0.7rem; }
+.kpi.primary { background: linear-gradient(140deg, #6d55da 0%, #ab46cd 45%, #ea4d9b 100%); border: none; }
+.kpi p { margin: 0; font-size: 0.76rem; color: var(--muted); }
+.kpi.primary p { color: #fce7fb; }
+.kpi strong { display: block; font-size: 1.25rem; margin: 0.15rem 0; font-variant-numeric: tabular-nums; }
+.card h3 { margin: 0 0 0.3rem; font: 700 1.02rem "Space Grotesk", sans-serif; }
+.intro { margin: 0 0 0.7rem; color: var(--muted); font-size: 0.85rem; }
+.intro.small { font-size: 0.78rem; margin: 0.5rem 0 0; }
+.two { display: grid; gap: 1rem; }
+@media (min-width: 900px) { .two { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+canvas { display: block; width: 100%; max-width: 100%; }
+.card { min-width: 0; }
+.section { height: 300px; }
+.face { aspect-ratio: 4.7 / 4.556; max-height: 420px; width: auto; max-width: 100%; margin: 0 auto; border-radius: 3px; }
+.plot { height: 300px; }
+.chain { display: flex; align-items: stretch; gap: 0; overflow-x: auto; padding-bottom: 0.3rem; }
+.node { flex: 1 0 110px; border-radius: 6px; padding: 0.6rem 0.5rem; text-align: center; color: #120c1c; }
+.node b { display: block; font: 700 1.25rem "Space Grotesk", sans-serif; }
+.node span { font-size: 0.74rem; font-weight: 600; }
+.node.space { background: #05040a; color: #c8bfe0; border: 1px solid var(--line); }
+.arrow { flex: 0 0 78px; display: grid; place-items: center; text-align: center; font-size: 0.7rem; color: var(--muted); position: relative; }
+.arrow::before { content: ""; position: absolute; left: 6px; right: 6px; top: 50%; height: 2px; background: linear-gradient(90deg, rgba(240, 140, 192, 0.2), rgba(240, 140, 192, 0.9)); }
+.arrow em { position: relative; background: var(--panel); padding: 0 0.2rem; font-style: normal; color: #fff; font-weight: 600; }
+.legend { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--muted); margin-top: 0.5rem; }
+.legend .bar { flex: 1; height: 10px; border-radius: 2px; }
+.foot { color: var(--muted); font-size: 0.76rem; margin: 0; }
+.foot a { color: var(--accent); }

@@ -37,11 +37,12 @@
             <p>Fair. So this time I flipped it. Every assumption gets the optimistic end of its range. Best orbit, Starship at $100/kg, solar arrays at a price nobody sells today. Then, because spreadsheets (Jupyter notebooks) are very good at hiding problems, I built the satellite in SolidWorks to see what the code missed.</p>
             <p>The short version: it got a lot cheaper. It still doesn't work. And drawing it made it a little worse.</p>
             <p>As before, the <a href="https://github.com/SailingSF/space_datacenters/blob/master/space_gpu_datacenter_part2.ipynb">notebook</a> has every number and source. The <code>cad/</code> folder has the scripts that build the model. If you have SolidWorks on a Windows PC, it's very fun to see the parts get built from a script.</p>
+            <p>I also built some things to play with: a <a href="https://labs.goodatinvesting.com/space-datacenters/part2/">Part 2 calculator</a> that reruns every number below with your own assumptions, a <a href="https://labs.goodatinvesting.com/satellite-explorer/">3D satellite explorer</a>, and a <a href="https://labs.goodatinvesting.com/radiator-explorer/">radiator explorer</a> that shows where the heat goes.</p>
 
          <hr>
 
          <h2>Meet the Satellite</h2>
-            <p>That's it up top. Here's what you're looking at.</p>
+            <p>That's it up top. Here's what you're looking at. You can also fly around it in the <a href="https://labs.goodatinvesting.com/satellite-explorer/">Satellite Explorer</a>, fold it up for launch, and click any part to see what it weighs.</p>
             <p>In the middle is the compute module: 120 kW of GPUs, roughly one NVIDIA NVL72 rack's worth, laid flat as trays instead of standing up in a cabinet. On either side are the solar wings, about 80 m tip to tip, about the wingspan of an Airbus A380. Running across them is the radiator: eight panels, 171 m² of panel, radiating from both faces for 343 m² of heat-dumping area.</p>
             <p>The whole thing is <strong>2,826 kg</strong>. SolidWorks says 2,603 kg as drawn. I added 8% for the stuff nobody models until they have to: wiring harness, thermal blankets, brackets, and a ton of McMaster-Carr's finest fasteners.</p>
             <p>Most of that mass is thin film and honeycomb for the radiator. That will matter later.</p>
@@ -105,6 +106,7 @@
             <p><strong>It's heavier.</strong> 93 kg per panel works out to 2.18 kg per m² of radiating area, 9% over Part 1. That's still without pumps or the hoses across the hinges.</p>
             <p><strong>It's less efficient.</strong> Heat only enters the panel at the tubes. The skin between the tubes runs cooler, and because radiated heat goes with temperature to the fourth power, slightly cooler skin radiates a lot less. The panel works at about <strong>80% efficiency, not 90%</strong>. That means about 25% more area, <strong>eight panels instead of six</strong>, and a taller stack when everything's folded up for launch. I'm sure if a professional took more than one weekend they could get higher, but this puts very real numbers for our satellite that are probably close.</p>
             <p>I swept skin thickness against tube spacing to see if a smarter panel fixes this. The best I found was about 5% lighter per useful m², and only with a 0.15 mm skin that would crumple if you looked at it too hard.</p>
+            <p>To see this for yourself, the <a href="https://labs.goodatinvesting.com/radiator-explorer/">radiator explorer</a> follows the heat from the GPU junction to deep space. Move the GPU temperature, the drops along the cooling loop, the sheet thickness, and the tube spacing, and watch the sheet between the tubes go cold.</p>
 
          <hr>
 
@@ -125,7 +127,7 @@
             <a href="/website/gpus-in-space-pt2/images/starship_stack.jpg" target="_blank"><img class="matplot" alt="25 satellites stacked in Starship's payload bay" src="/website/gpus-in-space-pt2/images/starship_stack.jpg"></a>
             <p id="caption">25 satellites stacked in Starship's payload bay.</p>
 
-            <p>Twenty-five per flight puts the real launch price at about <strong>$212/kg</strong>, and it takes <strong>72 Starship flights</strong> to put up 200 MW.</p>
+            <p>Twenty-five per flight puts the real launch price at about <strong>$212/kg</strong>, and it takes <strong>72 Starship flights</strong> to put up 200 MW. The <a href="https://labs.goodatinvesting.com/satellite-explorer/">Satellite Explorer</a> has the stack in 3D, with the tower next to it for comparison.</p>
             <p>The frustrating part is that every fix just exposes the next bottleneck. Thinner compute trays do nothing, because the folded wings set the height of each layer. Go all in (10 mm radiator panels, 15 cm compute trays, and wings that fold 2.5× tighter than anything flying today) and you only get to about <strong>42</strong>. Still short of the 53 Starship could lift.</p>
 
             <img class="matplot" alt="Satellites per Starship flight, by packing concept" src="/website/gpus-in-space-pt2/images/packing.png">
@@ -155,6 +157,8 @@
 
             <img class="matplot" alt="What the solar array can cost and still break even" src="/website/gpus-in-space-pt2/images/array_breakeven.png">
 
+            <p>If you think I picked the wrong numbers, the <a href="https://labs.goodatinvesting.com/space-datacenters/part2/">Part 2 calculator</a> lets you pick your own: launch price, array price, satellite life, radiator design, and how the satellites pack into Starship.</p>
+
          <hr>
 
          <h2>Spending the Free Lift</h2>
@@ -179,7 +183,7 @@
             <p>This is still the optimistic case, and some of it is generous. There are no batteries for those eclipse minutes. Drag at solar maximum, Starship's real payload to this orbit, the extended 22 m payload bay (no published drawing), structural vibration, deployment loads, and a thousand-plus very large satellites living next door to Starlink are all unchecked.</p>
             <p>Cheap launch was necessary. It wasn't sufficient. The gap that's left is the price of everything that isn't the rocket. And once you actually draw that stuff, the rocket gets more expensive too. If there's a miracle left to count on, it isn't launch or solar. It's GPUs that keep earning in orbit for a decade or more, matching depreciation on Earth.</p>
             <p>If GPUs depreciate at the same rate they do on Earth while needing no maintenance, and they keep generating tokens with still-working solar power, and you can't bribe the townspeople with $2 billion to build a "pedestrian" 200 MW datacenter, then these GPU satellites make sense. We're still measuring the premium in the billions of dollars; that buys a lot of political capital and land to put your datacenter in a much more accessible location.</p>
-            <p>The <a href="https://github.com/SailingSF/space_datacenters/blob/master/space_gpu_datacenter_part2.ipynb">notebook</a> and the <a href="https://github.com/SailingSF/space_datacenters/tree/master/cad">CAD scripts</a> are there if you want to check my work, or find the miracle I missed.</p>
+            <p>The <a href="https://github.com/SailingSF/space_datacenters/blob/master/space_gpu_datacenter_part2.ipynb">notebook</a> and the <a href="https://github.com/SailingSF/space_datacenters/tree/master/cad">CAD scripts</a>, and the <a href="https://labs.goodatinvesting.com">labs</a> are there if you want to check my work, or find the miracle I missed.</p>
 
          <p><a href="/index.html">HOME</a></p>
         </div>

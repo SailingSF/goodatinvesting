@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Premium Explorer, Part 2: The Best Case</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="./part2.css" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3L56JJV28F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3L56JJV28F');
+    </script>
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="model-tabs">
+        <a href="../">Part 1: 7,000 km constellation</a>
+        <a href="./" class="active">Part 2: 550 km best case</a>
+        <a href="../../satellite-explorer/">3D satellite</a>
+        <a href="../../radiator-explorer/">Radiator heat</a>
+      </nav>
+      <p class="eyebrow">Space Datacenter Feasibility, Part 2</p>
+      <h1>The Best Case, As Drawn and Packed</h1>
+      <p>
+        One satellite at 550 km in a dawn-dusk orbit, Starship at $100/kg, solar arrays at $10/W, a radiator
+        designed down to the engineering drawing, and a bus built up in SolidWorks. Launch is priced the way
+        Starship sells it: <strong>by the flight</strong>, so how many satellites fit in the bay matters as much as their weight.
+      </p>
+      <p>
+        Everything is per <strong>kW-yr of compute</strong>: the space premium (arrays, radiators, bus, launch; not the GPUs,
+        which you buy either way) spread over the satellite's life. It wins if it beats what the ground costs.
+        Read the <a href="https://goodatinvesting.com/website/gpus-in-space-pt2/">blog post</a> or the
+        <a href="https://github.com/SailingSF/space_datacenters/blob/master/space_gpu_datacenter_part2.ipynb">notebook</a>.
+      </p>
+    </header>
+
+    <main class="layout">
+      <aside class="panel controls">
+        <h2>Inputs</h2>
+        <div class="preset-row" id="presets"></div>
+        <form id="controls-form"></form>
+      </aside>
+
+      <section class="panel results">
+        <h2>Results <span class="results-live-tag">Live</span></h2>
+        <div class="kpi-grid" id="kpis"></div>
+        <p class="verdict" id="verdict"></p>
+        <div class="chart-grid">
+          <article class="chart-card">
+            <h3>Where the premium goes, per kW-yr</h3>
+            <p class="chart-intro">Each bar is one satellite's space premium spread over its compute life. The lines are the two ground yardsticks: space has to land left of them to win.</p>
+            <div id="chart-stack" class="chart"></div>
+          </article>
+          <article class="chart-card">
+            <h3>Longer life spreads the same hardware thinner</h3>
+            <p class="chart-intro">Premium against satellite (and GPU) life, with everything else as set. The array grows to cover more years of wear, which can cost a layer in the stack. The space-friendly yardstick writes the ground building off over the same life.</p>
+            <div id="chart-life" class="chart"></div>
+          </article>
+          <article class="chart-card">
+            <h3>Launch price, and how much packing matters</h3>
+            <p class="chart-intro">Premium against Starship's price per kg of a full flight. Mass-limited assumes every flight leaves full by weight; the flat-pack and tower lines use how many actually fit in the bay.</p>
+            <div id="chart-launch" class="chart"></div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <section class="panel model-notes">
+      <h2>What this models</h2>
+      <ul>
+        <li><strong>Orbit:</strong> fixed at 550 km dawn-dusk sun-synchronous. Compute pauses in Earth's shadow and throttles in off-angle sunlight: <strong>92.8%</strong> availability, year-averaged.</li>
+        <li><strong>Array:</strong> sized for end-of-life power after the degradation you set. Its stowed volume (kW/m³) sets the folded-wing thickness, which can set the layer height in the stack.</li>
+        <li><strong>Radiator:</strong> two vertical fins radiating from both faces, sized on the sunniest day after Earth IR, albedo and grazing sunlight. Fin efficiency is computed from the sheet thickness and tube spacing (80% for the drawn panel). More area means more panels in each stowed layer.</li>
+        <li><strong>Bus:</strong> 596 kg bottom-up from the SolidWorks flat-pack (structure, wheels, lasers, thrusters, power conditioning, 8% unmodeled), plus a $500k fixed cost. Drag propellant at solar maximum is included.</li>
+        <li><strong>Launch:</strong> flight price = $/kg × payload. Satellites per flight is the smaller of what fits by mass and what fits in Starship's tapered 22 m bay. The tower concept is fixed at its CAD result of 11.</li>
+        <li><strong>Left out:</strong> batteries, structural vibration, deployment loads, Starship's reduced payload to a polar orbit, and GPU radiation life.</li>
+      </ul>
+    </section>
+
+    <footer class="footer-note">
+      <p>Port of <code>size_satellite()</code> from the Part 2 notebook; the defaults reproduce its $5,700/kW-yr headline.</p>
+    </footer>
+
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    <script type="module" src="./app2.js"></script>
+  </body>
+</html>
