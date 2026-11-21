@@ -537,3 +537,6 @@ code[class*="language-"] {
     font-style: italic;
     color: #586069;
 }
+.read-more + .read-more {
+    margin-left: 10px;
+}

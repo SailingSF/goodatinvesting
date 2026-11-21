@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Satellite Explorer: the Part 2 Space Datacenter in 3D</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3L56JJV28F"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3L56JJV28F');
+    </script>
+    <script type="importmap">
+      { "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      } }
+    </script>
+  </head>
+  <body>
+    <canvas id="scene"></canvas>
+
+    <aside class="hud">
+      <nav class="tabs">
+        <a href="../space-datacenters/">Part 1 calculator</a>
+        <a href="../space-datacenters/part2/">Part 2 calculator</a>
+        <a href="./" class="active">3D satellite</a>
+        <a href="../radiator-explorer/">Radiator heat</a>
+      </nav>
+      <p class="eyebrow">GPUs in Space, Part 2</p>
+      <h1>Satellite Explorer</h1>
+      <p class="lede">The SolidWorks reference satellite: 120 kW of GPUs, 80 m of solar wing, eight radiator panels.
+        Drag to orbit, scroll to zoom, click a part.</p>
+
+      <div class="group">
+        <span class="group-label">View</span>
+        <div class="seg" id="view">
+          <button data-v="deployed" class="active">In orbit</button>
+          <button data-v="stowed">Folded</button>
+          <button data-v="starship">In Starship</button>
+        </div>
+      </div>
+      <div class="group">
+        <span class="group-label">Packing concept</span>
+        <div class="seg" id="concept">
+          <button data-c="flatpack" class="active">Flat-pack</button>
+          <button data-c="tower">Tower</button>
+        </div>
+      </div>
+
+      <div class="info" id="info"></div>
+      <div class="info part" id="part-info" hidden></div>
+
+      <p class="foot">Geometry exported from the <a href="https://github.com/SailingSF/space_datacenters/tree/master/cad">CAD scripts</a>.
+        Axes: +X direction of travel, +Y away from Earth, +Z toward the Sun. Folding is animated schematically.
+        <a href="https://goodatinvesting.com/website/gpus-in-space-pt2/">Read the post →</a></p>
+    </aside>
+
+    <div class="loading" id="loading">Loading satellite…</div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

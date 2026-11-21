@@ -902,3 +902,26 @@ select {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* Tabs linking the space-datacenter labs */
+.model-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+.model-tabs a {
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+  text-decoration: none;
+  background: #fffcff;
+}
+.model-tabs a.active {
+  background: linear-gradient(140deg, #6d55da 0%, #ab46cd 45%, #ea4d9b 100%);
+  color: #fff;
+  border-color: transparent;
+}
